@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import "./css/ApplicationForm.css";
 import logo from "../assets/telu logo.png";
 
+import {Link} from "react-router-dom"
+import { toast } from 'sonner';
+
 const ApplicationForm = () => {
     const [formData, setFormData] = useState({
         // SECTION A: Personal Information
@@ -114,7 +117,7 @@ const ApplicationForm = () => {
         const data = await res.json();
 
         if (data.status === "success") {
-            alert("Application submitted successfully!");
+            toast.success("Application submitted successfully!");
             // Reset form
             setFormData({
                 fullname: "", dob: "", gender: "", maritalStatus: "", nationality: "", state: "", lga: "",
@@ -127,15 +130,15 @@ const ApplicationForm = () => {
             });
         } else {
             setErrorMessage(data.message || "Submission failed. Please try again.");
-        }
-        console.log(submissionData);
-        
+        }        
     };
 
     return (
         <div className='application-form'>
             <div className="form-header">
-                <img src={logo} alt="TELU FC Logo" />
+                <Link to='/'>
+                    <img src={logo} alt="TELU FC Logo" />
+                </Link>
                 <h1>TELU FOOTBALL CLUB</h1>
                 <h2>COACHES APPLICATION FORM</h2>
             </div>
