@@ -12,7 +12,7 @@ function Popup() {
         <div style={modal}>
           <button style={button} onClick={() => setShow(false)}><MdCancel /></button>
           <div style={{width: "100%", display: "flex", justifyContent: " center", alignItems: "center"}}>
-            <img width={200} src={image} alt="we are hiring" />
+            <img width={300} src={image} alt="we are hiring" />
           </div>
           <h2>We Are Hiring A Coach</h2>
           <Link to="/application-form" style={{background: "#004924", border: "none", padding: "6px 10px", color: "white", borderRadius: "10px"}}>Apply Now</Link>
@@ -36,24 +36,29 @@ const overlay = {
 const modal = {
   background: "#fff",
   padding: "20px",
-  margin: "10% auto",
-  width: "300px",
+  margin: " 60px auto",
+  width: "400px",
   borderRadius: "20px",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
+//   alignItems: "center",
   textAlign: "center",
   gap: "10px"
 };
 
 const button = {
-    padding: "10px 20px",
+    padding: "5px 10px",
     borderRadius: "10px",
     background: "none",
     border: "none",
-    width: "100px",
+    width: "60px",
     fontSize: "2rem",
-    cursor: "pointer"
+    cursor: "pointer",
+    color: "black",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
 }
 
 export default Popup;
