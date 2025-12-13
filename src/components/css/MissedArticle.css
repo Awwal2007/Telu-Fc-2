@@ -1,0 +1,94 @@
+.missed-container {
+  background-color: white;
+  padding: 16px 45px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.missed-header {
+  border-left: 4px solid #2563eb;
+  padding-left: 16px;
+  margin-bottom: 16px;
+}
+
+.missed-header h2 {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #1e40af;
+  margin: 0;
+}
+
+.missed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.missed-card {
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+.missed-image {
+  height: 190px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.missed-categories {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.missed-category {
+  background-color: #1e40af;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+.missed-content {
+  padding: 12px;
+}
+
+.missed-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  /* text-overflow: ellipsis; */
+  text-wrap: wrap;
+  margin: 0 0 8px 0;
+}
+
+.missed-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: #6b7280;
+  align-items: center;
+}
+
+.missed-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

@@ -1,0 +1,114 @@
+:root{
+  /* --main-color : #202f5b;
+  --main-color-shade: #1151d3;
+  --head-font: "Montserrat", sans-serif;
+  --menu-font: "Work Sans", sans-serif;
+  --white-shade: #bec3cf; */
+  --main-color: #F58220 !important;
+  --main-color-shade: #004924 !important;
+  --head-font: "Montserrat", sans-serif;
+  --menu-font: "Work Sans", sans-serif;
+  --white-shade: #bec3cf;
+  --pad: 45px;
+}
+.header-container{
+  width: 100%;
+  background-color: var(--main-color) !important;
+}
+.clock-container{
+    padding: 10px var(--pad);
+}
+.kingdom-name{
+  width: 100%;
+  height: 200px;
+  /* object-fit: cover; */
+  color: white !important;
+  padding: 10px var(--pad);
+  font-family: "Montserrat", sans-serif;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.842), rgba(0, 0, 0, 0.167));
+  /* font-size: 20px; */
+}
+.kingdom-name img{
+  width: 180px;
+}
+.nav-bar{
+    padding: 0px var(--pad);
+    display: flex !important;
+}
+.nav-bar .button{
+    color: #bec3cf;
+    font-family: var(--head-font);
+    font-weight: 650;
+    font-size: 16px;
+    border-radius: 0px;
+    padding: 10px 17px;
+}
+.nav-bar .search-button{
+    color: #bec3cf;
+    font-family: var(--head-font);
+    font-weight: 650;
+    font-size: 16px;
+    border-radius: 0px;
+    padding: 10px 17px;
+}
+
+.nav-bar .button:hover{
+    background: var(--main-color-shade);
+    color: #fff;
+}
+.active{
+    background: var(--main-color-shade) !important;
+    color: #fff !important;
+}
+/* Ensure flex layout for desktop */
+.desktop-nav {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* Hide mobile nav by default */
+.mobile-nav {
+  display: none;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .kingdom-name{
+    text-align: center;
+   }
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+  }
+
+  .mobile-nav summary {
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    background-color: var(--main-color-shade);
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--main-color);
+    border-top: 1px solid var(--white-shade);
+    margin-top: 8px;
+  }
+
+  .mobile-menu .button {
+    justify-content: flex-start;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid #334;
+  }
+}

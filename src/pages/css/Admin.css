@@ -1,0 +1,352 @@
+/* ========== Admin Container ========== */
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2d3748;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+/* ========== Header & Navigation ========== */
+.admin-header {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-header h1 {
+  margin: 0 0 20px 0;
+  font-size: 2.2rem;
+  color: #2d3748;
+  font-weight: 700;
+}
+
+.admin-nav {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 12px 0;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-btn.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.nav-btn:hover:not(.active) {
+  background: #e2e8f0;
+}
+
+/* ========== Sections ========== */
+.form-section,
+.events-section,
+.facebook-section {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.form-section h2,
+.events-section h2,
+.facebook-section h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+  color: #2d3748;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+/* ========== Forms ========== */
+.event-form,
+.facebook-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #4a5568;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px 14px;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.submit-btn {
+  align-self: flex-start;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: #10b981;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #059669;
+}
+
+.submit-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* ========== Image Previews ========== */
+.preview-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.preview {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.preview-container span {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* ========== Events Table ========== */
+.events-table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.events-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  min-width: 800px;
+}
+
+.events-table thead {
+  background: #f8fafc;
+}
+
+.events-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #4a5568;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.events-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+
+.events-table tr:last-child td {
+  border-bottom: none;
+}
+
+.events-table tr:hover {
+  background: #f8fafc;
+}
+
+.thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+}
+
+.extra-images {
+  display: flex;
+  gap: 8px;
+}
+
+.read-more {
+  color: #3b82f6;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-left: 5px;
+  white-space: nowrap;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+
+.delete-btn {
+  padding: 8px 12px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* ========== Facebook Posts ========== */
+.facebook-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.facebook-post-card {
+  background: #f8fafc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.fb-post-container {
+  padding: 15px;
+  background: white;
+  flex-grow: 1;
+}
+
+.facebook-post-card .delete-btn {
+  margin: 15px;
+  align-self: center;
+}
+
+/* ========== Status Messages ========== */
+.loading, .no-data {
+  text-align: center;
+  padding: 40px;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 15px;
+  }
+  
+  .admin-header {
+    padding: 15px;
+  }
+  
+  .admin-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .form-section,
+  .events-section,
+  .facebook-section {
+    padding: 20px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .facebook-posts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .events-table {
+    font-size: 0.9rem;
+  }
+  
+  .events-table th,
+  .events-table td {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-header {
+    text-align: center;
+  }
+  
+  .admin-nav {
+    flex-direction: column;
+    max-width: 100%;
+  }
+  
+  .preview-row {
+    justify-content: center;
+  }
+  
+  .events-table {
+    font-size: 0.8rem;
+  }
+  
+  .thumb {
+    width: 50px;
+    height: 50px;
+  }
+}

@@ -1,0 +1,114 @@
+/* TwitterWidget.css */
+
+.twitter-widget {
+  padding: 15px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.twitter-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  /* border-left: 5px solid #1d4ed8; */
+  background-color:#1d4ed8;
+}
+
+.twitter-main-profile {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.follow-button {
+  background-color: #3b82f6;
+  color: white;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 5px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.follow-button:hover {
+  background-color: #2563eb;
+}
+
+.twitter-retweet {
+  font-size: 14px;
+  color: #6b7280;
+  padding: 8px 16px;
+}
+
+.tweet-section {
+  padding: 12px 16px;
+}
+
+.tweet-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.tweet-user img {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.tweet-user-name {
+  font-weight: bold;
+  color: black;
+}
+
+.tweet-user-meta {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.tweet-close {
+  margin-left: auto;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tweet-content {
+  font-size: 15px;
+  color: #111827;
+  line-height: 1.6;
+}
+
+.tweet-actions {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.tweet-actions div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
