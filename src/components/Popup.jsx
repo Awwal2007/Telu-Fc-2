@@ -1,5 +1,7 @@
 import { useState } from "react";
 import image from "../assets/we are hiring.jpg"
+import { MdCancel } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function Popup() {
   const [show, setShow] = useState(true);
@@ -8,12 +10,12 @@ function Popup() {
     show && (
       <div style={overlay}>
         <div style={modal}>
-          <button style={button} onClick={() => setShow(false)}>Close</button>
-          <div style={{width: "100%"}}>
-            <img width={100} src={image} alt="we are hiring" />
+          <button style={button} onClick={() => setShow(false)}><MdCancel /></button>
+          <div style={{width: "100%", display: "flex", justifyContent: " center", alignItems: "center"}}>
+            <img width={200} src={image} alt="we are hiring" />
           </div>
           <h2>We Are Hiring A Coach</h2>
-          <button>Apply Now</button>
+          <Link to="/application-form" style={{background: "#004924", border: "none", padding: "6px 10px", color: "white", borderRadius: "10px"}}>Apply Now</Link>
         </div>
       </div>
     )
@@ -28,20 +30,30 @@ const overlay = {
   height: "100%",
   background: "rgba(0,0,0,0.5)",
   zIndex: 10000,
-  borderRadius: 20
+  
 };
 
 const modal = {
   background: "#fff",
   padding: "20px",
-  margin: "15% auto",
+  margin: "10% auto",
   width: "300px",
+  borderRadius: "20px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  textAlign: "center",
+  gap: "10px"
 };
 
 const button = {
-    textAlign: 'right',
     padding: "10px 20px",
-    borderRadius: "10px"
+    borderRadius: "10px",
+    background: "none",
+    border: "none",
+    width: "100px",
+    fontSize: "2rem",
+    cursor: "pointer"
 }
 
 export default Popup;

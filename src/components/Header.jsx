@@ -40,7 +40,7 @@ const Header = () => {
                     {/* <div><Button component={Link} to='/oluwo' className={isActive('/oluwo')}>OLUWO OF IWO LAND</Button></div> */}
                     {/* <div><Button component={Link} to='/iwo-land' className={isActive('/iwo-land')}>Iwo Land</Button></div> */}
                     <div><Button component={Link} to='/blogs' className={isActive('/blogs')}>News</Button></div>
-                    <div><Button component={Link} to='/players' className={isActive('/players')}>Players</Button></div>
+                    {/* <div><Button component={Link} to='/players' className={isActive('/players')}>Players</Button></div> */}
                     <div><Button component={Link} to='/gallery' className={isActive('/gallery')}>Gallery</Button></div>
                     {/* <div style={{ flex: "1" }}><Button component={Link} to='/resources' className={isActive('/resources')}>RESOURCES AND HELP</Button></div> */}
                     {/* <div className='search-button'><FaSearch size={18} /></div> */}
@@ -54,7 +54,7 @@ const Header = () => {
                         {/* <Button component={Link} to='/oluwo' className={isActive('/oluwo')} onClick={handleLinkClick}>OLUWO OF IWO LAND</Button> */}
                         {/* <Button component={Link} to='/iwo-land' className={isActive('/iwo-land')}>Iwo Land</Button> */}
                         <Button component={Link} to='/blogs' className={isActive('/blogs')} onClick={handleLinkClick}>News</Button>
-                        <Button component={Link} to='/players' className={isActive('/players')} onClick={handleLinkClick}>Players</Button>
+                        {/* <Button component={Link} to='/players' className={isActive('/players')} onClick={handleLinkClick}>Players</Button> */}
                         <Button component={Link} to='/gallery' className={isActive('/gallery')} onClick={handleLinkClick}>Gallery</Button>
                         {/* <Button component={Link} to='/resources' className={isActive('/resources')}>RESOURCES AND HELP</Button> */}
                     </div>
