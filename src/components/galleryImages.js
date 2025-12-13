@@ -1,13 +1,13 @@
 import img1 from '../assets/DSC_4798.jpg';
-import img2 from '../assets/DSC_4807.jpg';
+import img2 from '../assets/DSC_4780.jpg';
 import img3 from '../assets/DSC_4827.jpg';
 import img4 from '../assets/DSC_4797.jpg';
 import img5 from '../assets/DSC_4818.jpg';
 import img6 from '../assets/DSC_4800.jpg';
-import img7 from '../assets/DSC_4788 (1).jpg';
+import img7 from '../assets/DSC_4788.jpg';
 import img8 from '../assets/DSC_4783.jpg';
 import img9 from '../assets/DSC_4794-1.jpg';
-import img10 from '../assets/DSC_4817.jpg';
+import img10 from '../assets/DSC_4790.jpg';
 // import img10 from '../assets/images (5).jpeg';
 
 const galleryImages = [

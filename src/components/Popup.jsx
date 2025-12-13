@@ -28,7 +28,7 @@ const overlay = {
   height: "100%",
   background: "rgba(0,0,0,0.5)",
   zIndex: 10000,
-  borderRadius: "20px"
+  borderRadius: 20
 };
 
 const modal = {
