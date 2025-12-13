@@ -32,6 +32,9 @@ const Header = () => {
             </div>
             <div style={{background: ` url(${backgroundImage})`, objectFit: "unset", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPositionY: "-40px" }} className='kingdom-name' >
                 <img src={logo} alt="logo" />
+                <div className="player-signup">
+                    <Link to='/player'>Join Us</Link>
+                </div>
             </div>
             <div className='nav-bar'>
                 <div className='desktop-nav'>

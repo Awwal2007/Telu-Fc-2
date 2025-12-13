@@ -1,127 +1,174 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@452&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rufina:wght@400;700&display=swap');
-
-
-.application-form{
-    background: #ece9e9;
-    padding:80px 120px;
-    font-family: "Poppins", sans-serif;
+.application-form {
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    padding: 30px;
+    border-top: 8px solid #F58220;
 }
 
-.signin-container .signin-form h1{
-    font-weight: 600;
+.form-header {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #004924;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #eee;
 }
-.signin-container .signin-form h2{
-    /* font-weight: 600; */
+
+.form-header img {
+    max-width: 120px;
+    margin-bottom: 10px;
+}
+
+.form-header h1 {
+    margin: 5px 0;
+    color: #F58220;
+    font-size: 1.8rem;
+}
+
+.form-header h2 {
+    margin: 5px 0;
+    font-size: 1.2rem;
     color: #004924;
 }
-.signin-container .signin-form .login{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-/* .login h2{
-    margin-bottom: 40px;
-} */
 
-.signin-container{
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    gap: 40px;
-}
-
-.signin-container .signin-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: left !important;
-    gap: 25px;
-}
-.signin-container .signin-form form{
-    display: flex;
-    flex-direction: column;
-    justify-content: left !important;
-    gap: 10px;
-    width: 80%;
-}
-.signin-container .signin-form form .input-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: left !important;
-    width: 100%;
-}
-.signin-container .signin-form form label{
-    color: #004924;
-    font-weight: 700;
-}
-.signin-container .signin-form form input{
-    border: 2px solid #004924;
-    font-weight: 600;
+.section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
-    height: 40px;
-    padding: 0px 10px;
-    width: 100%;
+    background: #f9f9f9;
 }
-.signin-container .signin-form form .checkbox-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.signin-container .signin-form form .checkbox-container .check{
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    color: #77749B;
-}
-.signin-container .signin-form form .checkbox-container .forget-password{
-    font-size: 14px;
-    text-decoration: none;
+
+.section h3 {
     color: #004924;
+    border-bottom: 2px solid #F58220;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
 }
 
-.signin-container .signin-form form .login-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-}
-
-.signin-container .signin-form form .login-button button{
-    background: #004924;
-    border-radius: 20px;
-    padding: 14px 40px;
+.section h4 {
+    color: #333;
+    margin: 15px 0 10px 0;
     font-size: 1rem;
-    font-weight: 550;
-    border: none;
-    color: white;
+}
+
+input, select, textarea {
+    display: block;
     width: 100%;
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.radio-group, .checkbox-group {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+.radio-group label, .checkbox-group label {
+    display: block;
+    margin-bottom: 8px;
     cursor: pointer;
 }
-.signin-container .signin-form form .login-button a{
-    text-decoration: none;
-    font-size: 14px;
-    color: #004924;
-    font-weight: 600;
+
+.radio-group input[type="radio"],
+.checkbox-group input[type="checkbox"] {
+    display: inline-block;
+    width: auto;
+    margin-right: 10px;
 }
 
-
-.signin-illustration{
-    width: 100%;
+.checkbox-group label {
     display: flex;
-    justify-content: center;
     align-items: center;
+    margin-bottom: 8px;
 }
-.signin-illustration img{
-    width: 400px;
+
+.declaration {
+    padding: 15px;
+    background: #fff;
+    border-radius: 6px;
+    border-left: 4px solid #F58220;
 }
-.errorP{
-    font-size: 14px;
-    color: red;
+
+.declaration p {
+    margin-bottom: 15px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.declaration-checkbox {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #004924;
+}
+
+.declaration-checkbox input {
+    width: auto;
+    margin-right: 10px;
+}
+
+button {
+    background-color: #F58220;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
     width: 100%;
-    /* text-align: center; */
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #004924;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.error-message {
+    color: #d32f2f;
+    background-color: #ffebee;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 4px solid #d32f2f;
+    margin: 20px 0;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .application-form {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .section {
+        padding: 15px;
+    }
+    
+    .form-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .form-header h2 {
+        font-size: 1rem;
+    }
 }
