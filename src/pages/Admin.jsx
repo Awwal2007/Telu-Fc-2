@@ -547,8 +547,8 @@ const Admin = () => {
                         {coach.yearsExperience ? `${coach.yearsExperience} years` : 'N/A'}
                       </td>
                       <td>
-                        <span className={`status-badge ${coach.isApproved ? 'status-approved' : 'status-pending'}`}>
-                          {coach.isApproved ? 'Approved' : 'Pending'}
+                        <span className={`status-badge ${coach.status}`}>
+                          {coach.status}
                         </span>
                       </td>
                       <td>{formatDate(coach.createdAt)}</td>
