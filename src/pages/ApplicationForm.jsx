@@ -251,7 +251,7 @@ const ApplicationForm = () => {
             Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: err.message,
+                text: "Failed to submit",
             });
         }finally{
             setLoading(false);
