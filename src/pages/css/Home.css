@@ -59,9 +59,9 @@
 }
 .home-container{
   padding: 25px var(--pad);
-  margin: 0px 45px;
+  /* margin: 0px 45px; */
   background-color: white;
-  font-family: var(--head-font);
+  font-family: var(--menu-font);
 }
 .home-content{
   padding: 25px var(--pad);

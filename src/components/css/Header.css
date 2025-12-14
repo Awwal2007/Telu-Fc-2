@@ -92,7 +92,8 @@
 @media screen and (max-width: 768px) {
   .kingdom-name{
     text-align: center;
-    gap: 30px;
+    gap: 0px;
+    justify-content: space-between;
    }
   .desktop-nav {
     display: none;
