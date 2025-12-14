@@ -16,7 +16,7 @@
   background-color: var(--main-color) !important;
 }
 .clock-container{
-    padding: 10px var(--pad);
+    padding: 3px var(--pad);
 }
 .kingdom-name{
   width: 100%;
@@ -54,10 +54,10 @@
 .nav-bar .button{
     color: #bec3cf;
     font-family: var(--head-font);
-    font-weight: 650;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 13.5px;
     border-radius: 0px;
-    padding: 10px 17px;
+    padding: 2px 17px;
 }
 .nav-bar .search-button{
     color: #bec3cf;

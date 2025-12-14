@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import "./css/ApplicationForm.css";
 import logo from "../assets/telu logo.png";
 
+
+
 import {Link} from "react-router-dom"
 import { toast } from 'sonner';
 
@@ -63,6 +65,7 @@ const ApplicationForm = () => {
 
     const [errorMessage, setErrorMessage] = useState("");
 
+    const baseUrl = import.meta.env.VITE_BASE_URL
     const handleInput = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData((prev) => ({
@@ -106,7 +109,7 @@ const ApplicationForm = () => {
             specialization: formData.specialization.join(', ')
         };
 
-        const res = await fetch("http://localhost:500/api/coach", {
+        const res = await fetch(`${baseUrl}/coach`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -128,7 +131,7 @@ const ApplicationForm = () => {
                 startDate: "", referee1Name: "", referee1Position: "", referee1Phone: "", referee2Name: "",
                 referee2Position: "", referee2Phone: "", declaration: false
             });
-            
+
             setTimeout(()=>{
                 location.href = "/"
             }, 100)

@@ -36,9 +36,48 @@ const LatestNews = () => {
           </div>
         </div>
       </Link>
+      <Link
+        to={`/application-form`}
+        className={`news-card ${isMobile ? "mobile" : "desktop"}`}
+      >
+        <div className="news-image">
+          <img src={img} alt="coach application form" loading="lazy" />
+        </div>
+        <div className="news-content">
+          <div className="news-title">Telu Football Club is Hiring a Coach</div>
+          <div
+            className="news-subhead"
+          >
+            Press the button below to apply
+          </div>
+          <div className="apply-button">
+            Apply Now
+          </div>
+        </div>
+      </Link>
+      <Link
+        to={`/application-form`}
+        className={`news-card ${isMobile ? "mobile" : "desktop"}`}
+      >
+        <div className="news-image">
+          <img src={img} alt="coach application form" loading="lazy" />
+        </div>
+        <div className="news-content">
+          <div className="news-title">Telu Football Club is Hiring a Coach</div>
+          <div
+            className="news-subhead"
+          >
+            Press the button below to apply
+          </div>
+          <div className="apply-button">
+            Apply Now
+          </div>
+        </div>
+      </Link>
+      
 
       {/* Loading Skeleton */}
-      {loading && (
+      {/* {loading && (
         <div className="latest-news-grid">
           {[...Array(3)].map((_, i) => (
             <div
@@ -53,10 +92,10 @@ const LatestNews = () => {
             </div>
           ))}
         </div>
-      )}
+      )} */}
 
       {/* News Items */}
-      <div className="latest-news-box-container">
+      {/* <div className="latest-news-box-container">
         {!loading && news.slice(0, 3).map((item) => {
           const truncatedHead = truncateText(item.title, 50);
           const truncatedSubHead = truncateText(item.description, 85);
@@ -82,7 +121,7 @@ const LatestNews = () => {
             </Link>
           );
         })}
-      </div>
+      </div> */}
     </div>
   );
 };

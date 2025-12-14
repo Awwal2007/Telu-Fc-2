@@ -54,6 +54,7 @@ const Home = () => {
                     <h3>Our Mission</h3>
                     <p style={{textAlign: "center"}}>Our mission is to bring out the talent in you and build players. dkfldfdkjdfjdkldfjdljdjdkj</p>
                   </div>
+                  <hr />
                   <div className="people-container">
                     <LuScanEye className="people-icon"  size={50} />
                     <h3>Our Vision</h3>
