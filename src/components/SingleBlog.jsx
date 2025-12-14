@@ -79,7 +79,7 @@ const SingleBlog = () => {
 
   if (!singleNews || Object.keys(singleNews).length === 0) return null;
 
-  const { title, description, mainImage, author = "Iwo Land Editor", date } =
+  const { title, description, mainImage, author = "Telu Fc Editor", date } =
     singleNews;
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -96,10 +96,10 @@ const SingleBlog = () => {
       author: { "@type": "Person", name: author },
       publisher: {
         "@type": "Organization",
-        name: "Iwo Land",
+        name: "Telu Fc",
         logo: {
           "@type": "ImageObject",
-          url: "https://iwoland.com/favicon.png",
+          url: "https://telufc.com/favicon.png",
         },
       },
       datePublished: date,
@@ -114,19 +114,19 @@ const SingleBlog = () => {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://iwoland.com/",
+          item: "https://telufc.com/",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Blog",
-          item: "https://iwoland.com/blogs",
+          item: "https://telufc.com/blogs",
         },
         {
           "@type": "ListItem",
           position: 3,
           name: title,
-          item: `https://iwoland.com/singleblog/${id}`,
+          item: `https://telufc.com/singleblog/${id}`,
         },
       ],
     },
@@ -135,10 +135,10 @@ const SingleBlog = () => {
   return (
     <>
       <Helmet>
-        <title>{`${title} | Iwo Land`}</title>
+        <title>{`${title} | Telu Fc`}</title>
         <meta name="robots" content="index, follow" />
         <meta name="description" content={description} />
-        <link rel="canonical" href={`https://iwoland.com/singleblog/${id}`} />
+        <link rel="canonical" href={`https://telufc.com/singleblog/${id}`} />
 
         {/* Open Graph / Twitter */}
         <meta property="og:title" content={title} />
@@ -147,7 +147,7 @@ const SingleBlog = () => {
         <meta property="og:image" content={mainImage} />
         <meta
           property="og:url"
-          content={`https://iwoland.com/singleblog/${id}`}
+          content={`https://telufc.com/singleblog/${id}`}
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />

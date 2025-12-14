@@ -75,7 +75,7 @@ const Blogs = () => {
             )}
 
             {/* Error / Empty States */}
-            {error && <p className="error-text">Failed to load news.</p>}
+            {error && <p className="error-text">Failed to load news. refresh your browser</p>}
             {!loading && !error && news.length === 0 && (
               <p className="no-news-text">No news available yet.</p>
             )}
