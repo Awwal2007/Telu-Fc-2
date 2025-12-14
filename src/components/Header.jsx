@@ -3,7 +3,7 @@ import './css/Header.css'
 import { Link, useLocation } from 'react-router-dom';
 
 import Clock from "../components/Clock";
-import backgroundImage from '../assets/DSC_4778ed.jpg'
+import backgroundImage from '../assets/banner.jpg'
 import Button from '@mui/material/Button';
 
 import { TiHome } from "react-icons/ti";
@@ -30,7 +30,7 @@ const Header = () => {
             <div className='clock-container'>
                 <Clock/>
             </div>
-            <div style={{background: ` url(${backgroundImage})`, objectFit: "unset", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPositionY: "-40px" }} className='kingdom-name' >
+            <div style={{background: ` url(${backgroundImage})`, objectFit: "unset", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPositionY: "" }} className='kingdom-name' >
                 <img src={logo} alt="logo" />
                 <div className="player-signup">
                     <Link to='/player'>Join Us</Link>

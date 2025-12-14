@@ -64,17 +64,19 @@ const Admin = () => {
     }
   }, [coaches, coachFilter]);
 
-  const baseUrl = import.meta.VITE_BASE_URL
+  const baseUrl = import.meta.env.VITE_BASE_URL
+  
 
   // Fetch coaches from API
   const fetchCoaches = async () => {
     setLoadingCoaches(true);
     try {
       // Replace with your actual API endpoint
-      const response = await fetch(`${baseUrl}/coaches`);
+      const response = await fetch(`${baseUrl}/coach`);
       const data = await response.json();
-      setCoaches(data);
-      setFilteredCoaches(data);
+      setCoaches(data.data);
+      
+      setFilteredCoaches(data.data);
     } catch (error) {
       console.error('Error fetching coaches:', error);
       // For demo purposes, use mock data
@@ -89,8 +91,9 @@ const Admin = () => {
   const approveCoach = async (id) => {
     if (window.confirm('Are you sure you want to approve this coach?')) {
       try {
-        const response = await fetch(`${baseUrl}/coaches/${id}/approve`, {
+        const response = await fetch(`${baseUrl}/coach/approve/${id}`, {
           method: 'PUT',
+          body: JSON.stringify({status: "approve"}),
           headers: {
             'Content-Type': 'application/json',
           },

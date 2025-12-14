@@ -79,7 +79,7 @@ const LatestNews = () => {
 
       {/* News Items */}
       <div className="latest-news-box-container">
-        {!loading && news.slice(0, 3).map((item) => {
+        {!loading && news.slice(0, 2).map((item) => {
           const truncatedHead = truncateText(item.title, 50);
           const truncatedSubHead = truncateText(item.description, 85);
 
