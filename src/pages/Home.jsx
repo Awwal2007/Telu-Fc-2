@@ -5,13 +5,17 @@ import CustomMarquee from '../components/CustomMarquee'
 import ImageCarousel from '../components/ImageCarousel'
 import LatestNews from '../components/LatestNews'
 import SideBar from '../components/SideBar'
-import MissedArticles from '../components/MissedArticles'
+import MissedArticles from '../components/OurPlayers'
 import { PiTargetBold } from "react-icons/pi";
 import { LuScanEye } from "react-icons/lu";
 import useMediaQuery from '../components/MediaQuery';
 
-import PlayersMobile from "../components/PlayersMobile"
-import Players from "../components/Players"
+import PlayersMobile from "../components/OurCoachesMobile"
+import Players from "../components/OurCoaches"
+import OurPlayers from '../components/OurPlayers';
+import OurCoaches from '../components/OurCoaches';
+import OurCoachesMobile from '../components/OurCoachesMobile';
+import OurPlayersMobile from '../components/OurPlayersMobile';
 
 const Home = () => {
 
@@ -41,9 +45,9 @@ const Home = () => {
         
         <div className="home-content">
           <div className='first-side'>
-            <p>Alamu Football Club is a top rated professional football club, based in Osun, Nigeria which has featured in various football tournaments. It’s Registered with the Nigeria F.A and the Corporate Affairs Commission</p>
+            <p>Telu Football Club is a top rated professional football club, based in Osun, Nigeria which has featured in various football tournaments. It’s Registered with the Nigeria F.A and the Corporate Affairs Commission</p>
           
-            <p>Alamu football club is not just a football club, it is the first football club with adequate hostel facilities where all payers are camped with zero fee payment. </p>
+            <p>Telu football club is not just a football club, it is the first football club with adequate hostel facilities where all payers are camped with zero fee payment. </p>
 
             <p>Although the primary aim of the football club is basically “Football”, everything that involves the round-leather game is excellently carried out. But to be the best provider of the brightest stars around, we believe there are some extra activities young people must be involved in to have upper chance among peers to make the dream come true.</p>
             
@@ -64,9 +68,9 @@ const Home = () => {
 
             
             <div className="secondary-carousel-section">
-              <h2 className="secondary-carousel-title">Our Players</h2>
+              <h2 className="secondary-carousel-title">Our Coaches</h2>
               <div className='image-carousel-container'>
-                { isMobile ? <PlayersMobile /> : <Players />}
+                { isMobile ?  <OurCoachesMobile /> : <OurCoaches />}
               </div>
             </div>
 
@@ -83,8 +87,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div>
-        <MissedArticles />
+      <div style={{background: "white", padding: "1px var(--pad)"}}>
+        <h2 className="secondary-carousel-title">Our Players</h2>
+        {isMobile ?<OurPlayersMobile />  :<OurPlayers /> }
       </div>
     </>
     

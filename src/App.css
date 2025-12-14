@@ -531,6 +531,7 @@
     height: 100%;
     background: rgba(0,0,0,0.5);
     z-index: 10000;
+    transition: all 1s ease-in-out;
 }
 .modal{
     background: #fff;
@@ -542,7 +543,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    gap: 10px
+    gap: 10px;
 }
 .modal img{
     width: 300px;

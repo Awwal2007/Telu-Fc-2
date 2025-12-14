@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
 
 
-export default function Players() {
+export default function OurCoaches() {
   return (
     <>
       <Swiper

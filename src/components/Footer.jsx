@@ -1,5 +1,5 @@
 import React from 'react'
-import MissedArticles from './MissedArticles'
+import MissedArticles from './OurPlayers'
 import ButtonBar from './BottomBar'
 
 const Footer = () => {

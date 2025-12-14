@@ -7,7 +7,7 @@ import "./css/Blogs.css";
 import EventBannerSlider from "../components/EventBannerSlider";
 import { useNews } from "../hooks/useNews";
 import { Helmet } from "react-helmet-async";
-import MissedArticles from "../components/MissedArticles";
+import MissedArticles from "../components/OurPlayers";
 
 const Blogs = () => {
   const { news, loading, error } = useNews();

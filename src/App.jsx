@@ -18,7 +18,7 @@ import AuthProvider from './contexts/AuthProvider.jsx';
 import ProtectedRoutes from './components/ProtectedRoutes.jsx';
 import NotFound from './components/NotFound.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
-import MissedArticles from './components/MissedArticles.jsx';
+import MissedArticles from './components/OurPlayers.jsx';
 import ApplicationForm from './pages/ApplicationForm.jsx';
 import PlayersPage from './pages/PlayersPage.jsx';
 import Popup from './components/Popup.jsx';
@@ -78,7 +78,7 @@ const AppContent = () => {
             <Route path='/admin-login' element={<AdminLogin />} />
             <Route path='/application-form' element={<ApplicationForm />} />
             <Route path='/players' element={<PlayersPage />} />
-            <Route path='/admin-signup' element={<AdminSignup />} />
+            {/* <Route path='/admin-signup' element={<AdminSignup />} /> */}
             
             <Route element={<ProtectedRoutes />}>
               <Route path='/admin' element={<Admin />} />

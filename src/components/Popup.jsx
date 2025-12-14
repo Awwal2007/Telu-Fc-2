@@ -15,7 +15,7 @@ function Popup() {
             <img  src={image} alt="we are hiring" />
           </div>
           <h2>We Are Hiring A Coach</h2>
-          <Link to="/application-form" style={{background: "#004924", border: "none", padding: "6px 10px", color: "white", borderRadius: "10px"}}>Apply Now</Link>
+          <Link target="blank" to="/application-form" style={{background: "#004924", border: "none", padding: "6px 10px", color: "white", borderRadius: "10px"}}>Apply Now</Link>
         </div>
       </div>
     )
@@ -23,7 +23,6 @@ function Popup() {
 }
 
 const overlay = {
-
   
 };
 

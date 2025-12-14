@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
 
 
- const PlayersMobile = ()=> {
+ const OurCoachesMobile = ()=> {
   return (
     <>
       <Swiper
@@ -77,4 +77,4 @@ import { Pagination, Autoplay } from 'swiper/modules';
   );
 }
 
-export default PlayersMobile
+export default OurCoachesMobile

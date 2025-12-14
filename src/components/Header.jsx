@@ -3,7 +3,7 @@ import './css/Header.css'
 import { Link, useLocation } from 'react-router-dom';
 
 import Clock from "../components/Clock";
-import backgroundImage from '../assets/DSC_47711.jpg'
+import backgroundImage from '../assets/DSC_4778ed.jpg'
 import Button from '@mui/material/Button';
 
 import { TiHome } from "react-icons/ti";

@@ -32,18 +32,19 @@
   display: flex;
   gap: 10px;
   width: 100%;
-  max-width: 300px;
+  max-width: 500px;
 }
 
 .nav-btn {
   flex: 1;
-  padding: 12px 0;
+  padding: 12px 0px;
   background: #f1f5f9;
   border: none;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  color: black;
 }
 
 .nav-btn.active {
@@ -348,5 +349,461 @@
   .thumb {
     width: 50px;
     height: 50px;
+  }
+}
+
+/* ========== Coaches Section ========== */
+.coaches-section {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.coach-filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #4a5568;
+}
+
+.filter-btn.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.filter-btn:hover:not(.active) {
+  background: #e2e8f0;
+}
+
+.coaches-table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.coaches-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  min-width: 1000px;
+}
+
+.coaches-table thead {
+  background: #f8fafc;
+}
+
+.coaches-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #4a5568;
+  border-bottom: 2px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.coaches-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+.coaches-table tr:last-child td {
+  border-bottom: none;
+}
+
+.coaches-table tr:hover {
+  background: #f8fafc;
+}
+
+.coaches-table tr.selected-row {
+  background: #e0f2fe;
+}
+
+/* Coach name cell */
+.coach-name-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.coach-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.coach-photo-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+}
+
+.gender-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #e0f2fe;
+  color: #0369a1;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.other-info {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-approved {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+/* Coach action buttons */
+.coach-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.view-btn {
+  padding: 8px 12px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.view-btn:hover {
+  background: #2563eb;
+}
+
+.approve-btn {
+  padding: 8px 12px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.approve-btn:hover {
+  background: #059669;
+}
+
+.delete-btn {
+  padding: 8px 12px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* Coach Details Modal */
+.coach-details-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.coach-details-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.coach-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.coach-details-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #2d3748;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-btn:hover {
+  background: #f1f5f9;
+  color: #ef4444;
+}
+
+.coach-details-body {
+  padding: 25px;
+}
+
+/* Info Grid */
+.info-section {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.info-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.info-section h3 {
+  margin: 0 0 20px 0;
+  font-size: 1.2rem;
+  color: #3b82f6;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.info-item label {
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.info-item p {
+  margin: 0;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+/* Referees */
+.referees-list {
+  display: grid;
+  gap: 20px;
+}
+
+.referee-item {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.referee-item h4 {
+  margin: 0 0 15px 0;
+  color: #4a5568;
+}
+
+/* File Links */
+.file-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.file-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  color: #3b82f6;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.file-link:hover {
+  background: #e2e8f0;
+  text-decoration: underline;
+}
+
+/* Actions in modal */
+.coach-details-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.approve-btn.large,
+.delete-btn.large {
+  padding: 12px 24px;
+  font-size: 1rem;
+}
+
+.close-details-btn {
+  padding: 12px 24px;
+  background: #64748b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+}
+
+.close-details-btn:hover {
+  background: #475569;
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+  .coach-filter-buttons {
+    justify-content: center;
+  }
+  
+  .filter-btn {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+  }
+  
+  .coach-actions {
+    flex-direction: column;
+  }
+  
+  .view-btn,
+  .approve-btn,
+  .delete-btn {
+    width: 100%;
+  }
+  
+  .coach-details-content {
+    max-height: 85vh;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .coach-details-actions {
+    flex-direction: column;
+  }
+  
+  .approve-btn.large,
+  .delete-btn.large,
+  .close-details-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .coaches-section {
+    padding: 15px;
+  }
+  
+  .coaches-table {
+    font-size: 0.9rem;
+  }
+  
+  .coaches-table th,
+  .coaches-table td {
+    padding: 12px 8px;
+  }
+  
+  .coach-photo-thumb {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .gender-badge {
+    font-size: 0.6rem;
+  }
+  
+  .coach-details-content {
+    padding: 0;
+  }
+  
+  .coach-details-header,
+  .coach-details-body {
+    padding: 15px;
   }
 }

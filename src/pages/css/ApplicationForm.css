@@ -99,6 +99,108 @@ textarea {
     margin-bottom: 8px;
 }
 
+/* File Upload Styles */
+.file-upload-group {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.file-upload-group label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #004924;
+    font-size: 0.95rem;
+}
+
+.file-upload-group input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed #aaa;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.file-upload-group input[type="file"]:hover {
+    border-color: #F58220;
+    background: #fffaf5;
+}
+
+.file-upload-group input[type="file"]:focus {
+    outline: none;
+    border-color: #004924;
+    box-shadow: 0 0 0 3px rgba(245, 130, 32, 0.2);
+}
+
+.file-name {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #e8f5e9;
+    border-radius: 4px;
+    color: #004924;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-left: 3px solid #4CAF50;
+}
+
+.certificate-container{
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    width: 100%;
+}
+
+.certificate-upload {
+    margin-bottom: 15px;
+    padding: 12px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+.certificate-upload:last-child {
+    margin-bottom: 0;
+}
+
+.certificate-upload label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.certificate-upload input[type="file"] {
+    width: 200px;
+    padding: 10px;
+    border: 1px dashed #bbb;
+    border-radius: 4px;
+    background: #f9f9f9;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.certificate-upload input[type="file"]:hover {
+    border-color: #F58220;
+    background: #fffaf5;
+}
+
+/* Required field indicators */
+.file-upload-group input[type="file"]:required {
+    border-left: 3px solid #F58220;
+}
+
+.file-upload-group input[type="file"]:required:valid {
+    border-left-color: #4CAF50;
+}
+
 .declaration {
     padding: 15px;
     background: #fff;
@@ -154,6 +256,44 @@ button:hover {
     text-align: center;
 }
 
+/* File upload status messages */
+.file-upload-status {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 6px;
+    font-style: italic;
+}
+
+/* File size warning */
+.file-size-warning {
+    display: block;
+    font-size: 0.75rem;
+    color: #FF9800;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Accepted file formats hint */
+.file-formats {
+    display: block;
+    font-size: 0.75rem;
+    color: #777;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* File upload animations */
+@keyframes fileUploadPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.01); }
+    100% { transform: scale(1); }
+}
+
+.file-upload-group input[type="file"]:active {
+    animation: fileUploadPulse 0.3s ease;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .application-form {
         margin: 10px;
@@ -170,5 +310,63 @@ button:hover {
     
     .form-header h2 {
         font-size: 1rem;
+    }
+    
+    .file-upload-group {
+        padding: 12px;
+    }
+    
+    .certificate-upload {
+        padding: 10px;
+    }
+    
+    .file-upload-group input[type="file"],
+    .certificate-upload input[type="file"] {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+    
+    .file-name {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+    .file-upload-group {
+        background: #2c3e50;
+        border-color: #34495e;
+    }
+    
+    .file-upload-group label {
+        color: #ecf0f1;
+    }
+    
+    .file-upload-group input[type="file"] {
+        background: #34495e;
+        border-color: #4a6278;
+        color: #ecf0f1;
+    }
+    
+    .file-name {
+        background: #3a506b;
+        color: #ecf0f1;
+        border-left-color: #3498db;
+    }
+    
+    .certificate-upload {
+        background: #2c3e50;
+        border-color: #34495e;
+    }
+    
+    .certificate-upload label {
+        color: #bdc3c7;
+    }
+    
+    .certificate-upload input[type="file"] {
+        background: #34495e;
+        border-color: #4a6278;
+        color: #ecf0f1;
     }
 }

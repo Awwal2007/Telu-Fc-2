@@ -8,6 +8,13 @@ const Admin = () => {
   const [expandedRows, setExpandedRows] = useState({});
   const [facebookLink, setFacebookLink] = useState('');
   const [activeTab, setActiveTab] = useState('events');
+  
+  // Coach states
+  const [coaches, setCoaches] = useState([]);
+  const [filteredCoaches, setFilteredCoaches] = useState([]);
+  const [coachFilter, setCoachFilter] = useState('all'); // 'all', 'approved', 'pending'
+  const [loadingCoaches, setLoadingCoaches] = useState(false);
+  const [selectedCoach, setSelectedCoach] = useState(null); // For detailed view
 
   const [newEvent, setNewEvent] = useState({
     title: '',
@@ -36,12 +43,134 @@ const Admin = () => {
   useEffect(() => {
     fetchNews();
     fetchFacebookLink();
+    fetchCoaches();
   }, []);
 
   // Keep local events list synced with news from the hook
   useEffect(() => {
     setEvents(news);
   }, [news]);
+
+  // Filter coaches based on selected filter
+  useEffect(() => {
+    if (coaches.length > 0) {
+      let filtered = [...coaches];
+      if (coachFilter === 'approved') {
+        filtered = coaches.filter(coach => coach.isApproved === true);
+      } else if (coachFilter === 'pending') {
+        filtered = coaches.filter(coach => coach.isApproved === false);
+      }
+      setFilteredCoaches(filtered);
+    }
+  }, [coaches, coachFilter]);
+
+  const baseUrl = import.meta.VITE_BASE_URL
+
+  // Fetch coaches from API
+  const fetchCoaches = async () => {
+    setLoadingCoaches(true);
+    try {
+      // Replace with your actual API endpoint
+      const response = await fetch(`${baseUrl}/coaches`);
+      const data = await response.json();
+      setCoaches(data);
+      setFilteredCoaches(data);
+    } catch (error) {
+      console.error('Error fetching coaches:', error);
+      // For demo purposes, use mock data
+      setCoaches(mockCoaches);
+      setFilteredCoaches(mockCoaches);
+    } finally {
+      setLoadingCoaches(false);
+    }
+  };
+
+  // Approve coach application
+  const approveCoach = async (id) => {
+    if (window.confirm('Are you sure you want to approve this coach?')) {
+      try {
+        const response = await fetch(`${baseUrl}/coaches/${id}/approve`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        if (response.ok) {
+          // Update local state
+          setCoaches(prev => prev.map(coach => 
+            coach._id === id ? { ...coach, isApproved: true } : coach
+          ));
+          alert('Coach approved successfully!');
+        }
+      } catch (error) {
+        console.error('Error approving coach:', error);
+        alert('Error approving coach');
+      }
+    }
+  };
+
+  // Reject coach application
+  const rejectCoach = async (id) => {
+    if (window.confirm('Are you sure you want to reject this coach?')) {
+      try {
+        const response = await fetch(`${baseUrl}/coaches/${id}/reject`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        if (response.ok) {
+          // Update local state
+          setCoaches(prev => prev.map(coach => 
+            coach._id === id ? { ...coach, isApproved: false } : coach
+          ));
+          alert('Coach rejected successfully!');
+        }
+      } catch (error) {
+        console.error('Error rejecting coach:', error);
+        alert('Error rejecting coach');
+      }
+    }
+  };
+
+  // Delete coach application
+  const deleteCoach = async (id) => {
+    if (window.confirm('Are you sure you want to delete this coach application?')) {
+      try {
+        const response = await fetch(`${baseUrl}/coaches/${id}`, {
+          method: 'DELETE',
+        });
+        
+        if (response.ok) {
+          // Update local state
+          setCoaches(prev => prev.filter(coach => coach._id !== id));
+          setSelectedCoach(null);
+          alert('Coach application deleted successfully!');
+        }
+      } catch (error) {
+        console.error('Error deleting coach:', error);
+        alert('Error deleting coach');
+      }
+    }
+  };
+
+  // View coach details
+  const viewCoachDetails = (coach) => {
+    setSelectedCoach(coach);
+  };
+
+  // Close coach details
+  const closeCoachDetails = () => {
+    setSelectedCoach(null);
+  };
+
+  // Format date
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    return new Date(dateString).toLocaleDateString();
+  };
 
   const handleChange = (e) => {
     setNewEvent({ ...newEvent, [e.target.name]: e.target.value });
@@ -91,7 +220,7 @@ const Admin = () => {
   };
 
   const truncate = (text, length) => {
-    if (!text) return '';
+    if (!text) return 'N/A';
     return text.length > length ? text.slice(0, length) + '...' : text;
   };
 
@@ -146,6 +275,12 @@ const Admin = () => {
             onClick={() => setActiveTab('facebook')}
           >
             Facebook Posts
+          </button>
+          <button 
+            className={activeTab === 'coaches' ? 'nav-btn active' : 'nav-btn'}
+            onClick={() => setActiveTab('coaches')}
+          >
+            Coach Applications ({coaches.length})
           </button>
         </nav>
       </header>
@@ -297,7 +432,6 @@ const Admin = () => {
       {activeTab === 'facebook' && (
         <section className="facebook-section">
           <h2>Manage Facebook Posts</h2>
-          
           <form onSubmit={addFacebookPost} className="facebook-form">
             <div className="form-group">
               <label htmlFor="facebookLink">Facebook Post URL</label>
@@ -332,10 +466,427 @@ const Admin = () => {
               ))
             )}
           </div>
+
         </section>
+      )}
+
+      {activeTab === 'coaches' && (
+        <section className="coaches-section">
+          <h2>Coach Applications</h2>
+          
+          <div className="coach-filter-buttons">
+            <button 
+              className={`filter-btn ${coachFilter === 'all' ? 'active' : ''}`}
+              onClick={() => setCoachFilter('all')}
+            >
+              All Coaches ({coaches.length})
+            </button>
+            <button 
+              className={`filter-btn ${coachFilter === 'approved' ? 'active' : ''}`}
+              onClick={() => setCoachFilter('approved')}
+            >
+              Approved ({coaches.filter(c => c.isApproved === true).length})
+            </button>
+            <button 
+              className={`filter-btn ${coachFilter === 'pending' ? 'active' : ''}`}
+              onClick={() => setCoachFilter('pending')}
+            >
+              Pending ({coaches.filter(c => c.isApproved === false).length})
+            </button>
+          </div>
+
+          {loadingCoaches ? (
+            <div className="loading">Loading coach applications...</div>
+          ) : filteredCoaches.length === 0 ? (
+            <div className="no-data">No coach applications found.</div>
+          ) : (
+            <div className="coaches-table-container">
+              <table className="coaches-table">
+                <thead>
+                  <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Position</th>
+                    <th>Experience</th>
+                    <th>Status</th>
+                    <th>Applied Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredCoaches.map((coach) => (
+                    <tr key={coach._id} className={selectedCoach?._id === coach._id ? 'selected-row' : ''}>
+                      <td>
+                        <div className="coach-name-cell">
+                          <div className="coach-name">
+                            {coach.fullname}
+                            {coach.passportPhoto && (
+                              <img 
+                                src={coach.passportPhoto} 
+                                alt={coach.fullname} 
+                                className="coach-photo-thumb"
+                                onError={(e) => e.target.style.display = 'none'}
+                              />
+                            )}
+                          </div>
+                          {coach.gender && <span className="gender-badge">{coach.gender}</span>}
+                        </div>
+                      </td>
+                      <td>{coach.email}</td>
+                      <td>{coach.phone}</td>
+                      <td>
+                        {Array.isArray(coach.position) ? coach.position.join(', ') : coach.position}
+                        {coach.otherPosition && <div className="other-info">Other: {coach.otherPosition}</div>}
+                      </td>
+                      <td>
+                        {coach.yearsExperience ? `${coach.yearsExperience} years` : 'N/A'}
+                      </td>
+                      <td>
+                        <span className={`status-badge ${coach.isApproved ? 'status-approved' : 'status-pending'}`}>
+                          {coach.isApproved ? 'Approved' : 'Pending'}
+                        </span>
+                      </td>
+                      <td>{formatDate(coach.createdAt)}</td>
+                      <td>
+                        <div className="coach-actions">
+                          <button 
+                            onClick={() => viewCoachDetails(coach)} 
+                            className="view-btn"
+                          >
+                            View
+                          </button>
+                          {!coach.isApproved && (
+                            <button 
+                              onClick={() => approveCoach(coach._id)} 
+                              className="approve-btn"
+                            >
+                              Approve
+                            </button>
+                          )}
+                          <button 
+                            onClick={() => deleteCoach(coach._id)} 
+                            className="delete-btn"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* Coach Details Modal */}
+      {selectedCoach && (
+        <div className="coach-details-modal" onClick={closeCoachDetails}>
+          <div className="coach-details-content" onClick={(e) => e.stopPropagation()}>
+            <div className="coach-details-header">
+              <h2>Coach Application Details</h2>
+              <button className="close-btn" onClick={closeCoachDetails}>×</button>
+            </div>
+            
+            <div className="coach-details-body">
+              <div className="coach-info-grid">
+                
+                {/* SECTION A: Personal Info */}
+                <div className="info-section">
+                  <h3>Personal Information</h3>
+                  <div className="info-grid">
+                    <div className="info-item">
+                      <label>Full Name:</label>
+                      <p>{selectedCoach.fullname || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Date of Birth:</label>
+                      <p>{formatDate(selectedCoach.dob)}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Gender:</label>
+                      <p>{selectedCoach.gender || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Marital Status:</label>
+                      <p>{selectedCoach.maritalStatus || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Nationality:</label>
+                      <p>{selectedCoach.nationality || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>State/LGA:</label>
+                      <p>{selectedCoach.state ? `${selectedCoach.state}${selectedCoach.lga ? ` / ${selectedCoach.lga}` : ''}` : 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Address:</label>
+                      <p>{selectedCoach.address || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Phone:</label>
+                      <p>{selectedCoach.phone || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Email:</label>
+                      <p>{selectedCoach.email || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Next of Kin:</label>
+                      <p>{selectedCoach.nextOfKin || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Next of Kin Phone:</label>
+                      <p>{selectedCoach.nextOfKinPhone || 'N/A'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SECTION B: Position */}
+                <div className="info-section">
+                  <h3>Position & Qualifications</h3>
+                  <div className="info-grid">
+                    <div className="info-item">
+                      <label>Position(s):</label>
+                      <p>
+                        {Array.isArray(selectedCoach.position) 
+                          ? selectedCoach.position.join(', ')
+                          : selectedCoach.position || 'N/A'
+                        }
+                        {selectedCoach.otherPosition && <span> ({selectedCoach.otherPosition})</span>}
+                      </p>
+                    </div>
+                    <div className="info-item">
+                      <label>Highest Education:</label>
+                      <p>
+                        {selectedCoach.highestEducation || 'N/A'}
+                        {selectedCoach.otherEducation && <span> ({selectedCoach.otherEducation})</span>}
+                      </p>
+                    </div>
+                    <div className="info-item">
+                      <label>Certifications:</label>
+                      <p>
+                        {Array.isArray(selectedCoach.certifications) && selectedCoach.certifications.length > 0 
+                          ? selectedCoach.certifications.join(', ')
+                          : 'N/A'
+                        }
+                        {selectedCoach.otherCertification && <span> ({selectedCoach.otherCertification})</span>}
+                      </p>
+                    </div>
+                    <div className="info-item">
+                      <label>Issuing Body:</label>
+                      <p>{selectedCoach.issuingBody || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Year Obtained:</label>
+                      <p>{selectedCoach.yearObtained || 'N/A'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SECTION D: Experience */}
+                <div className="info-section">
+                  <h3>Experience</h3>
+                  <div className="info-grid">
+                    <div className="info-item">
+                      <label>Years of Experience:</label>
+                      <p>{selectedCoach.yearsExperience ? `${selectedCoach.yearsExperience} years` : 'N/A'}</p>
+                    </div>
+                    <div className="info-item full-width">
+                      <label>Previous Clubs/Teams:</label>
+                      <p>{selectedCoach.previousClubs || 'N/A'}</p>
+                    </div>
+                    <div className="info-item full-width">
+                      <label>Achievements:</label>
+                      <p>{selectedCoach.achievements || 'N/A'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SECTION E: Skills */}
+                <div className="info-section">
+                  <h3>Skills & Specialization</h3>
+                  <div className="info-grid">
+                    <div className="info-item">
+                      <label>Preferred Formations:</label>
+                      <p>{selectedCoach.preferredFormations || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Specialization:</label>
+                      <p>
+                        {Array.isArray(selectedCoach.specialization) 
+                          ? selectedCoach.specialization.join(', ')
+                          : selectedCoach.specialization || 'N/A'
+                        }
+                      </p>
+                    </div>
+                    <div className="info-item">
+                      <label>Work with Youths:</label>
+                      <p>{selectedCoach.workWithYouths || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Work Under Pressure:</label>
+                      <p>{selectedCoach.workUnderPressure || 'N/A'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SECTION F: Availability */}
+                <div className="info-section">
+                  <h3>Availability</h3>
+                  <div className="info-grid">
+                    <div className="info-item">
+                      <label>Availability:</label>
+                      <p>{selectedCoach.availability || 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Expected Salary:</label>
+                      <p>{selectedCoach.expectedSalary ? `$${selectedCoach.expectedSalary}` : 'N/A'}</p>
+                    </div>
+                    <div className="info-item">
+                      <label>Start Date:</label>
+                      <p>{formatDate(selectedCoach.startDate)}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SECTION G: Referees */}
+                {selectedCoach.referees && selectedCoach.referees.length > 0 && (
+                  <div className="info-section">
+                    <h3>Referees</h3>
+                    <div className="referees-list">
+                      {selectedCoach.referees.map((referee, index) => (
+                        <div key={index} className="referee-item">
+                          <h4>Referee {index + 1}</h4>
+                          <div className="info-grid">
+                            <div className="info-item">
+                              <label>Name:</label>
+                              <p>{referee.name || 'N/A'}</p>
+                            </div>
+                            <div className="info-item">
+                              <label>Position:</label>
+                              <p>{referee.position || 'N/A'}</p>
+                            </div>
+                            <div className="info-item">
+                              <label>Phone:</label>
+                              <p>{referee.phone || 'N/A'}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* File Uploads */}
+                <div className="info-section">
+                  <h3>Uploaded Documents</h3>
+                  <div className="file-links">
+                    {selectedCoach.cv && (
+                      <a href={selectedCoach.cv} target="_blank" rel="noopener noreferrer" className="file-link">
+                        📄 Curriculum Vitae (CV)
+                      </a>
+                    )}
+                    {selectedCoach.applicationLetter && (
+                      <a href={selectedCoach.applicationLetter} target="_blank" rel="noopener noreferrer" className="file-link">
+                        📄 Application Letter
+                      </a>
+                    )}
+                    {selectedCoach.passportPhoto && (
+                      <a href={selectedCoach.passportPhoto} target="_blank" rel="noopener noreferrer" className="file-link">
+                        📷 Passport Photo
+                      </a>
+                    )}
+                    {Array.isArray(selectedCoach.certificates) && selectedCoach.certificates.map((cert, index) => (
+                      <a key={index} href={cert} target="_blank" rel="noopener noreferrer" className="file-link">
+                        📜 Certificate {index + 1}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+              
+              <div className="coach-details-actions">
+                {!selectedCoach.isApproved && (
+                  <button onClick={() => approveCoach(selectedCoach._id)} className="approve-btn large">
+                    Approve Coach
+                  </button>
+                )}
+                <button onClick={() => deleteCoach(selectedCoach._id)} className="delete-btn large">
+                  Delete Application
+                </button>
+                <button onClick={closeCoachDetails} className="close-details-btn">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
 };
+
+// Mock data based on your schema
+const mockCoaches = [
+  {
+    _id: '1',
+    fullname: 'John Doe',
+    dob: '1985-05-15',
+    gender: 'Male',
+    maritalStatus: 'Married',
+    nationality: 'Nigerian',
+    state: 'Lagos',
+    lga: 'Ikeja',
+    address: '123 Main Street, Lagos',
+    phone: '+2348012345678',
+    email: 'john.doe@example.com',
+    nextOfKin: 'Jane Doe',
+    nextOfKinPhone: '+2348098765432',
+    
+    position: ['Head Coach', 'Technical Director'],
+    otherPosition: '',
+    
+    highestEducation: 'B.Sc. Sports Science',
+    otherEducation: '',
+    certifications: ['CAF License B', 'First Aid Certification'],
+    otherCertification: '',
+    issuingBody: 'CAF',
+    yearObtained: '2020',
+    
+    yearsExperience: 8,
+    previousClubs: 'Shooting Stars, Dolphins FC',
+    achievements: 'Won State Championship 2022',
+    
+    preferredFormations: '4-3-3, 4-4-2',
+    specialization: ['Tactics', 'Youth Development'],
+    workWithYouths: 'Yes',
+    workUnderPressure: 'Yes',
+    
+    availability: 'Full Time',
+    expectedSalary: 150000,
+    startDate: '2024-03-01',
+    
+    referees: [
+      {
+        name: 'Michael Johnson',
+        position: 'Club Chairman',
+        phone: '+2348033344555'
+      }
+    ],
+    
+    cv: '/uploads/cv1.pdf',
+    applicationLetter: '/uploads/letter1.pdf',
+    passportPhoto: '/uploads/photo1.jpg',
+    certificates: ['/uploads/cert1.pdf', '/uploads/cert2.pdf'],
+    
+    isApproved: false,
+    declaration: true,
+    createdAt: '2024-01-15T10:30:00Z'
+  }
+];
 
 export default Admin;

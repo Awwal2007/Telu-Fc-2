@@ -3,7 +3,7 @@ import galleryImages from '../components/galleryImages';
 import './css/Gallery.css';
 import SideBar from '../components/SideBar';
 import { Helmet } from 'react-helmet-async';
-import MissedArticles from '../components/MissedArticles';
+import MissedArticles from '../components/OurPlayers';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);

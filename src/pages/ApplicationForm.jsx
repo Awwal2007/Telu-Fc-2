@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import "./css/ApplicationForm.css";
 import logo from "../assets/telu logo.png";
 
+import {Link, useNavigate} from "react-router-dom"
 
+import Swal from "sweetalert2";
 
-import {Link} from "react-router-dom"
-import { toast } from 'sonner';
 
 const ApplicationForm = () => {
     const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ const ApplicationForm = () => {
         nextOfKinPhone: "",
         
         // SECTION B: Position Applied For
-        position: "",
+        position: [],
         otherPosition: "",
         
         // SECTION C: Coaching Qualifications
@@ -36,7 +36,7 @@ const ApplicationForm = () => {
         yearObtained: "",
         
         // SECTION D: Coaching Experience
-        yearsExperience: "",
+        yearsExperience: 0,
         previousClubs: "",
         achievements: "",
         
@@ -48,7 +48,7 @@ const ApplicationForm = () => {
         
         // SECTION F: Availability & Remuneration
         availability: "",
-        expectedSalary: "",
+        expectedSalary: 0,
         startDate: "",
         
         // SECTION G: Referees
@@ -63,15 +63,29 @@ const ApplicationForm = () => {
         declaration: false
     });
 
+    // File upload states
+    const [cvFile, setCvFile] = useState(null);
+    const [applicationLetterFile, setApplicationLetterFile] = useState(null);
+    const [passportPhoto, setPassportPhoto] = useState(null);
+    const [certificateFiles, setCertificateFiles] = useState(Array(5).fill(null));
+    const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = useState("");
+    const [loading, setLoading] = useState(false)
 
     const baseUrl = import.meta.env.VITE_BASE_URL
+
     const handleInput = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : value
+            [name]:
+            type === "checkbox"
+                ? checked
+                : type === "number"
+                ? Number(value)
+                : value
         }));
+
     };
 
     const handleCheckbox = (e) => {
@@ -86,8 +100,39 @@ const ApplicationForm = () => {
         });
     };
 
+    // File upload handlers
+    const handleCvUpload = (e) => {
+        setCvFile(e.target.files[0]);
+    };
+
+    const handleApplicationLetterUpload = (e) => {
+        setApplicationLetterFile(e.target.files[0]);
+    };
+
+    const handlePassportPhotoUpload = (e) => {
+        setPassportPhoto(e.target.files[0]);
+    };
+
+    const handleCertificateUpload = (e, index) => {
+        const newCertificateFiles = [...certificateFiles];
+        newCertificateFiles[index] = e.target.files[0];
+        setCertificateFiles(newCertificateFiles);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to submit this application?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, submit",
+            cancelButtonText: "Cancel",
+        });
+
+        if (!result.isConfirmed) return;
+
 
         setErrorMessage("")
         
@@ -96,50 +141,119 @@ const ApplicationForm = () => {
             setErrorMessage("Full Name, Email, and Phone are required.");
             return;
         }
+
+        if (formData.position.length === 0) {
+            setErrorMessage("Please select at least one position.");
+            return;
+        }
+
+
+        // File validation
+        if (!cvFile) {
+            setErrorMessage("Please upload your CV.");
+            return;
+        }
+
+        if (!applicationLetterFile) {
+            setErrorMessage("Please upload your application letter.");
+            return;
+        }
+
+        if (!passportPhoto) {
+            setErrorMessage("Please upload your passport photograph.");
+            return;
+        }
+
+        // Check at least two certificate is uploaded
+        const uploadedCertificates = certificateFiles.filter(file => file !== null);
+        if (uploadedCertificates.length <= 1) {
+            setErrorMessage("Please upload at least two certificates.");
+            return;
+        }
         
         if (!formData.declaration) {
             setErrorMessage("You must agree to the declaration.");
             return;
         }
 
-        // Prepare data for submission
-        const submissionData = {
-            ...formData,
-            certifications: formData.certifications.join(', '),
-            specialization: formData.specialization.join(', ')
-        };
+        try{
+            setLoading(true)
+            // Prepare FormData for file upload
+            const submissionFormData = new FormData();
+            
+            // Add form fields
+            Object.keys(formData).forEach(key => {
+                if (key === 'certifications' || key === 'specialization') {
+                    formData[key].forEach(val => submissionFormData.append(`${key}[]`, val));
+                } else {
+                    submissionFormData.append(key, formData[key]);
+                }
+            });
 
-        const res = await fetch(`${baseUrl}/coach`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(submissionData)
-        });
+            // Add files
+            submissionFormData.append('cv', cvFile);
+            submissionFormData.append('applicationLetter', applicationLetterFile);
+            submissionFormData.append('passportPhoto', passportPhoto);
+            
+            // Add certificate files
+            certificateFiles.forEach((file, index) => {
+                if (file) {
+                    submissionFormData.append(`certificate${index + 1}`, file);
+                }
+            });
 
-        const data = await res.json();
+            
+            
 
-        if (data.status === "success") {
-            toast.success("Application submitted successfully!");
+            const res = await fetch(`${baseUrl}/coach`, {
+                method: "POST",
+                body: submissionFormData
+                // Note: Don't set Content-Type header for FormData, browser sets it automatically with boundary
+            });
+
+        
+        
+
+            const data = await res.json();
+
+            if (!res.ok) throw new Error(data.message || "Submission failed");
+            
+            Swal.fire({
+                icon: "success",
+                title: "Submitted!",
+                text: "Your application has been sent successfully",
+            });
+
             // Reset form
             setFormData({
                 fullname: "", dob: "", gender: "", maritalStatus: "", nationality: "", state: "", lga: "",
-                address: "", phone: "", email: "", nextOfKin: "", nextOfKinPhone: "", position: "", otherPosition: "",
+                address: "", phone: "", email: "", nextOfKin: "", nextOfKinPhone: "", position: [], otherPosition: "",
                 highestEducation: "", otherEducation: "", certifications: [], otherCertification: "", issuingBody: "",
-                yearObtained: "", yearsExperience: "", previousClubs: "", achievements: "", preferredFormations: "",
-                specialization: [], workWithYouths: "", workUnderPressure: "", availability: "", expectedSalary: "",
+                yearObtained: "", yearsExperience: 0, previousClubs: "", achievements: "", preferredFormations: "",
+                specialization: [], workWithYouths: "", workUnderPressure: "", availability: "", expectedSalary: 0,
                 startDate: "", referee1Name: "", referee1Position: "", referee1Phone: "", referee2Name: "",
                 referee2Position: "", referee2Phone: "", declaration: false
             });
 
-            setTimeout(()=>{
-                location.href = "/"
-            }, 100)
-        } else {
-            setErrorMessage(data.message || "Submission failed. Please try again.");
-        }        
-        location.href = "/"
+            // Reset file states
+            setCvFile(null);
+            setApplicationLetterFile(null);
+            setPassportPhoto(null);
+            setCertificateFiles(Array(5).fill(null));
 
+            setTimeout(()=>{
+                navigate("/");
+            }, 100)
+        }catch(err){
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: err.message,
+            });
+        }finally{
+            setLoading(false);
+        }
+        
     };
 
     return (
@@ -157,7 +271,7 @@ const ApplicationForm = () => {
                 <section className="section">
                     <h3>SECTION A: PERSONAL INFORMATION</h3>
                     <input type="text" name="fullname" placeholder="Full Name (Surname First)" 
-                           value={formData.fullname} onChange={handleInput} required />
+                           value={formData.fullname} onChange={handleInput} />
                     <input type="date" name="dob" placeholder="Date of Birth" 
                            value={formData.dob} onChange={handleInput} />
                     <div className="radio-group">
@@ -180,9 +294,9 @@ const ApplicationForm = () => {
                     <textarea name="address" placeholder="Residential Address" 
                               value={formData.address} onChange={handleInput} rows="3"></textarea>
                     <input type="tel" name="phone" placeholder="Phone Number" 
-                           value={formData.phone} onChange={handleInput} required />
+                           value={formData.phone} onChange={handleInput}  />
                     <input type="email" name="email" placeholder="Email Address" 
-                           value={formData.email} onChange={handleInput} required />
+                           value={formData.email} onChange={handleInput}  />
                     <input type="text" name="nextOfKin" placeholder="Next of Kin Name" 
                            value={formData.nextOfKin} onChange={handleInput} />
                     <input type="tel" name="nextOfKinPhone" placeholder="Next of Kin Phone Number" 
@@ -193,16 +307,16 @@ const ApplicationForm = () => {
                 <section className="section">
                     <h3>SECTION B: POSITION APPLIED FOR</h3>
                     <div className="checkbox-group">
-                        <label><input type="checkbox" name="position" value="Head Coach" onChange={handleCheckbox} /> Head Coach</label>
-                        <label><input type="checkbox" name="position" value="Assistant Coach" onChange={handleCheckbox} /> Assistant Coach</label>
-                        <label><input type="checkbox" name="position" value="Goalkeeper Trainer" onChange={handleCheckbox} /> Goalkeeper Trainer</label>
-                        <label><input type="checkbox" name="position" value="Fitness/Physical Trainer" onChange={handleCheckbox} /> Fitness/Physical Trainer</label>
-                        <label><input type="checkbox" name="position" value="Youth Development Coach" onChange={handleCheckbox} /> Youth Development Coach</label>
-                        <label><input type="checkbox" name="position" value="Technical Adviser" onChange={handleCheckbox} /> Technical Adviser</label>
-                        <label><input type="checkbox" name="position" value="Other" onChange={handleCheckbox} /> Other (Specify):</label>
+                        <label><input type="checkbox" name="position" value="Head Coach" checked={formData.position.includes("Head Coach")} onChange={handleCheckbox} /> Head Coach</label>
+                        <label><input type="checkbox" name="position" value="Assistant Coach" checked={formData.position.includes("Assistant Coach")} onChange={handleCheckbox} /> Assistant Coach</label>
+                        <label><input type="checkbox" name="position" value="Goalkeeper Trainer" checked={formData.position.includes("Goalkeeper Trainer")} onChange={handleCheckbox} /> Goalkeeper Trainer</label>
+                        <label><input type="checkbox" name="position" value="Fitness/Physical Trainer" checked={formData.position.includes("Fitness/Physical Trainer")} onChange={handleCheckbox} /> Fitness/Physical Trainer</label>
+                        <label><input type="checkbox" name="position" value="Youth Development Coach" checked={formData.position.includes("Youth Development Coach")} onChange={handleCheckbox} /> Youth Development Coach</label>
+                        <label><input type="checkbox" name="position" value="Technical Adviser" checked={formData.position.includes("Technical Adviser")} onChange={handleCheckbox} /> Technical Adviser</label>
+                        <label><input type="checkbox" name="position" value="Other" checked={formData.position.includes("Other")} onChange={handleCheckbox} /> Other (Specify):</label>
                         {formData.position.includes("Other") && (
                             <input type="text" name="otherPosition" placeholder="Specify other position" 
-                                   value={formData.otherPosition} onChange={handleInput} />
+                                value={formData.otherPosition} onChange={handleInput} />
                         )}
                     </div>
                 </section>
@@ -244,15 +358,57 @@ const ApplicationForm = () => {
                            value={formData.yearObtained} onChange={handleInput} />
                 </section>
 
+                {/* FILE UPLOAD SECTION */}
+                <section className="section">
+                    <h3>DOCUMENT UPLOADS</h3>
+                    
+                    <div className="file-upload-group">
+                        <label>Curriculum Vitae (CV)*:</label>
+                        <input type="file" accept=".pdf,.doc,.docx" onChange={handleCvUpload}  />
+                        {cvFile && <span className="file-name">{cvFile.name}</span>}
+                    </div>
+                    
+                    <div className="file-upload-group">
+                        <label>Application Letter*:</label>
+                        <input type="file" accept=".pdf,.doc,.docx" onChange={handleApplicationLetterUpload}  />
+                        {applicationLetterFile && <span className="file-name">{applicationLetterFile.name}</span>}
+                    </div>
+                    
+                    <div className="file-upload-group">
+                        <label>Passport Photograph*:</label>
+                        <input type="file" accept="image/*" onChange={handlePassportPhotoUpload}  />
+                        {passportPhoto && <span className="file-name">{passportPhoto.name}</span>}
+                    </div>
+                    
+                    <div className="file-upload-group">
+                        <label>Certificates (Upload up to 5 certificates):</label>
+                        <div className="certificate-container">
+                            {[1, 2, 3, 4, 5].map((num, index) => (
+                                <div key={index} className="certificate-upload">
+                                    <label>Certificate {num}:</label>
+                                    <input 
+                                        type="file" 
+                                        accept=".pdf,.jpg,.jpeg,.png" 
+                                        onChange={(e) => handleCertificateUpload(e, index)} 
+                                    />
+                                    {certificateFiles[index] && (
+                                        <span className="file-name">{certificateFiles[index].name}</span>
+                                    )}
+                                </div>                            
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
                 {/* SECTION D: Coaching Experience */}
                 <section className="section">
                     <h3>SECTION D: COACHING EXPERIENCE</h3>
                     <input type="number" name="yearsExperience" placeholder="Years of Coaching Experience" 
-                           value={formData.yearsExperience} onChange={handleInput} min="0" />
+                        value={formData.yearsExperience} onChange={handleInput} min="0" />
                     <textarea name="previousClubs" placeholder="Previous Clubs/Teams Coached (Club/Team, Position Held, Period)" 
-                              value={formData.previousClubs} onChange={handleInput} rows="4"></textarea>
+                        value={formData.previousClubs} onChange={handleInput} rows="4"></textarea>
                     <textarea name="achievements" placeholder="Major Achievements (if any)" 
-                              value={formData.achievements} onChange={handleInput} rows="4"></textarea>
+                        value={formData.achievements} onChange={handleInput} rows="4"></textarea>
                 </section>
 
                 {/* SECTION E: Technical & Professional Skills */}
@@ -290,9 +446,9 @@ const ApplicationForm = () => {
                         <label><input type="radio" name="availability" value="Part Time" checked={formData.availability === "Part Time"} onChange={handleInput} /> Part Time</label>
                     </div>
                     <input type="number" name="expectedSalary" placeholder="Expected Monthly Salary (₦)" 
-                           value={formData.expectedSalary} onChange={handleInput} min="0" />
+                        value={formData.expectedSalary} onChange={handleInput} min="0" />
                     <input type="date" name="startDate" placeholder="Date Available to Resume" 
-                           value={formData.startDate} onChange={handleInput} />
+                        value={formData.startDate} onChange={handleInput} />
                 </section>
 
                 {/* SECTION G: Referees */}
@@ -330,8 +486,8 @@ const ApplicationForm = () => {
                     </div>
                 </section>
 
-                <p className="error-message">{errorMessage}</p>
-                <button type="submit">Submit Application</button>
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                <button type="submit">{loading ? "Submitting..." : "Submit Application"}</button>
             </form>
         </div>
     )
