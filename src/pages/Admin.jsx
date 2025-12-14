@@ -93,7 +93,7 @@ const Admin = () => {
       try {
         const response = await fetch(`${baseUrl}/coach/approve/${id}`, {
           method: 'PUT',
-          body: JSON.stringify({status: "approve"}),
+          body: JSON.stringify({status: "approved"}),
           headers: {
             'Content-Type': 'application/json',
           },
@@ -117,8 +117,9 @@ const Admin = () => {
   const rejectCoach = async (id) => {
     if (window.confirm('Are you sure you want to reject this coach?')) {
       try {
-        const response = await fetch(`${baseUrl}/coaches/${id}/reject`, {
+        const response = await fetch(`${baseUrl}/coach/approve/${id}`, {
           method: 'PUT',
+          body: JSON.stringify({status: "rejected"}),
           headers: {
             'Content-Type': 'application/json',
           },
@@ -142,7 +143,7 @@ const Admin = () => {
   const deleteCoach = async (id) => {
     if (window.confirm('Are you sure you want to delete this coach application?')) {
       try {
-        const response = await fetch(`${baseUrl}/coaches/${id}`, {
+        const response = await fetch(`${baseUrl}/coach/${id}`, {
           method: 'DELETE',
         });
         

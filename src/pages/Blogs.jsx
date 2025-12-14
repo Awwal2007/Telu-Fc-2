@@ -8,7 +8,6 @@ import EventBannerSlider from "../components/EventBannerSlider";
 import { useNews } from "../hooks/useNews";
 import { Helmet } from "react-helmet-async";
 import MissedArticles from "../components/OurPlayers";
-import useMediaQuery from "../components/MediaQuery";
 import OurPlayers from "../components/OurPlayers";
 import OurPlayersMobile from "../components/OurPlayersMobile";
 
@@ -32,7 +31,6 @@ const Blogs = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const isMobile = useMediaQuery('(max-width: 465px)')
 
   return (
     <>
