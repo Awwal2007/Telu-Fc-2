@@ -20,8 +20,8 @@ import NotFound from './components/NotFound.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import MissedArticles from './components/OurPlayers.jsx';
 import ApplicationForm from './pages/ApplicationForm.jsx';
-import PlayersPage from './pages/PlayersPage.jsx';
 import PopOver from './components/PopOver.jsx';
+import PlayerSignup from './pages/PlayerSignup.jsx';
 
 
 const AppContent = () => {
@@ -84,7 +84,8 @@ const AppContent = () => {
             <Route path='/singleblog/:id' element={<SingleBlog />} />
             <Route path='/admin-login' element={<AdminLogin />} />
             <Route path='/application-form' element={<ApplicationForm />} />
-            <Route path='/players' element={<PlayersPage />} />
+            <Route path='/player-signup' element={<PlayerSignup />} />
+            <Route path='/player-login' element={<PlayerSignup />} />
             {/* <Route path='/admin-signup' element={<AdminSignup />} /> */}
             
             <Route element={<ProtectedRoutes />}>
