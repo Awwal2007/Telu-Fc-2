@@ -5,13 +5,11 @@ import CustomMarquee from '../components/CustomMarquee'
 import ImageCarousel from '../components/ImageCarousel'
 import LatestNews from '../components/LatestNews'
 import SideBar from '../components/SideBar'
-import MissedArticles from '../components/OurPlayers'
 import { PiTargetBold } from "react-icons/pi";
 import { LuScanEye } from "react-icons/lu";
 import useMediaQuery from '../components/MediaQuery';
 
-import PlayersMobile from "../components/OurCoachesMobile"
-import Players from "../components/OurCoaches"
+
 import OurPlayers from '../components/OurPlayers';
 import OurCoaches from '../components/OurCoaches';
 import OurCoachesMobile from '../components/OurCoachesMobile';
