@@ -21,6 +21,7 @@ import ScrollToTop from './components/ScrollToTop.jsx';
 import MissedArticles from './components/OurPlayers.jsx';
 import ApplicationForm from './pages/ApplicationForm.jsx';
 import PlayersPage from './pages/PlayersPage.jsx';
+import PopUp from './components/PopUp.jsx';
 
 
 const AppContent = () => {
@@ -52,18 +53,25 @@ const AppContent = () => {
     { path: "/admin" },
   ];
 
+  const PopUpRoutes = [
+    {path: "/"}
+  ]
+
   const matched = matchRoutes(routes, location);
+  const popUpMatched = matchRoutes(PopUpRoutes, location);
   const isNotFoundPage = !matched; // if no route matches, it's NotFound
+  const isNotFoundPopUp = !popUpMatched; // if no route matches, it's NotFound
 
   const shouldHideHeader = isNotFoundPage || hideHeaderRoutes.includes(location.pathname);
   const shouldHideFooter = isNotFoundPage || hideFooterRoutes.includes(location.pathname);
+  const shouldHidePopUp = isNotFoundPopUp;
     return (
       <>
         {/* <div className="pop-up">
           <img src="" alt="" />
         </div> */}
         {!shouldHideHeader && <Header />}
-        
+        {!shouldHidePopUp  && <PopUp />}
       <AuthProvider>
         <NewsProvider>
          {/* <Header /> */}

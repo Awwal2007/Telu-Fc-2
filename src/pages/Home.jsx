@@ -14,14 +14,14 @@ import OurPlayers from '../components/OurPlayers';
 import OurCoaches from '../components/OurCoaches';
 import OurCoachesMobile from '../components/OurCoachesMobile';
 import OurPlayersMobile from '../components/OurPlayersMobile';
-import PopUp from '../components/PopUp';
+// import PopUp from '../components/PopUp';
 
 const Home = () => {
 
   const isMobile = useMediaQuery('(max-width: 465px)')
   return (
     <>
-    <PopUp />
+    {/* <PopUp /> */}
       <div className="home-wrapper">
         <div className='marquee-container'>
           <div className='latest-news'>Updates</div>
