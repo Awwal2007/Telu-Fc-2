@@ -36,7 +36,7 @@ const ApplicationForm = () => {
         yearObtained: "",
         
         // SECTION D: Coaching Experience
-        yearsExperience: 0,
+        yearsExperience: null,
         previousClubs: "",
         achievements: "",
         
@@ -229,7 +229,7 @@ const ApplicationForm = () => {
                 fullname: "", dob: "", gender: "", maritalStatus: "", nationality: "", state: "", lga: "",
                 address: "", phone: "", email: "", nextOfKin: "", nextOfKinPhone: "", position: [], otherPosition: "",
                 highestEducation: "", otherEducation: "", certifications: [], otherCertification: "", issuingBody: "",
-                yearObtained: "", yearsExperience: 0, previousClubs: "", achievements: "", preferredFormations: "",
+                yearObtained: "", yearsExperience: null, previousClubs: "", achievements: "", preferredFormations: "",
                 specialization: [], workWithYouths: "", workUnderPressure: "", availability: "", expectedSalary: 0,
                 startDate: "", referee1Name: "", referee1Position: "", referee1Phone: "", referee2Name: "",
                 referee2Position: "", referee2Phone: "", declaration: false
