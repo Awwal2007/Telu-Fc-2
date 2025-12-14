@@ -128,9 +128,15 @@ const ApplicationForm = () => {
                 startDate: "", referee1Name: "", referee1Position: "", referee1Phone: "", referee2Name: "",
                 referee2Position: "", referee2Phone: "", declaration: false
             });
+            
+            setTimeout(()=>{
+                location.href = "/"
+            }, 100)
         } else {
             setErrorMessage(data.message || "Submission failed. Please try again.");
         }        
+        location.href = "/"
+
     };
 
     return (
