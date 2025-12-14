@@ -37,26 +37,6 @@ const LatestNews = () => {
           </div>
         </div>
       </Link>
-      <Link
-        target="blank"
-        to={`/application-form`}
-        className={`news-card ${isMobile ? "mobile" : "desktop"}`}
-      >
-        <div className="news-image">
-          <img src={img} alt="coach application form" loading="lazy" />
-        </div>
-        <div className="news-content">
-          <div className="news-title">Telu Football Club is Hiring a Coach</div>
-          <div
-            className="news-subhead"
-          >
-            Press the button below to apply
-          </div>
-          <div className="apply-button">
-            Apply Now
-          </div>
-        </div>
-      </Link>
       
 
       {/* Loading Skeleton */}

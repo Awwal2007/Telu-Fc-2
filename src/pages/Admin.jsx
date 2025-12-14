@@ -560,7 +560,7 @@ const Admin = () => {
                           >
                             View
                           </button>
-                          {!coach.isApproved && (
+                          {coach.status !== "approved" && (
                             <button 
                               onClick={() => approveCoach(coach._id)} 
                               className="approve-btn"
