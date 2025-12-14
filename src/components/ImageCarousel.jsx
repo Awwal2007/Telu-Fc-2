@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 
 import image2 from "../assets/DSC_4776.jpg";
 import image1 from "../assets/FB_IMG_1765560836447.jpg";
-import image3 from "../assets/DSC_4794-1.jpg";
+// import image3 from "../assets/DSC_4794-1.jpg";
 import image4 from "../assets/FB_IMG_1765561012969.jpg";
 
 const ImageCarousel = () => {
@@ -24,7 +24,7 @@ const ImageCarousel = () => {
       modules={[Autoplay, Pagination, Navigation]}
       className="image-carousel"
     >
-      {[image2, image1, image3, image4].map((img, index) => (
+      {[image2, image1, , image4].map((img, index) => (
         <SwiperSlide key={index}>
           <img
             loading="lazy"
