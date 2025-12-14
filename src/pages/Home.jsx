@@ -14,7 +14,7 @@ import OurPlayers from '../components/OurPlayers';
 import OurCoaches from '../components/OurCoaches';
 import OurCoachesMobile from '../components/OurCoachesMobile';
 import OurPlayersMobile from '../components/OurPlayersMobile';
-import Popup from '../components/PopUp';
+import Popup from '../components/Popup';
 
 const Home = () => {
 
