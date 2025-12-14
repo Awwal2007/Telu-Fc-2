@@ -21,7 +21,7 @@ import ScrollToTop from './components/ScrollToTop.jsx';
 import MissedArticles from './components/OurPlayers.jsx';
 import ApplicationForm from './pages/ApplicationForm.jsx';
 import PlayersPage from './pages/PlayersPage.jsx';
-import Popup from './components/Popup.jsx';
+
 
 const AppContent = () => {
   const location = useLocation();
@@ -62,7 +62,6 @@ const AppContent = () => {
         {/* <div className="pop-up">
           <img src="" alt="" />
         </div> */}
-        <Popup />
         {!shouldHideHeader && <Header />}
         
       <AuthProvider>
