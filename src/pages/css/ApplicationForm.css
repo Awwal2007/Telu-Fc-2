@@ -153,8 +153,8 @@ textarea {
 
 .certificate-container{
     display: grid;
-    grid-template-columns: 2fr 2fr;
-    width: 100%;
+    grid-template-columns: fr 1fr;
+    width: 350px;
 }
 
 .certificate-upload {
@@ -302,7 +302,18 @@ button:hover {
     
     .section {
         padding: 15px;
+        display: block;
     }
+
+    .certificate-container{
+        display: block;
+        width: 100%;
+    }
+
+    .certificate-upload input{
+        width: 100%;
+    }
+    
     
     .form-header h1 {
         font-size: 1.5rem;
@@ -368,5 +379,6 @@ button:hover {
         background: #34495e;
         border-color: #4a6278;
         color: #ecf0f1;
+        width: 100%;
     }
 }
