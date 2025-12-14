@@ -364,7 +364,7 @@ const ApplicationForm = () => {
                     
                     <div className="file-upload-group">
                         <label>Curriculum Vitae (CV)*:</label>
-                        <input type="file" accept=".pdf,.doc,.docx" onChange={handleCvUpload}  />
+                        <input type="file" accept=".pdf,.doc,.docx,.jpg,.png,.jpeg,.webf" onChange={handleCvUpload}  />
                         {cvFile && <span className="file-name">{cvFile.name}</span>}
                     </div>
                     
