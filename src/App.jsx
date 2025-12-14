@@ -21,7 +21,7 @@ import ScrollToTop from './components/ScrollToTop.jsx';
 import MissedArticles from './components/OurPlayers.jsx';
 import ApplicationForm from './pages/ApplicationForm.jsx';
 import PlayersPage from './pages/PlayersPage.jsx';
-import PopUp from './components/PopUp.jsx';
+import PopOver from './components/PopOver.jsx';
 
 
 const AppContent = () => {
@@ -71,7 +71,7 @@ const AppContent = () => {
           <img src="" alt="" />
         </div> */}
         {!shouldHideHeader && <Header />}
-        {!shouldHidePopUp  && <PopUp />}
+        {!shouldHidePopUp  && <PopOver />}
       <AuthProvider>
         <NewsProvider>
          {/* <Header /> */}

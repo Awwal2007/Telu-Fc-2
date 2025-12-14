@@ -3,7 +3,7 @@ import image from "../assets/we are hiring.jpg"
 import { MdCancel } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-function PopUp() {
+const PopOver = () => {
   const [show, setShow] = useState(true);
 
   return (
@@ -44,4 +44,4 @@ const button = {
     alignItems: "center"
 }
 
-export default PopUp;
+export default PopOver;
