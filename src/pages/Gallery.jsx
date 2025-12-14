@@ -78,9 +78,9 @@ const Gallery = () => {
           </div>
         )}
       </div>
-      <div>
+      {/* <div>
         <MissedArticles />
-      </div>
+      </div> */}
     </>
     
   );

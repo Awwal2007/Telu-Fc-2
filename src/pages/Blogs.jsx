@@ -8,6 +8,9 @@ import EventBannerSlider from "../components/EventBannerSlider";
 import { useNews } from "../hooks/useNews";
 import { Helmet } from "react-helmet-async";
 import MissedArticles from "../components/OurPlayers";
+import useMediaQuery from "../components/MediaQuery";
+import OurPlayers from "../components/OurPlayers";
+import OurPlayersMobile from "../components/OurPlayersMobile";
 
 const Blogs = () => {
   const { news, loading, error } = useNews();
@@ -29,49 +32,10 @@ const Blogs = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const isMobile = useMediaQuery('(max-width: 465px)')
+
   return (
     <>
-        <Helmet>
-            <title>Iwo Land Blog | History & Latest News</title>
-            <meta name="robots" content="index, follow" />
-            <meta name="description" content="Explore the deep history and culture of Iwo Land. Stay updated with the latest news and stories from Iwo Land, Osun State, Nigeria." />
-            <link rel="canonical" href="https://iwoland.com/blogs" />
-            <meta name="keywords" content="Iwo Land, Iwo news, Iwo Land news, Oluwo, Iwo, Iwo Osun State, Osun State, History of Iwo, Odidere, Raven, Yoruba Land, Osun Oshogo, Oshogo, Telu 1" />
-
-            <meta property="og:title" content="Iwo Land Blog | Yoruba History & Culture" />
-            <meta property="og:description" content="Discover stories, history, and cultural heritage of Iwo Land in Osun State, Nigeria." />
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content="https://iwoland.com/blogs" />
-            <meta property="og:image" content="https://iwoland.com/favicon.png" />
-            <link rel="icon" type="image/png" href="/favicon.png" />
-            <link rel="shortcut icon" href="/favicon.png" />
-
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="Iwo Land Blog | Yoruba History & Culture" />
-            <meta name="twitter:description" content="Stay informed about the traditions and people of Iwo Land." />
-            <meta name="twitter:image" content="https://iwoland.com/favicon.png" />
-
-            <script type="application/ld+json">
-                {JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Blog",
-                "name": "Iwo Land Blog",
-                "url": "https://iwoland.com/blogs",
-                "description": "Cultural stories and news from Iwo Kingdom.",
-                "publisher": {
-                    "@type": "Organization",
-                    "name": "Iwo Land",
-                    "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://iwoland.com/favicon.png"
-                    }
-                }
-                })}
-            </script>
-        </Helmet>
-
-
-
       <div>
         {/* Top Section */}
         <div className="marquee-container">
@@ -195,9 +159,10 @@ const Blogs = () => {
           </div>
         </div>
       </div>
-      <div>
-        <MissedArticles />
-      </div>
+      {/* <div style={{background: "white", padding: "1px var(--pad)"}}>
+        <h2 className="secondary-carousel-title">Our Players</h2>
+        {isMobile ?<OurPlayersMobile />  :<OurPlayers /> }
+      </div> */}
     </>
   );
 };
