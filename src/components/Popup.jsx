@@ -3,7 +3,7 @@ import image from "../assets/we are hiring.jpg"
 import { MdCancel } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-function Popup() {
+function PopUp() {
   const [show, setShow] = useState(true);
 
   return (
@@ -23,7 +23,7 @@ function Popup() {
 }
 
 const overlay = {
-  
+
 };
 
 const modal = {
@@ -44,4 +44,4 @@ const button = {
     alignItems: "center"
 }
 
-export default Popup;
+export default PopUp;
