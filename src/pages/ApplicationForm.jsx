@@ -36,7 +36,7 @@ const ApplicationForm = () => {
         yearObtained: "",
         
         // SECTION D: Coaching Experience
-        yearsExperience: undefined,
+        yearsExperience: 0,
         previousClubs: "",
         achievements: "",
         
@@ -48,7 +48,7 @@ const ApplicationForm = () => {
         
         // SECTION F: Availability & Remuneration
         availability: "",
-        expectedSalary: undefined,
+        expectedSalary: 0,
         startDate: "",
         
         // SECTION G: Referees
@@ -121,6 +121,8 @@ const ApplicationForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        
 
         const result = await Swal.fire({
             title: "Are you sure?",
@@ -202,6 +204,7 @@ const ApplicationForm = () => {
                 }
             });
 
+            console.log(formData);
             
             
 
@@ -229,8 +232,8 @@ const ApplicationForm = () => {
                 fullname: "", dob: "", gender: "", maritalStatus: "", nationality: "", state: "", lga: "",
                 address: "", phone: "", email: "", nextOfKin: "", nextOfKinPhone: "", position: [], otherPosition: "",
                 highestEducation: "", otherEducation: "", certifications: [], otherCertification: "", issuingBody: "",
-                yearObtained: "", yearsExperience: undefined, previousClubs: "", achievements: "", preferredFormations: "",
-                specialization: [], workWithYouths: "", workUnderPressure: "", availability: "", expectedSalary: undefined,
+                yearObtained: "", yearsExperience: 0, previousClubs: "", achievements: "", preferredFormations: "",
+                specialization: [], workWithYouths: "", workUnderPressure: "", availability: "", expectedSalary: 0,
                 startDate: "", referee1Name: "", referee1Position: "", referee1Phone: "", referee2Name: "",
                 referee2Position: "", referee2Phone: "", declaration: false
             });
@@ -404,7 +407,7 @@ const ApplicationForm = () => {
                 <section className="section">
                     <h3>SECTION D: COACHING EXPERIENCE</h3>
                     <input type="number" name="yearsExperience" placeholder="Years of Coaching Experience" 
-                        value={formData.yearsExperience} onChange={handleInput} min="0" />
+                        value={formData.yearsExperience === 0 ? "" : formData.yearsExperience} onChange={handleInput} min="0" />
                     <textarea name="previousClubs" placeholder="Previous Clubs/Teams Coached (Club/Team, Position Held, Period)" 
                         value={formData.previousClubs} onChange={handleInput} rows="4"></textarea>
                     <textarea name="achievements" placeholder="Major Achievements (if any)" 
@@ -446,7 +449,7 @@ const ApplicationForm = () => {
                         <label><input type="radio" name="availability" value="Part Time" checked={formData.availability === "Part Time"} onChange={handleInput} /> Part Time</label>
                     </div>
                     <input type="number" name="expectedSalary" placeholder="Expected Monthly Salary (₦)" 
-                        value={formData.expectedSalary} onChange={handleInput} min="0" />
+                        value={formData.expectedSalary === 0 ? "" : formData.expectedSalary}  onChange={handleInput} min="0" />
                     <input type="date" name="startDate" placeholder="Date Available to Resume" 
                         value={formData.startDate} onChange={handleInput} />
                 </section>
