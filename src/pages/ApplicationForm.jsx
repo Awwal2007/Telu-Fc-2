@@ -36,7 +36,7 @@ const ApplicationForm = () => {
         yearObtained: "",
         
         // SECTION D: Coaching Experience
-        yearsExperience: null,
+        yearsExperience: undefined,
         previousClubs: "",
         achievements: "",
         
@@ -48,7 +48,7 @@ const ApplicationForm = () => {
         
         // SECTION F: Availability & Remuneration
         availability: "",
-        expectedSalary: 0,
+        expectedSalary: undefined,
         startDate: "",
         
         // SECTION G: Referees
@@ -229,8 +229,8 @@ const ApplicationForm = () => {
                 fullname: "", dob: "", gender: "", maritalStatus: "", nationality: "", state: "", lga: "",
                 address: "", phone: "", email: "", nextOfKin: "", nextOfKinPhone: "", position: [], otherPosition: "",
                 highestEducation: "", otherEducation: "", certifications: [], otherCertification: "", issuingBody: "",
-                yearObtained: "", yearsExperience: null, previousClubs: "", achievements: "", preferredFormations: "",
-                specialization: [], workWithYouths: "", workUnderPressure: "", availability: "", expectedSalary: 0,
+                yearObtained: "", yearsExperience: undefined, previousClubs: "", achievements: "", preferredFormations: "",
+                specialization: [], workWithYouths: "", workUnderPressure: "", availability: "", expectedSalary: undefined,
                 startDate: "", referee1Name: "", referee1Position: "", referee1Phone: "", referee2Name: "",
                 referee2Position: "", referee2Phone: "", declaration: false
             });
