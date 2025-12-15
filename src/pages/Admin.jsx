@@ -309,6 +309,19 @@ const Admin = () => {
     fetchFacebookLink();
   };
 
+  const openPDF = async (url) => {
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    window.open(blobUrl);
+  } catch (err) {
+    console.error("Failed to open PDF", err);
+    alert("Unable to open PDF. Please try downloading it.");
+  }
+};
+
+
 
   // Facebook SDK loader
   useEffect(() => {
@@ -873,7 +886,7 @@ const Admin = () => {
                       </a>
                     )}
                     {selectedCoach.applicationLetter && (
-                      <a href={selectedCoach.applicationLetter} target="_blank" rel="noopener noreferrer" className="file-link">
+                      <a onClick={() => openPDF(selectedCoach.cv)}  href={selectedCoach.applicationLetter} target="_blank" rel="noopener noreferrer" className="file-link">
                         📄 Application Letter
                       </a>
                     )}
