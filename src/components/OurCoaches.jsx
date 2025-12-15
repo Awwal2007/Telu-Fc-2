@@ -1,7 +1,7 @@
 // import React, { useRef, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import image1 from "../assets/FB_IMG_1765561003897-removebg-preview.png"
+import image1 from "../assets/FB_IMG_1765561006646~3.jpg"
 
 // Import Swiper styles
 import 'swiper/css';

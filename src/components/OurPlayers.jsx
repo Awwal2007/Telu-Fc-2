@@ -1,7 +1,11 @@
 // import React, { useRef, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import image1 from "../assets/FB_IMG_1765561003897-removebg-preview.png"
+import image1 from "../assets/DSC_4788.jpg"
+import image2 from "../assets/FB_IMG_1765561009727~3.jpg"
+import image3 from "../assets/IMG-20251213-WA0058~2.jpg"
+import image4 from "../assets/FB_IMG_1765561009727~2.jpg"
+import image5 from "../assets/FB_IMG_1765561006646~2.jpg"
 
 // Import Swiper styles
 import 'swiper/css';
@@ -15,7 +19,7 @@ export default function OurPlayers() {
   return (
     <>
       <Swiper
-        slidesPerView={6}
+        slidesPerView={4}
         spaceBetween={30}
         pagination={{
           clickable: true,
@@ -27,21 +31,23 @@ export default function OurPlayers() {
         modules={[Pagination, Autoplay]}
         className="image-carousel"
       >
-        <SwiperSlide>
-            
-                    <img loading='lazy' src={image1} alt="" />
-
+        <SwiperSlide>            
+          <img loading='lazy' src={image1} alt={image1.name} />
         </SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
         <SwiperSlide>
+          <img src={image2} alt={image2.name} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img loading='lazy' src={image3} alt="" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img loading='lazy' src={image4} alt="" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img loading='lazy' src={image5} alt="" />
+        </SwiperSlide>
+        <SwiperSlide>            
           <img loading='lazy' src={image1} alt="" />
-        </SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>
-            
-                    <img loading='lazy' src={image1} alt="" />
-
         </SwiperSlide>
         <SwiperSlide>Slide 7</SwiperSlide>
         <SwiperSlide>Slide 8</SwiperSlide>

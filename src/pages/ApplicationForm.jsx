@@ -329,7 +329,7 @@ const ApplicationForm = () => {
                                 <span className="preview-value">{formData.nextOfKin || "Not specified"}</span>
                             </div>
                             <div className="preview-row">
-                                <span className="preview-label">Next of Kin RelationShip:</span>
+                                <span className="preview-label">RelationShip:</span>
                                 <span className="preview-value">{formData.nextOfKinRelationship || "Not specified"}</span>
                             </div>
                             <div className="preview-row">
@@ -661,19 +661,19 @@ const ApplicationForm = () => {
                         <div></div>
                         
                         <div className="file-upload-group">
-                            <label>Curriculum Vitae (CV)*:</label>
+                            <label>Curriculum Vitae (CV):</label>
                             <input type="file" accept=".pdf,.doc,.docx,.jpg,.png,.jpeg,.webf" onChange={handleCvUpload}  />
                             {cvFile && <span className="file-name">{cvFile.name}</span>}
                         </div>
                         
                         <div className="file-upload-group">
-                            <label>Application Letter*:</label>
+                            <label>Application Letter:</label>
                             <input type="file" accept=".pdf,.doc,.docx" onChange={handleApplicationLetterUpload}  />
                             {applicationLetterFile && <span className="file-name">{applicationLetterFile.name}</span>}
                         </div>
                         
                         <div className="file-upload-group">
-                            <label>Passport Photograph*:</label>
+                            <label>Passport Photograph:</label>
                             <input type="file" accept="image/*" onChange={handlePassportPhotoUpload}  />
                             {passportPhoto && <span className="file-name">{passportPhoto.name}</span>}
                             {passportPhotoPreview && (
@@ -696,7 +696,7 @@ const ApplicationForm = () => {
                                         <label>Certificate {num}:</label>
                                         <input 
                                             type="file" 
-                                            accept=".pdf,.jpg,.jpeg,.png" 
+                                            accept=".pdf,.doc,.docx,.jpg,.png,.jpeg,.webf" 
                                             onChange={(e) => handleCertificateUpload(e, index)} 
                                         />
                                         {certificateFiles[index] && (
