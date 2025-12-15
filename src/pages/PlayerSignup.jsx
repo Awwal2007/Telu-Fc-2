@@ -777,10 +777,10 @@ const PlayerSignup = () => {
         </div>
       </form>
 
-      <div className="signup-footer">
+      {/* <div className="signup-footer">
         <p>Need help? Contact us at <a href="mailto:academy@example.com">academy@example.com</a> or call <a href="tel:+2348012345678">08012345678</a></p>
         <p className="copyright">© 2024 Football Academy. All rights reserved.</p>
-      </div>
+      </div> */}
     </div>
   );
 };
