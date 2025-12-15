@@ -60,6 +60,8 @@ const Admin = () => {
         filtered = coaches.filter(coach => coach.status === "approved");
       } else if (coachFilter === 'pending') {
         filtered = coaches.filter(coach => coach.status === "pending");
+      }else if(coachFilter === 'rejected'){
+        filtered = coaches.filter(coach => coach.status === "rejected");
       }
       setFilteredCoaches(filtered);
     }
@@ -67,6 +69,22 @@ const Admin = () => {
 
   const baseUrl = import.meta.env.VITE_BASE_URL
   
+
+  const confirmAction = async (text) => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, proceed',
+      cancelButtonText: 'Cancel',
+    });
+
+    return result.isConfirmed;
+  };
+
 
   // Fetch coaches from API
   const fetchCoaches = async () => {
@@ -87,98 +105,103 @@ const Admin = () => {
 
   // Approve coach application
   const approveCoach = async (id) => {
-    if (window.confirm('Are you sure you want to approve this coach?')) {
-      try {
-        const response = await fetch(`${baseUrl}/coach/change/status/${id}`, {
-          method: 'PUT',
-          body: JSON.stringify({status: "approved"}),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+    const confirmed = await confirmAction('Approve this coach application?');
+    if (!confirmed) return;
 
-        const data = await response.json()
-        
-          if(data.status === "success"){
-            Swal.fire({
-              icon: "success",
-              title: "Success",
-              text: data.message,
-              timer: 2000
-            })
-            fetchCoaches()
-          }
-      } catch (error) {
-        console.error('Error approving coach:', error);
-        alert();
+    try {
+      const response = await fetch(`${baseUrl}/coach/change/status/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ status: "approved" }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success") {
         Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: 'Error approving coach',
-          timer: 2000
-        })
+          icon: "success",
+          title: "Approved",
+          text: data.message,
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        fetchCoaches();
       }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error approving coach",
+      });
     }
   };
+
 
   // Reject coach application
   const rejectCoach = async (id) => {
-    if (window.confirm('Are you sure you want to reject this coach?')) {
-      try {
-        const response = await fetch(`${baseUrl}/coach/change/status/${id}`, {
-          method: 'PUT',
-          body: JSON.stringify({status: "rejected"}),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+    const confirmed = await confirmAction('Reject this coach application?');
+    if (!confirmed) return;
 
-        const data = await response.json()
-        
-        if (data.status === "success") {
-          Swal.fire({
-            icon: "success",
-            title: "Success",
-            text: data.message,
-            timer: 2000
-          })
-          fetchCoaches()
-        }
-      } catch (error) {
-        console.error('Error rejecting coach:', error);
-        alert('Error rejecting coach');
+    try {
+      const response = await fetch(`${baseUrl}/coach/change/status/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ status: "rejected" }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        Swal.fire({
+          icon: "success",
+          title: "Rejected",
+          text: data.message,
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        fetchCoaches();
       }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error rejecting coach",
+      });
     }
   };
+
 
   // Delete coach application
   const deleteCoach = async (id) => {
-    if (window.confirm('Are you sure you want to delete this coach application?')) {
-      try {
-        const response = await fetch(`${baseUrl}/coach/delete/${id}`, {
-          method: 'DELETE',
+    const confirmed = await confirmAction('Delete this coach application permanently?');
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(`${baseUrl}/coach/delete/${id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        Swal.fire({
+          icon: "success",
+          title: "Deleted",
+          text: data.message,
+          timer: 2000,
+          showConfirmButton: false,
         });
-
-        const data = await response.json()
-
-        console.log(data);
-        
-        
-        if (data.status === "success") {
-          Swal.fire({
-            icon: "success",
-            title: "Success",
-            text: data.message,
-            timer: 2000
-          })
-          fetchCoaches()
-        }
-      } catch (error) {
-        console.error('Error deleting coach:', error);
-        alert('Error deleting coach');
+        fetchCoaches();
       }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error deleting coach",
+      });
     }
   };
+
 
   // View coach details
   const viewCoachDetails = (coach) => {
@@ -227,11 +250,22 @@ const Admin = () => {
   };
 
   const removeEvent = async (id) => {
-    if (window.confirm('Are you sure you want to delete this event?')) {
-      await deleteNews(id);
-      fetchNews();
-    }
+    const confirmed = await confirmAction('Delete this event?');
+    if (!confirmed) return;
+
+    await deleteNews(id);
+
+    Swal.fire({
+      icon: "success",
+      title: "Deleted",
+      text: "Event deleted successfully",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+
+    fetchNews();
   };
+
 
   const toggleExpand = (id, field) => {
     setExpandedRows((prev) => ({
@@ -259,11 +293,22 @@ const Admin = () => {
   };
 
   const removeFacebookPost = async (id) => {
-    if (window.confirm('Are you sure you want to delete this Facebook post?')) {
-      await deleteFacebookLink(id);
-      fetchFacebookLink();
-    }
+    const confirmed = await confirmAction('Delete this Facebook post?');
+    if (!confirmed) return;
+
+    await deleteFacebookLink(id);
+
+    Swal.fire({
+      icon: "success",
+      title: "Deleted",
+      text: "Facebook post removed",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+
+    fetchFacebookLink();
   };
+
 
   // Facebook SDK loader
   useEffect(() => {
@@ -510,6 +555,12 @@ const Admin = () => {
               onClick={() => setCoachFilter('approved')}
             >
               Approved ({coaches.filter(c => c.status === "approved").length})
+            </button>
+            <button 
+              className={`filter-btn ${coachFilter === 'rejected' ? 'active' : ''}`}
+              onClick={() => setCoachFilter('rejected')}
+            >
+              Rejected ({coaches.filter(c => c.status === "rejected").length})
             </button>
             <button 
               className={`filter-btn ${coachFilter === 'pending' ? 'active' : ''}`}
@@ -842,9 +893,14 @@ const Admin = () => {
               </div>
               
               <div className="coach-details-actions">
-                {!selectedCoach.isApproved && (
+                {selectedCoach.status !== "approved" && (
                   <button onClick={() => approveCoach(selectedCoach._id)} className="approve-btn large">
                     Approve Coach
+                  </button>
+                )}
+                {selectedCoach.status === "approved" && (
+                  <button onClick={() => approveCoach(selectedCoach._id)} className="approve-btn large">
+                    Reject Coach
                   </button>
                 )}
                 <button onClick={() => deleteCoach(selectedCoach._id)} className="delete-btn large">
