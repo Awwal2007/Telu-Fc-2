@@ -578,7 +578,7 @@ const ApplicationForm = () => {
                                 value={formData.nextOfKin} onChange={handleInput} />
                         </label>
                         <label htmlFor="nextOfKinRelationship">
-                            Next of Kin Relationship:
+                            Relationship:
                             <input type="text" name="nextOfKinRelationship" placeholder="Next of Kin Relationship" 
                                 value={formData.nextOfKinRelationship} onChange={handleInput} />
                         </label>
