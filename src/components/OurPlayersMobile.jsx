@@ -21,7 +21,7 @@ export default function OurPlayersMobile() {
   return (
     <>
       <Swiper
-        slidesPerView={2}
+        slidesPerView={1}
         spaceBetween={30}
         pagination={{
           clickable: true,
@@ -48,12 +48,6 @@ export default function OurPlayersMobile() {
         <SwiperSlide>
           <img loading='lazy' src={image5} alt="" />
         </SwiperSlide>
-        <SwiperSlide>            
-          <img loading='lazy' src={image1} alt="" />
-        </SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
       </Swiper>
     </>
   );

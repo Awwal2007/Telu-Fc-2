@@ -2,6 +2,8 @@
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import image1 from "../assets/FB_IMG_1765561006646~3.jpg"
+import image2 from "../assets/IMG-20251215-WA0056.jpg"
+import image3 from "../assets/IMG-20251215-WA0062.jpg"
 
 // Import Swiper styles
 import 'swiper/css';
@@ -27,25 +29,18 @@ export default function OurCoaches() {
         modules={[Pagination, Autoplay]}
         className="image-carousel"
       >
-        <SwiperSlide>
-            
-                    <img loading='lazy' src={image1} alt="" />
-
-        </SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide>            
           <img loading='lazy' src={image1} alt="" />
         </SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
         <SwiperSlide>
-            
-                    <img loading='lazy' src={image1} alt="" />
-
+          <img loading='lazy' src={image2} alt="" />          
         </SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        <SwiperSlide>
+          <img loading='lazy' src={image3} alt="" />          
+        </SwiperSlide>
+        <SwiperSlide>
+          <img loading='lazy' src={image2} alt="" />          
+        </SwiperSlide>
       </Swiper>
     </>
   );
