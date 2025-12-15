@@ -4,6 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import { Helmet } from "react-helmet-async";
 import "./css/SingleBlog.css";
 import { useNews } from "../hooks/useNews";
+import SideBar from "./SideBar";
 
 const SingleBlog = () => {
   const { singleNews, getNewsById, singleNewsLoading } = useNews();
@@ -159,59 +160,65 @@ const SingleBlog = () => {
         </script>
       </Helmet>
 
-      <article
-        itemScope
-        itemType="https://schema.org/NewsArticle"
-        className="single-blog-container"
-      >
-        <h1 itemProp="headline" className="sub-head">
-          {title}
-        </h1>
-        <div className="main-image-container">
-          <img
-            itemProp="image"
-            loading="lazy"
-            src={mainImage}
-            alt={title}
-            className="main-image"
-          />
+
+      <div className="home-content">
+        <article
+          itemScope
+          itemType="https://schema.org/NewsArticle"
+          className="single-blog-container"
+        >
+          <h1 itemProp="headline" className="sub-head">
+            {title}
+          </h1>
+          <div className="main-image-container">
+            <img
+              itemProp="image"
+              loading="lazy"
+              src={mainImage}
+              alt={title}
+              className="main-image"
+            />
+          </div>
+          <p className="meta">
+            <span itemProp="author">{author}</span> •{" "}
+            <time itemProp="datePublished" dateTime={date}>
+              {formattedDate}
+            </time>
+          </p>
+          <p itemProp="articleBody" className="description">
+            {description}
+          </p>
+          <div className="sub-image-container">
+            {singleNews.image1 && (
+              <img
+                loading="lazy"
+                src={singleNews.image1}
+                alt={title}
+                className="sub-image"
+              />
+            )}
+            {singleNews.image2 && (
+              <img
+                loading="lazy"
+                src={singleNews.image2}
+                alt={title}
+                className="sub-image"
+              />
+            )}
+            {singleNews.image3 && (
+              <img
+                loading="lazy"
+                src={singleNews.image3}
+                alt={title}
+                className="sub-image"
+              />
+            )}
+          </div>
+        </article>
+        <div className="second-side">
+          <SideBar />
         </div>
-        <p className="meta">
-          <span itemProp="author">{author}</span> •{" "}
-          <time itemProp="datePublished" dateTime={date}>
-            {formattedDate}
-          </time>
-        </p>
-        <p itemProp="articleBody" className="description">
-          {description}
-        </p>
-        <div className="sub-image-container">
-          {singleNews.image1 && (
-            <img
-              loading="lazy"
-              src={singleNews.image1}
-              alt={title}
-              className="sub-image"
-            />
-          )}
-          {singleNews.image2 && (
-            <img
-              loading="lazy"
-              src={singleNews.image2}
-              alt={title}
-              className="sub-image"
-            />
-          )}
-          {singleNews.image3 && (
-            <img
-              loading="lazy"
-              src={singleNews.image3}
-              alt={title}
-              className="sub-image"
-            />
-          )}
-        </div>
-      </article>
+      </div>
     </>
   );
 };
