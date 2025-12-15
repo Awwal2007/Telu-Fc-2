@@ -263,6 +263,7 @@ const ApplicationForm = () => {
                 title: "Error",
                 text: err.message || "Failed to submit, please try again",
             });
+            console.log(err)
         } finally {
             setLoading(false);
         }
