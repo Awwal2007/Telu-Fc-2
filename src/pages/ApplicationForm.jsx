@@ -256,7 +256,7 @@ const ApplicationForm = () => {
             setShowPreviewModal(false);
             setTimeout(() => {
                 navigate("/");
-            }, 100);
+            }, 1000);
         } catch(err) {
             Swal.fire({
                 icon: "error",
