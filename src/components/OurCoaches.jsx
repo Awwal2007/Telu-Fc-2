@@ -38,9 +38,9 @@ export default function OurCoaches() {
         <SwiperSlide>
           <img loading='lazy' src={image3} alt="" />          
         </SwiperSlide>
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <img loading='lazy' src={image2} alt="" />          
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
     </>
   );
