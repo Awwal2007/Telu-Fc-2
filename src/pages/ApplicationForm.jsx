@@ -12,6 +12,7 @@ const ApplicationForm = () => {
         dob: "",
         gender: "",
         maritalStatus: "",
+        otherMaritalStatus: "",
         nationality: "",
         state: "",
         lga: "",
@@ -20,6 +21,7 @@ const ApplicationForm = () => {
         email: "",
         nextOfKin: "",
         nextOfKinPhone: "",
+        nextOfKinRelationship: "",
         
         // SECTION B: Position Applied For
         position: [],
@@ -30,7 +32,8 @@ const ApplicationForm = () => {
         otherEducation: "",
         certifications: [],
         otherCertification: "",
-        issuingBody: "",
+        institutionAttended: "",
+        courseOfStudy: "",
         yearObtained: "",
         
         // SECTION D: Coaching Experience
@@ -233,9 +236,9 @@ const ApplicationForm = () => {
 
             // Reset form
             setFormData({
-                fullname: "", dob: "", gender: "", maritalStatus: "", nationality: "", state: "", lga: "",
-                address: "", phone: "", email: "", nextOfKin: "", nextOfKinPhone: "", position: [], otherPosition: "",
-                highestEducation: "", otherEducation: "", certifications: [], otherCertification: "", issuingBody: "",
+                fullname: "", dob: "", gender: "", maritalStatus: "", otherMaritalStatus: "", nationality: "", state: "", lga: "",
+                address: "", phone: "", email: "", nextOfKin: "", nextOfKinRelationship: "", nextOfKinPhone: "", position: [], otherPosition: "",
+                highestEducation: "", otherEducation: "", certifications: [], otherCertification: "", institutionAttended: "", courseOfStudy: "",
                 yearObtained: "", yearsExperience: 0, previousClubs: "", achievements: "", preferredFormations: "",
                 specialization: [], workWithYouths: "", workUnderPressure: "", availability: "", expectedSalary: 0,
                 startDate: "", referee1Name: "", referee1Position: "", referee1Phone: "", referee2Name: "",
@@ -260,7 +263,6 @@ const ApplicationForm = () => {
                 title: "Error",
                 text: err.message || "Failed to submit, please try again",
             });
-
         } finally {
             setLoading(false);
         }
@@ -319,7 +321,7 @@ const ApplicationForm = () => {
                             </div>
                             <div className="preview-row">
                                 <span className="preview-label">Marital Status:</span>
-                                <span className="preview-value">{formData.maritalStatus || "Not specified"}</span>
+                                <span className="preview-value">{formData.maritalStatus || "Not specified"}{formData.otherMaritalStatus && <span>{formData.otherMaritalStatus}</span>}</span>
                             </div>
                             <div className="preview-row">
                                 <span className="preview-label">Next of Kin:</span>
@@ -511,7 +513,7 @@ const ApplicationForm = () => {
                         <h3>SECTION A: PERSONAL INFORMATION</h3>
                         <div></div>
                         <label htmlFor="fullname">
-                            Fullname:*
+                            Fullname:
                             <input type="text" name="fullname" placeholder="Full Name (Surname First)" 
                                value={formData.fullname} onChange={handleInput} />
                         </label>
@@ -526,7 +528,7 @@ const ApplicationForm = () => {
                                 value={formData.email} onChange={handleInput}  />
                         </label>
                         <label htmlFor="dob">
-                            Date Of Birth:*
+                            Date Of Birth:
                              <input type="date" name="dob" placeholder="Date of Birth" 
                                value={formData.dob} onChange={handleInput} />
                         </label>
@@ -540,6 +542,10 @@ const ApplicationForm = () => {
                             <label><input type="radio" name="maritalStatus" value="Single" checked={formData.maritalStatus === "Single"} onChange={handleInput} /> Single</label>
                             <label><input type="radio" name="maritalStatus" value="Married" checked={formData.maritalStatus === "Married"} onChange={handleInput} /> Married</label>
                             <label><input type="radio" name="maritalStatus" value="Other" checked={formData.maritalStatus === "Other"} onChange={handleInput} /> Other</label>
+                            {formData.maritalStatus === "Other" && (
+                                <input type="text" name="otherMaritalStatus" placeholder="Specify other marital status" 
+                                       value={formData.otherMaritalStatus} onChange={handleInput} />
+                            )}
                         </div>
                         <label htmlFor="nationality">
                             Nationality:
@@ -563,6 +569,11 @@ const ApplicationForm = () => {
                         </label>
                         <label htmlFor="nextOfKin">
                             Next of Kin
+                            <input type="text" name="nextOfKin" placeholder="Next of Kin Name" 
+                                value={formData.nextOfKin} onChange={handleInput} />
+                        </label>
+                        <label htmlFor="nextOfKin">
+                            Next of Kin Relationship
                             <input type="text" name="nextOfKin" placeholder="Next of Kin Name" 
                                 value={formData.nextOfKin} onChange={handleInput} />
                         </label>
@@ -622,10 +633,15 @@ const ApplicationForm = () => {
                             )}
                         </div>
                         
-                        <label htmlFor="issuingBody">
-                            Issuing Body:
-                            <textarea type="text" name="issuingBody" placeholder="Issuing Body" 
-                                value={formData.issuingBody} onChange={handleInput} />
+                        <label htmlFor="institutionAttended">
+                            Institution Attended:
+                            <textarea type="text" name="institutionAttended" placeholder="Institution Attended" 
+                                value={formData.institutionAttended} onChange={handleInput} />
+                        </label>
+                        <label htmlFor="courseOfStudy">
+                            Course of Study:
+                            <textarea type="text" name="courseOfStudy" placeholder="Course of Study" 
+                                value={formData.courseOfStudy} onChange={handleInput} />
                         </label>
                         <label htmlFor="yearObtained">
                             Year Obtained:
@@ -668,7 +684,7 @@ const ApplicationForm = () => {
                         </div>
                         
                         <div className="file-upload-group">
-                            <label>Certificates (Upload up to 5 certificates):</label>
+                            <label>Certificates (Upload at least 2 certificates):</label>
                             <div className="certificate-container">
                                 {[1, 2, 3, 4, 5].map((num, index) => (
                                     <div key={index} className="certificate-upload">
@@ -718,14 +734,16 @@ const ApplicationForm = () => {
                             <input type="text" name="preferredFormations" placeholder="Preferred Playing Formation(s)" 
                                 value={formData.preferredFormations} onChange={handleInput} />
                         </label>
-                        <div className="checkbox-group">
+                        <div style={{flexDirection: "column"}} className="checkbox-group">
                             <label style={{display: "block"}}>Area of Specialization:</label>
-                            <label><input type="checkbox" name="specialization" value="Tactics" onChange={handleCheckbox} /> Tactics</label>
-                            <label><input type="checkbox" name="specialization" value="Player Development" onChange={handleCheckbox} /> Player Development</label>
-                            <label><input type="checkbox" name="specialization" value="Youth Coaching" onChange={handleCheckbox} /> Youth Coaching</label>
-                            <label><input type="checkbox" name="specialization" value="Fitness & Conditioning" onChange={handleCheckbox} /> Fitness & Conditioning</label>
-                            <label><input type="checkbox" name="specialization" value="Match Analysis" onChange={handleCheckbox} /> Match Analysis</label>
-                            <label><input type="checkbox" name="specialization" value="Discipline & Team Management" onChange={handleCheckbox} /> Discipline & Team Management</label>
+                            <div>
+                                <label><input type="checkbox" name="specialization" value="Tactics" onChange={handleCheckbox} /> Tactics</label>
+                                <label><input type="checkbox" name="specialization" value="Player Development" onChange={handleCheckbox} /> Player Development</label>
+                                <label><input type="checkbox" name="specialization" value="Youth Coaching" onChange={handleCheckbox} /> Youth Coaching</label>
+                                <label><input type="checkbox" name="specialization" value="Fitness & Conditioning" onChange={handleCheckbox} /> Fitness & Conditioning</label>
+                                <label><input type="checkbox" name="specialization" value="Match Analysis" onChange={handleCheckbox} /> Match Analysis</label>
+                                <label><input type="checkbox" name="specialization" value="Discipline & Team Management" onChange={handleCheckbox} /> Discipline & Team Management</label>
+                            </div>
                         </div>
                         <div className="radio-group">
                             <label>Ability to work with youths:</label>

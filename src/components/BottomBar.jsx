@@ -79,7 +79,7 @@ const ButtonBar = () => {
       
       {/* Footer Bottom */}
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} Iwo Land. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Telu Football Club. All rights reserved.</p>
       </div>
     </footer>
   );

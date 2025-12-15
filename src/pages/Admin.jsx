@@ -759,8 +759,8 @@ const Admin = () => {
                       </p>
                     </div>
                     <div className="info-item">
-                      <label>Issuing Body:</label>
-                      <p>{selectedCoach.issuingBody || 'N/A'}</p>
+                      <label>Institution Attended:</label>
+                      <p>{selectedCoach.institutionAttended || 'N/A'}</p>
                     </div>
                     <div className="info-item">
                       <label>Year Obtained:</label>
@@ -919,62 +919,62 @@ const Admin = () => {
 };
 
 // Mock data based on your schema
-const mockCoaches = [
-  {
-    _id: '1',
-    fullname: 'John Doe',
-    dob: '1985-05-15',
-    gender: 'Male',
-    maritalStatus: 'Married',
-    nationality: 'Nigerian',
-    state: 'Lagos',
-    lga: 'Ikeja',
-    address: '123 Main Street, Lagos',
-    phone: '+2348012345678',
-    email: 'john.doe@example.com',
-    nextOfKin: 'Jane Doe',
-    nextOfKinPhone: '+2348098765432',
+// const mockCoaches = [
+//   {
+//     _id: '1',
+//     fullname: 'John Doe',
+//     dob: '1985-05-15',
+//     gender: 'Male',
+//     maritalStatus: 'Married',
+//     nationality: 'Nigerian',
+//     state: 'Lagos',
+//     lga: 'Ikeja',
+//     address: '123 Main Street, Lagos',
+//     phone: '+2348012345678',
+//     email: 'john.doe@example.com',
+//     nextOfKin: 'Jane Doe',
+//     nextOfKinPhone: '+2348098765432',
     
-    position: ['Head Coach', 'Technical Director'],
-    otherPosition: '',
+//     position: ['Head Coach', 'Technical Director'],
+//     otherPosition: '',
     
-    highestEducation: 'B.Sc. Sports Science',
-    otherEducation: '',
-    certifications: ['CAF License B', 'First Aid Certification'],
-    otherCertification: '',
-    issuingBody: 'CAF',
-    yearObtained: '2020',
+//     highestEducation: 'B.Sc. Sports Science',
+//     otherEducation: '',
+//     certifications: ['CAF License B', 'First Aid Certification'],
+//     otherCertification: '',
+//     issuingBody: 'CAF',
+//     yearObtained: '2020',
     
-    yearsExperience: 8,
-    previousClubs: 'Shooting Stars, Dolphins FC',
-    achievements: 'Won State Championship 2022',
+//     yearsExperience: 8,
+//     previousClubs: 'Shooting Stars, Dolphins FC',
+//     achievements: 'Won State Championship 2022',
     
-    preferredFormations: '4-3-3, 4-4-2',
-    specialization: ['Tactics', 'Youth Development'],
-    workWithYouths: 'Yes',
-    workUnderPressure: 'Yes',
+//     preferredFormations: '4-3-3, 4-4-2',
+//     specialization: ['Tactics', 'Youth Development'],
+//     workWithYouths: 'Yes',
+//     workUnderPressure: 'Yes',
     
-    availability: 'Full Time',
-    expectedSalary: 150000,
-    startDate: '2024-03-01',
+//     availability: 'Full Time',
+//     expectedSalary: 150000,
+//     startDate: '2024-03-01',
     
-    referees: [
-      {
-        name: 'Michael Johnson',
-        position: 'Club Chairman',
-        phone: '+2348033344555'
-      }
-    ],
+//     referees: [
+//       {
+//         name: 'Michael Johnson',
+//         position: 'Club Chairman',
+//         phone: '+2348033344555'
+//       }
+//     ],
     
-    cv: '/uploads/cv1.pdf',
-    applicationLetter: '/uploads/letter1.pdf',
-    passportPhoto: '/uploads/photo1.jpg',
-    certificates: ['/uploads/cert1.pdf', '/uploads/cert2.pdf'],
+//     cv: '/uploads/cv1.pdf',
+//     applicationLetter: '/uploads/letter1.pdf',
+//     passportPhoto: '/uploads/photo1.jpg',
+//     certificates: ['/uploads/cert1.pdf', '/uploads/cert2.pdf'],
     
-    isApproved: false,
-    declaration: true,
-    createdAt: '2024-01-15T10:30:00Z'
-  }
-];
+//     isApproved: false,
+//     declaration: true,
+//     createdAt: '2024-01-15T10:30:00Z'
+//   }
+// ];
 
 export default Admin;

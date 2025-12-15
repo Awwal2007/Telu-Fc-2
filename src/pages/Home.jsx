@@ -56,13 +56,13 @@ const Home = () => {
                   <div className="people-container">
                     <PiTargetBold className="people-icon" size={50} />
                     <h3>Our Mission</h3>
-                    <p style={{textAlign: "center"}}>Our mission is to bring out the talent in you and build players. dkfldfdkjdfjdkldfjdljdjdkj</p>
+                    <p style={{textAlign: "center"}}>Our mission is to nurture young football talent by providing quality coaching, fostering discipline, sportsmanship, and creating pathways to professional and academic success.</p>
                   </div>
                   <hr />
                   <div className="people-container">
                     <LuScanEye className="people-icon"  size={50} />
                     <h3>Our Vision</h3>
-                    <p style={{textAlign: "center"}}>Our mission is to bring out the talent in you and build players. dkfldfdkjdfjdkldfjdljdjdkj</p>
+                    <p style={{textAlign: "center"}}>Our vission is to be a top football academy that produces talented, disciplined players who succeed locally and internationally.</p>
                   </div>
             </section>
 

@@ -35,6 +35,17 @@
 .kingdom-name img{
   width: 180px;
 }
+.kingdom-name .player-signup p{
+  font-weight: 600;
+  font-size: 20px;
+}
+.kingdom-name .player-signup{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
 .kingdom-name .player-signup a{
   padding: 4px 18px;
   border: 2px solid #F58220;
