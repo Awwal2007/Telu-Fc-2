@@ -328,6 +328,10 @@ const ApplicationForm = () => {
                                 <span className="preview-value">{formData.nextOfKin || "Not specified"}</span>
                             </div>
                             <div className="preview-row">
+                                <span className="preview-label">Next of Kin RelationShip:</span>
+                                <span className="preview-value">{formData.nextOfKinRelationship || "Not specified"}</span>
+                            </div>
+                            <div className="preview-row">
                                 <span className="preview-label">Next of Kin Phon No.:</span>
                                 <span className="preview-value">{formData.nextOfKinPhone || "Not specified"}</span>
                             </div>
@@ -568,14 +572,14 @@ const ApplicationForm = () => {
                                   value={formData.address} onChange={handleInput} rows="3"></textarea>
                         </label>
                         <label htmlFor="nextOfKin">
-                            Next of Kin
+                            Next of Kin:
                             <input type="text" name="nextOfKin" placeholder="Next of Kin Name" 
                                 value={formData.nextOfKin} onChange={handleInput} />
                         </label>
-                        <label htmlFor="nextOfKin">
-                            Next of Kin Relationship
-                            <input type="text" name="nextOfKin" placeholder="Next of Kin Name" 
-                                value={formData.nextOfKin} onChange={handleInput} />
+                        <label htmlFor="nextOfKinRelationship">
+                            Next of Kin Relationship:
+                            <input type="text" name="nextOfKinRelationship" placeholder="Next of Kin Relationship" 
+                                value={formData.nextOfKinRelationship} onChange={handleInput} />
                         </label>
                         <label htmlFor="nextOfKinPhone">
                             Next of Kin Phone:
