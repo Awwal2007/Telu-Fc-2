@@ -36,10 +36,12 @@
 
 .section {
     margin-bottom: 30px;
-    padding: 20px;
+    padding: 20px;  
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     background: #f9f9f9;
+    grid-template-columns: 1fr 2fr;
+    gap: 10px;
 }
 
 .section h3 {
@@ -380,5 +382,257 @@ button:hover {
         border-color: #4a6278;
         color: #ecf0f1;
         width: 100%;
+    }
+}
+
+/* Preview Modal Styles */
+.preview-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.preview-modal {
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.preview-modal-header {
+    padding: 20px 30px;
+    background: #004924;
+    color: white;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.preview-modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+}
+
+.close-modal-btn:hover {
+    color: #F58220;
+    background: none;
+    transform: none;
+    box-shadow: none;
+}
+
+.preview-modal-content {
+    padding: 30px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.preview-section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.preview-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.preview-section h3 {
+    color: #004924;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #F58220;
+    padding-bottom: 8px;
+}
+
+.preview-row {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 8px 0;
+}
+
+.preview-label {
+    font-weight: 600;
+    color: #333;
+    width: 200px;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+}
+
+.preview-value {
+    color: #555;
+    flex: 1;
+    font-size: 0.9rem;
+    word-break: break-word;
+}
+
+.preview-modal-footer {
+    padding: 20px 30px;
+    background: #f9f9f9;
+    border-radius: 0 0 12px 12px;
+    display: flex;
+    gap: 15px;
+}
+
+.preview-back-btn {
+    background: #6c757d;
+    color: white;
+    flex: 1;
+}
+
+.preview-submit-btn {
+    background: #004924;
+    color: white;
+    flex: 1;
+}
+
+.preview-back-btn:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+.preview-submit-btn:hover {
+    background: #003618;
+    transform: translateY(-2px);
+}
+
+.preview-submit-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.preview-submit-btn:disabled:hover {
+    background: #ccc;
+    transform: none;
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 768px) {
+    .preview-modal {
+        max-height: 95vh;
+    }
+    
+    .preview-modal-header {
+        padding: 15px 20px;
+    }
+    
+    .preview-modal-content {
+        padding: 20px;
+    }
+    
+    .preview-row {
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    
+    .preview-label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .preview-modal-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .preview-back-btn,
+    .preview-submit-btn {
+        width: 100%;
+    }
+}
+
+/* Photo Preview Styles */
+.photo-preview-small {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.small-preview-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 2px solid #F58220;
+}
+
+.preview-text {
+    font-size: 0.8rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* Passport Photo Preview in Modal */
+.preview-photo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.passport-photo-preview {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.passport-preview-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid #F58220;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments for photo preview */
+@media (max-width: 768px) {
+    .photo-preview-small {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .small-preview-img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .passport-preview-img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .preview-photo-container {
+        flex-direction: column;
     }
 }

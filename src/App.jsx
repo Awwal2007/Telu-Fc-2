@@ -22,6 +22,7 @@ import MissedArticles from './components/OurPlayers.jsx';
 import ApplicationForm from './pages/ApplicationForm.jsx';
 import PopOver from './components/PopOver.jsx';
 import PlayerSignup from './pages/PlayerSignup.jsx';
+import PlayerLogin from './pages/PlayerLogin.jsx';
 
 
 const AppContent = () => {
@@ -85,7 +86,7 @@ const AppContent = () => {
             <Route path='/admin-login' element={<AdminLogin />} />
             <Route path='/application-form' element={<ApplicationForm />} />
             <Route path='/player-signup' element={<PlayerSignup />} />
-            <Route path='/player-login' element={<PlayerSignup />} />
+            <Route path='/player-login' element={<PlayerLogin />} />
             {/* <Route path='/admin-signup' element={<AdminSignup />} /> */}
             
             <Route element={<ProtectedRoutes />}>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './css/Admin.css';
 import { useNews } from '../hooks/useNews';
+import Swal from 'sweetalert2';
 
 const Admin = () => {
   const [events, setEvents] = useState([]);
@@ -56,9 +57,9 @@ const Admin = () => {
     if (coaches.length > 0) {
       let filtered = [...coaches];
       if (coachFilter === 'approved') {
-        filtered = coaches.filter(coach => coach.isApproved === true);
+        filtered = coaches.filter(coach => coach.status === "approved");
       } else if (coachFilter === 'pending') {
-        filtered = coaches.filter(coach => coach.isApproved === false);
+        filtered = coaches.filter(coach => coach.status === "pending");
       }
       setFilteredCoaches(filtered);
     }
@@ -79,9 +80,6 @@ const Admin = () => {
       setFilteredCoaches(data.data);
     } catch (error) {
       console.error('Error fetching coaches:', error);
-      // For demo purposes, use mock data
-      setCoaches(mockCoaches);
-      setFilteredCoaches(mockCoaches);
     } finally {
       setLoadingCoaches(false);
     }
@@ -91,24 +89,34 @@ const Admin = () => {
   const approveCoach = async (id) => {
     if (window.confirm('Are you sure you want to approve this coach?')) {
       try {
-        const response = await fetch(`${baseUrl}/coach/approve/${id}`, {
+        const response = await fetch(`${baseUrl}/coach/change/status/${id}`, {
           method: 'PUT',
           body: JSON.stringify({status: "approved"}),
           headers: {
             'Content-Type': 'application/json',
           },
         });
+
+        const data = await response.json()
         
-        if (response.ok) {
-          // Update local state
-          setCoaches(prev => prev.map(coach => 
-            coach._id === id ? { ...coach, isApproved: true } : coach
-          ));
-          alert('Coach approved successfully!');
-        }
+          if(data.status === "success"){
+            Swal.fire({
+              icon: "success",
+              title: "Success",
+              text: data.message,
+              timer: 2000
+            })
+            fetchCoaches()
+          }
       } catch (error) {
         console.error('Error approving coach:', error);
-        alert('Error approving coach');
+        alert();
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: 'Error approving coach',
+          timer: 2000
+        })
       }
     }
   };
@@ -117,20 +125,24 @@ const Admin = () => {
   const rejectCoach = async (id) => {
     if (window.confirm('Are you sure you want to reject this coach?')) {
       try {
-        const response = await fetch(`${baseUrl}/coach/approve/${id}`, {
+        const response = await fetch(`${baseUrl}/coach/change/status/${id}`, {
           method: 'PUT',
           body: JSON.stringify({status: "rejected"}),
           headers: {
             'Content-Type': 'application/json',
           },
         });
+
+        const data = await response.json()
         
-        if (response.ok) {
-          // Update local state
-          setCoaches(prev => prev.map(coach => 
-            coach._id === id ? { ...coach, isApproved: false } : coach
-          ));
-          alert('Coach rejected successfully!');
+        if (data.status === "success") {
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: data.message,
+            timer: 2000
+          })
+          fetchCoaches()
         }
       } catch (error) {
         console.error('Error rejecting coach:', error);
@@ -143,15 +155,23 @@ const Admin = () => {
   const deleteCoach = async (id) => {
     if (window.confirm('Are you sure you want to delete this coach application?')) {
       try {
-        const response = await fetch(`${baseUrl}/coach/${id}`, {
+        const response = await fetch(`${baseUrl}/coach/delete/${id}`, {
           method: 'DELETE',
         });
+
+        const data = await response.json()
+
+        console.log(data);
         
-        if (response.ok) {
-          // Update local state
-          setCoaches(prev => prev.filter(coach => coach._id !== id));
-          setSelectedCoach(null);
-          alert('Coach application deleted successfully!');
+        
+        if (data.status === "success") {
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: data.message,
+            timer: 2000
+          })
+          fetchCoaches()
         }
       } catch (error) {
         console.error('Error deleting coach:', error);
@@ -489,13 +509,13 @@ const Admin = () => {
               className={`filter-btn ${coachFilter === 'approved' ? 'active' : ''}`}
               onClick={() => setCoachFilter('approved')}
             >
-              Approved ({coaches.filter(c => c.isApproved === true).length})
+              Approved ({coaches.filter(c => c.status === "approved").length})
             </button>
             <button 
               className={`filter-btn ${coachFilter === 'pending' ? 'active' : ''}`}
               onClick={() => setCoachFilter('pending')}
             >
-              Pending ({coaches.filter(c => c.isApproved === false).length})
+              Pending ({coaches.filter(c => c.status === "pending").length})
             </button>
           </div>
 
@@ -566,6 +586,14 @@ const Admin = () => {
                               className="approve-btn"
                             >
                               Approve
+                            </button>
+                          )}
+                          {coach.status === "approved" && (
+                            <button 
+                              onClick={() => rejectCoach(coach._id)} 
+                              className="approve-btn"
+                            >
+                              Reject
                             </button>
                           )}
                           <button 
