@@ -18,7 +18,7 @@ export default function OurCoaches() {
   return (
     <>
       <Swiper
-        slidesPerView={3}
+        slidesPerView={2}
         spaceBetween={30}
         pagination={{
           clickable: true,
@@ -33,9 +33,9 @@ export default function OurCoaches() {
         <SwiperSlide>            
           <img loading='lazy' src={image1} alt="" />
         </SwiperSlide>
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <img loading='lazy' src={image2} alt="" />          
-        </SwiperSlide>
+        </SwiperSlide> */}
         <SwiperSlide>
           <img loading='lazy' src={image3} alt="" />          
         </SwiperSlide>

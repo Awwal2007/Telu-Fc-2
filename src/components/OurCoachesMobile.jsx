@@ -33,9 +33,9 @@ import { Pagination, Autoplay } from 'swiper/modules';
         <SwiperSlide>            
             <img loading='lazy' src={image1} alt="" />
         </SwiperSlide>
-        <SwiperSlide>
+        {/* <SwiperSlide>
             <img loading='lazy' src={image2} alt="" />          
-        </SwiperSlide>
+        </SwiperSlide> */}
         <SwiperSlide>
             <img loading='lazy' src={image3} alt="" />          
         </SwiperSlide>
