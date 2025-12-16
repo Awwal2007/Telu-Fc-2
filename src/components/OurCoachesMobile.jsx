@@ -34,7 +34,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
           <img loading='lazy' src={image1} alt="" />
           <div className='player-content'>
             <h2>Tadese Oluwakayode</h2>
-            <b>Coach</b>
+            <b>Coach/Player</b>
           </div>
         </SwiperSlide>
         <SwiperSlide className='slide'>

@@ -1,7 +1,7 @@
 // import React, { useRef, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import image1 from "../assets/DSC_4788.jpg"
+import image1 from "../assets/DSC_4789.png"
 import image2 from "../assets/FB_IMG_1765561009727~3.jpg"
 import image3 from "../assets/IMG-20251213-WA0058~2.jpg"
 import image4 from "../assets/FB_IMG_1765561009727~2.jpg"
@@ -9,6 +9,8 @@ import image5 from "../assets/FB_IMG_1765561006646~2.jpg"
 import image6 from "../assets/IMG-20251215-WA0074.jpg"
 import image7 from "../assets/PXL_20251216_140641568.RAW-02.ORIGINAL.png"
 import image8 from "../assets/PXL_20251216_140743679.RAW-02.ORIGINAL.png"
+import image9 from "../assets/PXL_20251216_140743679.RAW-02.ORIGINALee.png"
+import image10 from "../assets/IMG-20250725-WA0054.jpg"
 
 
 // Import Swiper styles
@@ -38,7 +40,7 @@ export default function OurPlayers() {
         <SwiperSlide className='slide'>            
           <img loading='lazy' src={image1} alt={image1.name} />
           <div className='player-content'>
-            <h2>Raji Sunday</h2>
+            <h2>Raji Sunday(c)</h2>
             <b>Midfield</b>
             <div className="player-stats-container">
               <div className='player-stats'>
@@ -191,6 +193,48 @@ export default function OurPlayers() {
             <div className="player-stats-container">
               <div className='player-stats'>
                 <b>20</b>
+                <span>AGE</span>
+              </div>
+              <div className='player-stats'>
+                <b>Nigeria</b>
+                <span>NATIONALITY</span>
+              </div>
+              <div className='player-stats'>
+                <b>GK</b>
+                <span>POS</span>
+              </div>
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className='slide'>
+          <img loading='lazy' src={image9} alt="" />
+          <div className='player-content'>
+            <h2>Dosumu Abdulquadri</h2>
+            <b>Forward</b>
+            <div className="player-stats-container">
+              <div className='player-stats'>
+                <b>21</b>
+                <span>AGE</span>
+              </div>
+              <div className='player-stats'>
+                <b>Nigeria</b>
+                <span>NATIONALITY</span>
+              </div>
+              <div className='player-stats'>
+                <b>LWF</b>
+                <span>POS</span>
+              </div>
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className='slide'>
+          <img loading='lazy' src={image10} alt="" />
+          <div className='player-content'>
+            <h2>Adebiyi Buhari</h2>
+            <b>Goal Keeper</b>
+            <div className="player-stats-container">
+              <div className='player-stats'>
+                <b>23</b>
                 <span>AGE</span>
               </div>
               <div className='player-stats'>
