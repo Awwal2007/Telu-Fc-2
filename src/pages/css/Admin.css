@@ -735,6 +735,50 @@
   background: #475569;
 }
 
+.email-message-conatiner{
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.603);
+}
+.email-message {
+  background: #1f2937;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  margin: 10% auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: white;
+}
+
+
+.email-message-conatiner .button{
+  font-size: 30px;
+  position: fixed;
+  top: 100px;
+  right: 300px;
+  cursor: pointer;
+  background: var(--main-color);
+  padding:1px 10px 5px 10px;
+  border-radius: 100%;
+}
+.email-message .input-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.email-message .input-container input{
+  background: white;
+  width: 300px;
+  color: black;
+
+}
+
 /* ========== Responsive Design ========== */
 @media (max-width: 768px) {
   .coach-filter-buttons {
