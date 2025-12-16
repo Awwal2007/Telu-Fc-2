@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const PlayerSignup = () => {
   const navigate = useNavigate();
@@ -50,6 +51,8 @@ const PlayerSignup = () => {
   });
 
   const [errors, setErrors] = useState({});
+
+  const baseUrl = import.meta.env.VITE_BASE_URL
 
   const positions = [
     'Goalkeeper',
@@ -163,13 +166,33 @@ const PlayerSignup = () => {
     window.scrollTo(0, 0);
   };
 
+
+  const confirmAction = async (text) => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, proceed',
+      cancelButtonText: 'Cancel',
+    });
+
+    return result.isConfirmed;
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(formData);
+    
     
     if (validateStep()) {
       try {
         // Here you would typically send the data to your backend
-        const response = await fetch('http://localhost:5000/api/players/signup', {
+        const response = await fetch(`${baseUrl}/player`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -177,16 +200,31 @@ const PlayerSignup = () => {
           body: JSON.stringify(formData)
         });
         
-        if (response.ok) {
-          const result = await response.json();
-          alert('Registration successful! You will be contacted soon.');
-          navigate('/');
-        } else {
-          throw new Error('Registration failed');
+        const result = await response.json();
+        console.log(response.data);
+        
+        if (result.status === "success") {
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: result.message,
+            timer: 2000,
+          })
+          setTimeout(()=>{              
+            navigate('/');
+          }, 1000)
         }
+          // alert('Registration successful! You will be contacted soon.');
+          
       } catch (error) {
         console.error('Error:', error);
-        alert('Registration failed. Please try again.');
+        Swal.fire({
+          title: "Error",
+          icon: "error",
+          text: error.message,
+          timer: 2000
+        })
+        // alert('Registration failed. Please try again.');
       }
     }
   };
