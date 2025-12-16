@@ -7,6 +7,8 @@ import image3 from "../assets/IMG-20251213-WA0058~2.jpg"
 import image4 from "../assets/FB_IMG_1765561009727~2.jpg"
 import image5 from "../assets/FB_IMG_1765561006646~2.jpg"
 import image6 from "../assets/IMG-20251215-WA0074.jpg"
+import image7 from "../assets/PXL_20251216_140641568.RAW-02.ORIGINAL.png"
+import image8 from "../assets/PXL_20251216_140743679.RAW-02.ORIGINAL.png"
 
 
 // Import Swiper styles
@@ -27,8 +29,8 @@ export default function OurPlayers() {
           clickable: true,
         }}
         autoplay={{
-            delay: 2500,
-            disableOnInteraction: false
+          delay: 2500,
+          disableOnInteraction: false
         }}
         modules={[Pagination, Autoplay]}
         className="image-carousel"
@@ -155,6 +157,48 @@ export default function OurPlayers() {
               </div>
               <div className='player-stats'>
                 <b>DMF</b>
+                <span>POS</span>
+              </div>
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className='slide'>
+          <img loading='lazy' src={image7} alt="" />
+          <div className='player-content'>
+            <h2>Adelaja Olalekan</h2>
+            <b>Midfield</b>
+            <div className="player-stats-container">
+              <div className='player-stats'>
+                <b>15</b>
+                <span>AGE</span>
+              </div>
+              <div className='player-stats'>
+                <b>Nigeria</b>
+                <span>NATIONALITY</span>
+              </div>
+              <div className='player-stats'>
+                <b>CF</b>
+                <span>POS</span>
+              </div>
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className='slide'>
+          <img loading='lazy' src={image8} alt="" />
+          <div className='player-content'>
+            <h2>Ibraheem Jubril</h2>
+            <b>Goal Keeper</b>
+            <div className="player-stats-container">
+              <div className='player-stats'>
+                <b>20</b>
+                <span>AGE</span>
+              </div>
+              <div className='player-stats'>
+                <b>Nigeria</b>
+                <span>NATIONALITY</span>
+              </div>
+              <div className='player-stats'>
+                <b>GK</b>
                 <span>POS</span>
               </div>
             </div>
