@@ -22,7 +22,7 @@ export default function OurPlayersMobile() {
   return (
     <>
       <Swiper
-        slidesPerView={1}
+        slidesPerView={3}
         spaceBetween={30}
         pagination={{
           clickable: true,
@@ -34,23 +34,132 @@ export default function OurPlayersMobile() {
         modules={[Pagination, Autoplay]}
         className="image-carousel"
       >
-        <SwiperSlide>            
+        <SwiperSlide className='slide'>            
           <img loading='lazy' src={image1} alt={image1.name} />
+          <div className='player-content'>
+            <h2>Raji Sunday</h2>
+            <b>Midfield</b>
+            <div className="player-stats-container">
+              <div className='player-stats'>
+                <b>17</b>
+                <span>AGE</span>
+              </div>
+              <div className='player-stats'>
+                <b>Nigeria</b>
+                <span>NATIONALITY</span>
+              </div>
+              <div className='player-stats'>
+                <b>MID</b>
+                <span>POS</span>
+              </div>
+            </div>
+          </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className='slide'>
           <img src={image2} alt={image2.name} />
+          <div className='player-content'>
+            <h2>Bello Ahmad</h2>
+            <b>Defender</b>
+            <div className="player-stats-container">
+              <div className='player-stats'>
+                <b>20</b>
+                <span>AGE</span>
+              </div>
+              <div className='player-stats'>
+                <b>Nigeria</b>
+                <span>NATIONALITY</span>
+              </div>
+              <div className='player-stats'>
+                <b>RB</b>
+                <span>POS</span>
+              </div>
+            </div>
+          </div>
         </SwiperSlide>
-        <SwiperSlide>
+
+        <SwiperSlide className='slide'>
           <img loading='lazy' src={image3} alt="" />
+          <div className='player-content'>
+            <h2>Bello Monsuru</h2>
+            <b>Defender</b>
+            <div className="player-stats-container">
+              <div className='player-stats'>
+                <b>20</b>
+                <span>AGE</span>
+              </div>
+              <div className='player-stats'>
+                <b>Nigeria</b>
+                <span>NATIONALITY</span>
+              </div>
+              <div className='player-stats'>
+                <b>CB</b>
+                <span>POS</span>
+              </div>
+            </div>
+          </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className='slide'>
           <img loading='lazy' src={image4} alt="" />
+          <div className='player-content'>
+            <h2>Ibraheem Abdulkoyum</h2>
+            <b>Defender</b>
+            <div className="player-stats-container">
+              <div className='player-stats'>
+                <b>20</b>
+                <span>AGE</span>
+              </div>
+              <div className='player-stats'>
+                <b>Nigeria</b>
+                <span>NATIONALITY</span>
+              </div>
+              <div className='player-stats'>
+                <b>LB</b>
+                <span>POS</span>
+              </div>
+            </div>
+          </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className='slide'>
           <img loading='lazy' src={image5} alt="" />
+          <div className='player-content'>
+            <h2>Olamilekan Muhayad</h2>
+            <b>Forward</b>
+            <div className="player-stats-container">
+              <div className='player-stats'>
+                <b>16</b>
+                <span>AGE</span>
+              </div>
+              <div className='player-stats'>
+                <b>Nigeria</b>
+                <span>NATIONALITY</span>
+              </div>
+              <div className='player-stats'>
+                <b>RWF</b>
+                <span>POS</span>
+              </div>
+            </div>
+          </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className='slide'>
           <img loading='lazy' src={image6} alt="" />
+          <div className='player-content'>
+            <h2>Abideen Akeem</h2>
+            <b>Midfield</b>
+            <div className="player-stats-container">
+              <div className='player-stats'>
+                <b>21</b>
+                <span>AGE</span>
+              </div>
+              <div className='player-stats'>
+                <b>Nigeria</b>
+                <span>NATIONALITY</span>
+              </div>
+              <div className='player-stats'>
+                <b>DMF</b>
+                <span>POS</span>
+              </div>
+            </div>
+          </div>
         </SwiperSlide>
       </Swiper>
     </>

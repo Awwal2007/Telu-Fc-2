@@ -263,6 +263,44 @@
 
 .image-carousel {
   touch-action: auto !important; /* allow vertical scrolling while enabling swipe */
+  margin-bottom: 10px;
+  font-family: "Poppins", sans-serif;
+}
+.image-carousel .slide .player-content{
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #004924;
+  text-align: center;
+  padding: 10px;
+}
+.image-carousel .slide .player-content h2{
+  text-transform:uppercase;
+}
+.image-carousel .slide .player-content b{
+  color: black;
+}
+.image-carousel .slide{
+  border: 1px solid #004924;
+  background: white;
+}
+.image-carousel .slide .player-content .player-stats-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.slide .player-content .player-stats-container .player-stats{
+  display: flex;
+  flex-direction: column;
+}
+.slide .player-content .player-stats-container .player-stats span{
+  color: #7a7a7a;
+  font-size: .8rem;
+  font-weight: 600;
 }
 
 .map-container {
