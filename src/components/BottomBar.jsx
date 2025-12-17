@@ -27,7 +27,7 @@ const ButtonBar = () => {
                 <div style={{display: "flex", flexDirection: "column", gap: "5px"}}>
                     <p style={{display: "flex", gap: "5px"}}>
                         <IoCallOutline />
-                        <span>09033884748</span>
+                        <span>08107012322</span>
                     </p>
                     <p style={{display: "flex", gap: "5px"}}>
                         <HiOutlineMail/>
