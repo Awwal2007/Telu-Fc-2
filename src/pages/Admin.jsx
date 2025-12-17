@@ -21,6 +21,19 @@ const Admin = () => {
   const [coachToApprove, setCoachToApprove] = useState(null);
   const [coachToApproveStatus, setCoachToApproveStatus] = useState('');
 
+
+
+  // Players States
+  const [players, setPlayers] = useState([]);
+  const [filteredPlayers, setFilteredPlayers] = useState([]);
+  const [playerFilter, setPlayerFilter] = useState('all'); // 'all', 'approved', 'pending'
+  const [loadingPlayers, setLoadingPlayers] = useState(false);
+  const [selectedPlayer, setSelectedPlayer] = useState(null); // For detailed view
+  // const [showEmailMessage, setShowEmailMessage] = useState(false);
+  // const [emailMessage, setEmailMessage] = useState('');
+  const [playerToApprove, setPlayerToApprove] = useState(null);
+  const [playerToApproveStatus, setPlayerToApproveStatus] = useState('');
+
   const [newEvent, setNewEvent] = useState({
     title: '',
     date: '',
@@ -70,6 +83,20 @@ const Admin = () => {
       setFilteredCoaches(filtered);
     }
   }, [coaches, coachFilter]);
+
+  useEffect(() => {
+    if (players.length > 0) {
+      let filtered = [...players];
+      if (playerFilter === 'approved') {
+        filtered = players.filter(player => player.status === "approved");
+      } else if (playerFilter === 'pending') {
+        filtered = players.filter(player => player.status === "pending");
+      }else if(playerFilter === 'rejected'){
+        filtered = players.filter(player => player.status === "rejected");
+      }
+      setFilteredPlayers(filtered);
+    }
+  }, [players, playerFilter]);
 
   const baseUrl = import.meta.env.VITE_BASE_URL
   
@@ -262,6 +289,181 @@ const Admin = () => {
     setSelectedCoach(null);
   };
 
+
+  // Players Functionality
+
+
+  const fetchPlayer = async () => {
+    setLoadingPlayers(true);
+    try {
+      // Replace with your actual API endpoint
+      const response = await fetch(`${baseUrl}/player`);
+      const data = await response.json();
+      setPlayers(data.data);
+      
+      setFilteredPlayers(data.data);
+    } catch (error) {
+      console.error('Error fetching coaches:', error);
+    } finally {
+      setLoadingPlayers(false);
+    }
+  };
+
+  const handleApprovePlayer = (id, status) => {
+    setShowEmailMessage(true)
+    setPlayerToApprove(id)  
+
+    if(status !== "approved"){
+      setPlayerToApproveStatus("approved")
+    }  else{
+      setPlayerToApproveStatus("rejected")
+    }
+  }
+
+  
+
+  // Approve coach application
+  const approvePlayer = async (id) => {
+    const confirmed = await confirmAction('Approve this player application?');
+    if (!confirmed) return;
+
+    if (!emailMessage.trim()) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Email required',
+        text: 'Please enter an email message'
+      });
+      return;
+    }
+      
+
+    try {
+      const response = await fetch(`${baseUrl}/player/change/status/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ status: "approved", message: emailMessage}),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        Swal.fire({
+          icon: "success",
+          title: "Approved",
+          text: data.message,
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        fetchPlayer();
+        setShowEmailMessage(false)
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error approving player",
+      });
+      console.log(error)      
+    }finally{
+      setEmailMessage("")
+      setPlayerToApprove(null)
+      setPlayerToApproveStatus('')
+    }
+  };
+
+
+  // Reject player application
+  const rejectPlayer = async (id) => {
+    const confirmed = await confirmAction('Reject this player application?');
+    if (!confirmed) return;
+
+    if (!emailMessage.trim()) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Email required',
+        text: 'Please enter an email message'
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch(`${baseUrl}/player/change/status/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ status: "rejected", message: emailMessage }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        Swal.fire({
+          icon: "success",
+          title: "Rejected",
+          text: data.message,
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        fetchPlayer();
+        setShowEmailMessage(false)
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error rejecting coach",
+      });
+      console.log(error);      
+    }finally{
+      setEmailMessage("")
+      setPlayerToApprove(null)
+      setPlayerToApproveStatus('')
+    }
+  };
+
+
+  // Delete player application
+  const deletePlayer = async (id) => {
+    const confirmed = await confirmAction('Delete this player application permanently?');
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(`${baseUrl}/player/delete/${id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        Swal.fire({
+          icon: "success",
+          title: "Deleted",
+          text: data.message,
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        fetchPlayer();
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error deleting coach",
+      });
+      console.log(error)
+    }
+  };
+
+
+  // View coach details
+  const viewPlayerDetails = (player) => {
+    setSelectedPlayer(player);
+  };
+
+  // Close coach details
+  const closePlayerDetails = () => {
+    setSelectedPlayer(null);
+  };
+
   // Format date
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
@@ -422,6 +624,12 @@ const Admin = () => {
               onClick={() => setActiveTab('coaches')}
             >
               Coach Applications ({coaches.length})
+            </button>
+            <button 
+              className={activeTab === 'players' ? 'nav-btn active' : 'nav-btn'}
+              onClick={() => setActiveTab('players')}
+            >
+              Players ({coaches.length})
             </button>
           </nav>
         </header>
@@ -612,6 +820,131 @@ const Admin = () => {
         )}
 
         {activeTab === 'coaches' && (
+          <section className="coaches-section">
+            <h2>Coach Applications</h2>
+            
+            <div className="coach-filter-buttons">
+              <button 
+                className={`filter-btn ${coachFilter === 'all' ? 'active' : ''}`}
+                onClick={() => setCoachFilter('all')}
+              >
+                All Coaches ({coaches.length})
+              </button>
+              <button 
+                className={`filter-btn ${coachFilter === 'approved' ? 'active' : ''}`}
+                onClick={() => setCoachFilter('approved')}
+              >
+                Approved ({coaches.filter(c => c.status === "approved").length})
+              </button>
+              <button 
+                className={`filter-btn ${coachFilter === 'rejected' ? 'active' : ''}`}
+                onClick={() => setCoachFilter('rejected')}
+              >
+                Rejected ({coaches.filter(c => c.status === "rejected").length})
+              </button>
+              <button 
+                className={`filter-btn ${coachFilter === 'pending' ? 'active' : ''}`}
+                onClick={() => setCoachFilter('pending')}
+              >
+                Pending ({coaches.filter(c => c.status === "pending").length})
+              </button>
+            </div>
+
+            {loadingCoaches ? (
+              <div className="loading">Loading coach applications...</div>
+            ) : filteredCoaches.length === 0 ? (
+              <div className="no-data">No coach applications found.</div>
+            ) : (
+              <div className="coaches-table-container">
+                <table className="coaches-table">
+                  <thead>
+                    <tr>
+                      <th>Full Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Position</th>
+                      <th>Experience</th>
+                      <th>Status</th>
+                      <th>Applied Date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredCoaches.map((coach) => (
+                      <tr key={coach._id} className={selectedCoach?._id === coach._id ? 'selected-row' : ''}>
+                        <td>
+                          <div className="coach-name-cell">
+                            <div className="coach-name">
+                              {coach.fullname}
+                              {coach.passportPhoto && (
+                                <img 
+                                  src={coach.passportPhoto} 
+                                  alt={coach.fullname} 
+                                  className="coach-photo-thumb"
+                                  onError={(e) => e.target.style.display = 'none'}
+                                />
+                              )}
+                            </div>
+                            {coach.gender && <span className="gender-badge">{coach.gender}</span>}
+                          </div>
+                        </td>
+                        <td>{coach.email}</td>
+                        <td>{coach.phone}</td>
+                        <td>
+                          {Array.isArray(coach.position) ? coach.position.join(', ') : coach.position}
+                          {coach.otherPosition && <div className="other-info">Other: {coach.otherPosition}</div>}
+                        </td>
+                        <td>
+                          {coach.yearsExperience ? `${coach.yearsExperience} years` : 'N/A'}
+                        </td>
+                        <td>
+                          <span className={`status-badge ${coach.status}`}>
+                            {coach.status}
+                          </span>
+                        </td>
+                        <td>{formatDate(coach.createdAt)}</td>
+                        <td>
+                          <div className="coach-actions">
+                            <button 
+                              onClick={() => viewCoachDetails(coach)} 
+                              className="view-btn"
+                            >
+                              View
+                            </button>
+                            {coach.status !== "approved" && (
+                              <button 
+                                // onClick={() => approveCoach(coach._id)} 
+                                onClick={()=> handleApprove(coach._id, coach.status)} 
+                                className="approve-btn"
+                              >
+                                Approve
+                              </button>
+                            )}
+                            {coach.status === "approved" && (
+                              <button 
+                                onClick={() => handleApprove(coach._id, coach.status)} 
+                                className="approve-btn"
+                              >
+                                Reject
+                              </button>
+                            )}
+                            <button 
+                              onClick={() => deleteCoach(coach._id)} 
+                              className="delete-btn"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </section>
+        )}
+        {activeTab === 'players' && (
           <section className="coaches-section">
             <h2>Coach Applications</h2>
             

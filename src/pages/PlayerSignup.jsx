@@ -186,12 +186,15 @@ const PlayerSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const confirm = confirmAction()
+    if(!confirm) return;
+
     console.log(formData);
     
     
     if (validateStep()) {
       try {
-        // Here you would typically send the data to your backend
+
         const response = await fetch(`${baseUrl}/player`, {
           method: 'POST',
           headers: {
