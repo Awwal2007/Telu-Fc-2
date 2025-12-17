@@ -29,8 +29,8 @@ const Admin = () => {
   const [playerFilter, setPlayerFilter] = useState('all'); // 'all', 'approved', 'pending'
   const [loadingPlayers, setLoadingPlayers] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState(null); // For detailed view
-  // const [showEmailMessage, setShowEmailMessage] = useState(false);
-  // const [emailMessage, setEmailMessage] = useState('');
+  const [showEmailPlayerMessage, setShowEmailPlayerMessage] = useState(false);
+  const [playerEmailMessage, setPlayerEmailMessage] = useState('');
   const [playerToApprove, setPlayerToApprove] = useState(null);
   const [playerToApproveStatus, setPlayerToApproveStatus] = useState('');
 
@@ -62,6 +62,7 @@ const Admin = () => {
     fetchNews();
     fetchFacebookLink();
     fetchCoaches();
+    fetchPlayers()
   }, []);
 
   // Keep local events list synced with news from the hook
@@ -293,7 +294,7 @@ const Admin = () => {
   // Players Functionality
 
 
-  const fetchPlayer = async () => {
+  const fetchPlayers = async () => {
     setLoadingPlayers(true);
     try {
       // Replace with your actual API endpoint
@@ -310,8 +311,8 @@ const Admin = () => {
   };
 
   const handleApprovePlayer = (id, status) => {
-    setShowEmailMessage(true)
-    setPlayerToApprove(id)  
+    setShowEmailPlayerMessage(true)
+    setPlayerToApprove(id) 
 
     if(status !== "approved"){
       setPlayerToApproveStatus("approved")
@@ -327,7 +328,7 @@ const Admin = () => {
     const confirmed = await confirmAction('Approve this player application?');
     if (!confirmed) return;
 
-    if (!emailMessage.trim()) {
+    if (!playerEmailMessage.trim()) {
       Swal.fire({
         icon: 'warning',
         title: 'Email required',
@@ -340,7 +341,7 @@ const Admin = () => {
     try {
       const response = await fetch(`${baseUrl}/player/change/status/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({ status: "approved", message: emailMessage}),
+        body: JSON.stringify({ status: "approved", message: playerEmailMessage}),
         headers: { 'Content-Type': 'application/json' },
       });
 
@@ -354,8 +355,8 @@ const Admin = () => {
           timer: 2000,
           showConfirmButton: false,
         });
-        fetchPlayer();
-        setShowEmailMessage(false)
+        fetchPlayers();
+        setShowEmailPlayerMessage(false)
       }
     } catch (error) {
       Swal.fire({
@@ -365,7 +366,7 @@ const Admin = () => {
       });
       console.log(error)      
     }finally{
-      setEmailMessage("")
+      setPlayerEmailMessage("")
       setPlayerToApprove(null)
       setPlayerToApproveStatus('')
     }
@@ -377,7 +378,7 @@ const Admin = () => {
     const confirmed = await confirmAction('Reject this player application?');
     if (!confirmed) return;
 
-    if (!emailMessage.trim()) {
+    if (!playerEmailMessage.trim()) {
       Swal.fire({
         icon: 'warning',
         title: 'Email required',
@@ -389,7 +390,7 @@ const Admin = () => {
     try {
       const response = await fetch(`${baseUrl}/player/change/status/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({ status: "rejected", message: emailMessage }),
+        body: JSON.stringify({ status: "rejected", message: playerEmailMessage }),
         headers: { 'Content-Type': 'application/json' },
       });
 
@@ -403,18 +404,18 @@ const Admin = () => {
           timer: 2000,
           showConfirmButton: false,
         });
-        fetchPlayer();
-        setShowEmailMessage(false)
+        fetchPlayers();
+        setShowEmailPlayerMessage(false)
       }
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Error rejecting coach",
+        text: "Error rejecting player",
       });
       console.log(error);      
     }finally{
-      setEmailMessage("")
+      setPlayerEmailMessage("")
       setPlayerToApprove(null)
       setPlayerToApproveStatus('')
     }
@@ -441,13 +442,13 @@ const Admin = () => {
           timer: 2000,
           showConfirmButton: false,
         });
-        fetchPlayer();
+        fetchPlayers();
       }
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Error deleting coach",
+        text: "Error deleting player",
       });
       console.log(error)
     }
@@ -560,17 +561,6 @@ const Admin = () => {
     fetchFacebookLink();
   };
 
-  const openPDF = async (url) => {
-    try {
-      const response = await fetch(url);
-      const blob = await response.blob();
-      const blobUrl = URL.createObjectURL(blob);
-      window.open(blobUrl);
-    } catch (err) {
-      console.error("Failed to open PDF", err);
-      alert("Unable to open PDF. Please try downloading it.");
-    }
-  };
 
 
 
@@ -629,7 +619,7 @@ const Admin = () => {
               className={activeTab === 'players' ? 'nav-btn active' : 'nav-btn'}
               onClick={() => setActiveTab('players')}
             >
-              Players ({coaches.length})
+              Players ({players.length})
             </button>
           </nav>
         </header>
@@ -950,35 +940,35 @@ const Admin = () => {
             
             <div className="coach-filter-buttons">
               <button 
-                className={`filter-btn ${coachFilter === 'all' ? 'active' : ''}`}
-                onClick={() => setCoachFilter('all')}
+                className={`filter-btn ${playerFilter === 'all' ? 'active' : ''}`}
+                onClick={() => setPlayerFilter('all')}
               >
-                All Coaches ({coaches.length})
+                All Players ({players.length})
               </button>
               <button 
-                className={`filter-btn ${coachFilter === 'approved' ? 'active' : ''}`}
-                onClick={() => setCoachFilter('approved')}
+                className={`filter-btn ${playerFilter === 'approved' ? 'active' : ''}`}
+                onClick={() => setPlayerFilter('approved')}
               >
-                Approved ({coaches.filter(c => c.status === "approved").length})
+                Approved ({players.filter(c => c.status === "approved").length})
               </button>
               <button 
-                className={`filter-btn ${coachFilter === 'rejected' ? 'active' : ''}`}
-                onClick={() => setCoachFilter('rejected')}
+                className={`filter-btn ${playerFilter === 'rejected' ? 'active' : ''}`}
+                onClick={() => setPlayerFilter('rejected')}
               >
-                Rejected ({coaches.filter(c => c.status === "rejected").length})
+                Rejected ({players.filter(c => c.status === "rejected").length})
               </button>
               <button 
-                className={`filter-btn ${coachFilter === 'pending' ? 'active' : ''}`}
-                onClick={() => setCoachFilter('pending')}
+                className={`filter-btn ${playerFilter === 'pending' ? 'active' : ''}`}
+                onClick={() => setPlayerFilter('pending')}
               >
-                Pending ({coaches.filter(c => c.status === "pending").length})
+                Pending ({players.filter(c => c.status === "pending").length})
               </button>
             </div>
 
-            {loadingCoaches ? (
-              <div className="loading">Loading coach applications...</div>
-            ) : filteredCoaches.length === 0 ? (
-              <div className="no-data">No coach applications found.</div>
+            {loadingPlayers ? (
+              <div className="loading">Loading player applications...</div>
+            ) : filteredPlayers.length === 0 ? (
+              <div className="no-data">No player applications found.</div>
             ) : (
               <div className="coaches-table-container">
                 <table className="coaches-table">
@@ -995,66 +985,66 @@ const Admin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredCoaches.map((coach) => (
-                      <tr key={coach._id} className={selectedCoach?._id === coach._id ? 'selected-row' : ''}>
+                    {filteredPlayers.map((player) => (
+                      <tr key={player._id} className={selectedPlayer?._id === player._id ? 'selected-row' : ''}>
                         <td>
                           <div className="coach-name-cell">
                             <div className="coach-name">
-                              {coach.fullname}
-                              {coach.passportPhoto && (
+                              {player.fullname}
+                              {player.passportPhoto && (
                                 <img 
-                                  src={coach.passportPhoto} 
-                                  alt={coach.fullname} 
+                                  src={player.passportPhoto} 
+                                  alt={player.fullname} 
                                   className="coach-photo-thumb"
                                   onError={(e) => e.target.style.display = 'none'}
                                 />
                               )}
                             </div>
-                            {coach.gender && <span className="gender-badge">{coach.gender}</span>}
+                            {player.gender && <span className="gender-badge">{player.gender}</span>}
                           </div>
                         </td>
-                        <td>{coach.email}</td>
-                        <td>{coach.phone}</td>
+                        <td>{player.email}</td>
+                        <td>{player.phone}</td>
                         <td>
-                          {Array.isArray(coach.position) ? coach.position.join(', ') : coach.position}
-                          {coach.otherPosition && <div className="other-info">Other: {coach.otherPosition}</div>}
+                          {Array.isArray(player.position) ? player.position.join(', ') : player.position}
+                          {player.otherPosition && <div className="other-info">Other: {player.otherPosition}</div>}
                         </td>
                         <td>
-                          {coach.yearsExperience ? `${coach.yearsExperience} years` : 'N/A'}
+                          {player.yearsExperience ? `${player.yearsExperience} years` : 'N/A'}
                         </td>
                         <td>
-                          <span className={`status-badge ${coach.status}`}>
-                            {coach.status}
+                          <span className={`status-badge ${player.status}`}>
+                            {player.status}
                           </span>
                         </td>
-                        <td>{formatDate(coach.createdAt)}</td>
+                        <td>{formatDate(player.createdAt)}</td>
                         <td>
                           <div className="coach-actions">
                             <button 
-                              onClick={() => viewCoachDetails(coach)} 
+                              onClick={() => viewPlayerDetails(player)} 
                               className="view-btn"
                             >
                               View
                             </button>
-                            {coach.status !== "approved" && (
+                            {player.status !== "approved" && (
                               <button 
                                 // onClick={() => approveCoach(coach._id)} 
-                                onClick={()=> handleApprove(coach._id, coach.status)} 
+                                onClick={()=> handleApprovePlayer(player._id, player.status)} 
                                 className="approve-btn"
                               >
                                 Approve
                               </button>
                             )}
-                            {coach.status === "approved" && (
+                            {player.status === "approved" && (
                               <button 
-                                onClick={() => handleApprove(coach._id, coach.status)} 
+                                onClick={() => handleApprovePlayer(player._id, player.status)} 
                                 className="approve-btn"
                               >
                                 Reject
                               </button>
                             )}
                             <button 
-                              onClick={() => deleteCoach(coach._id)} 
+                              onClick={() => deletePlayer(player._id)} 
                               className="delete-btn"
                             >
                               Delete
@@ -1279,7 +1269,7 @@ const Admin = () => {
                         </a>
                       )}
                       {selectedCoach.applicationLetter && (
-                        <a onClick={() => openPDF(selectedCoach.cv)}  href={selectedCoach.applicationLetter} target="_blank" rel="noopener noreferrer" className="file-link">
+                        <a href={selectedCoach.applicationLetter} target="_blank" rel="noopener noreferrer" className="file-link">
                           📄 Application Letter
                         </a>
                       )}
@@ -1300,12 +1290,12 @@ const Admin = () => {
                 
                 <div className="coach-details-actions">
                   {selectedCoach.status !== "approved" && (
-                    <button onClick={() => approveCoach(selectedCoach._id)} className="approve-btn large">
+                    <button onClick={() => handleApprove(selectedCoach._id, selectedCoach.status)} className="approve-btn large">
                       Approve Coach
                     </button>
                   )}
                   {selectedCoach.status === "approved" && (
-                    <button onClick={() => approveCoach(selectedCoach._id)} className="approve-btn large">
+                    <button onClick={() => handleApprove(selectedCoach._id, selectedCoach.status)} className="approve-btn large">
                       Reject Coach
                     </button>
                   )}
@@ -1313,6 +1303,165 @@ const Admin = () => {
                     Delete Application
                   </button>
                   <button onClick={closeCoachDetails} className="close-details-btn">
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+
+        {/* Player Details Modal */}
+        {selectedPlayer && (
+          <div className="coach-details-modal" onClick={closePlayerDetails}>
+            <div className="coach-details-content" onClick={(e) => e.stopPropagation()}>
+              <div className="coach-details-header">
+                <h2>Player Application Details</h2>
+                <button className="close-btn" onClick={closePlayerDetails}>×</button>
+              </div>
+              
+              <div className="coach-details-body">
+                <div className="coach-info-grid">
+                  
+                  {/* SECTION A: Personal Info */}
+                  <div className="info-section">
+                    <h3>Personal Information</h3>
+                    <div className="info-grid">
+                      <div className="info-item">
+                        <label>Full Name:</label>
+                        <p>{selectedPlayer.fullname || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Date of Birth:</label>
+                        <p>{formatDate(selectedPlayer.dob)}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Gender:</label>
+                        <p>{selectedPlayer.gender || 'N/A'}</p>
+                      </div>
+                      {/* <div className="info-item">
+                        <label>Marital Status:</label>
+                        <p>{selectedPlayer.maritalStatus || 'N/A'}</p>
+                      </div> */}
+                      <div className="info-item">
+                        <label>Nationality:</label>
+                        <p>{selectedPlayer.nationality || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>State/LGA:</label>
+                        <p>{selectedPlayer.state ? `${selectedPlayer.state}${selectedPlayer.lga ? ` / ${selectedPlayer.lga}` : ''}` : 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Address:</label>
+                        <p>{selectedPlayer.address || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Phone:</label>
+                        <p>{selectedPlayer.phone || 'N/A'}</p>
+                      </div>
+                      {/* <div className="info-item">
+                        <label>Email:</label>
+                        <p>{selectedPlayer.email || 'N/A'}</p>
+                      </div> */}
+                      {/* <div className="info-item">
+                        <label>Next of Kin:</label>
+                        <p>{selectedPlayer.nextOfKin || 'N/A'}</p>
+                      </div> */}
+                      {/* <div className="info-item">
+                        <label>Next of Kin Phone:</label>
+                        <p>{selectedPlayer.nextOfKinPhone || 'N/A'}</p>
+                      </div> */}
+                    </div>
+                  </div>
+
+                  {/* SECTION B: Position */}
+                  {/* <div className="info-section">
+                    <h3>Position & Qualifications</h3>
+                    <div className="info-grid">
+                      <div className="info-item">
+                        <label>Position(s):</label>
+                        <p>
+                          {Array.isArray(selectedCoach.position) 
+                            ? selectedCoach.position.join(', ')
+                            : selectedCoach.position || 'N/A'
+                          }
+                          {selectedCoach.otherPosition && <span> ({selectedCoach.otherPosition})</span>}
+                        </p>
+                      </div>
+                      <div className="info-item">
+                        <label>Highest Education:</label>
+                        <p>
+                          {selectedCoach.highestEducation || 'N/A'}
+                          {selectedCoach.otherEducation && <span> ({selectedCoach.otherEducation})</span>}
+                        </p>
+                      </div>
+                      <div className="info-item">
+                        <label>Certifications:</label>
+                        <p>
+                          {Array.isArray(selectedCoach.certifications) && selectedCoach.certifications.length > 0 
+                            ? selectedCoach.certifications.join(', ')
+                            : 'N/A'
+                          }
+                          {selectedCoach.otherCertification && <span> ({selectedCoach.otherCertification})</span>}
+                        </p>
+                      </div>
+                      <div className="info-item">
+                        <label>Institution Attended:</label>
+                        <p>{selectedCoach.institutionAttended || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Year Obtained:</label>
+                        <p>{selectedCoach.yearObtained || 'N/A'}</p>
+                      </div>
+                    </div>
+                  </div> */}
+
+
+                  {/* File Uploads */}
+                  {/* <div className="info-section">
+                    <h3>Uploaded Documents</h3>
+                    <div className="file-links">
+                      {selectedCoach.cv && (
+                        <a href={selectedCoach.cv} target="_blank" rel="noopener noreferrer" className="file-link">
+                          📄 Curriculum Vitae (CV)
+                        </a>
+                      )}
+                      {selectedCoach.applicationLetter && (
+                        <a href={selectedCoach.applicationLetter} target="_blank" rel="noopener noreferrer" className="file-link">
+                          📄 Application Letter
+                        </a>
+                      )}
+                      {selectedCoach.passportPhoto && (
+                        <a href={selectedCoach.passportPhoto} target="_blank" rel="noopener noreferrer" className="file-link">
+                          📷 Passport Photo
+                        </a>
+                      )}
+                      {Array.isArray(selectedCoach.certificates) && selectedCoach.certificates.map((cert, index) => (
+                        <a key={index} href={cert} target="_blank" rel="noopener noreferrer" className="file-link">
+                          📜 Certificate {index + 1}
+                        </a>
+                      ))}
+                    </div>
+                  </div> */}
+
+                </div>
+                
+                <div className="coach-details-actions">
+                  {selectedPlayer.status !== "approved" && (
+                    <button onClick={() => handleApprovePlayer(selectedPlayer._id, selectedPlayer.status)} className="approve-btn large">
+                      Approve Player
+                    </button>
+                  )}
+                  {selectedPlayer.status === "approved" && (
+                    <button onClick={() => handleApprovePlayer(selectedPlayer._id, selectedPlayer.status)} className="approve-btn large">
+                      Reject Player
+                    </button>
+                  )}
+                  <button onClick={() => deleteCoach(selectedPlayer._id)} className="delete-btn large">
+                    Delete Application
+                  </button>
+                  <button onClick={closePlayerDetails} className="close-details-btn">
                     Close
                   </button>
                 </div>
@@ -1354,6 +1503,47 @@ const Admin = () => {
               }
               {coachToApproveStatus !== "approved" && 
                 <button onClick={() => rejectCoach(coachToApprove)}>
+                  Reject
+                </button>
+              }
+              
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showEmailPlayerMessage && (
+        <div
+          className="email-message-conatiner">
+          <div
+            className="email-message"
+          >
+            <div
+              onClick={() => setShowEmailPlayerMessage(false)}
+              className="button"
+            >
+              x
+            </div>
+
+            <div className="input-container">
+              <label htmlFor="emailMessage">Player Email Message</label>
+              <textarea
+                type='text'
+                value={playerEmailMessage}
+                name="emailMessage"
+                placeholder="Email message"
+                onChange={e => setPlayerEmailMessage(e.target.value)}
+              />
+            </div>
+
+            <div className="button-container">
+              {playerToApproveStatus === "approved" && 
+                <button onClick={() => approvePlayer(playerToApprove)}>
+                  Approve
+                </button>
+              }
+              {playerToApproveStatus !== "approved" && 
+                <button onClick={() => rejectPlayer(playerToApprove)}>
                   Reject
                 </button>
               }

@@ -186,10 +186,10 @@ const PlayerSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const confirm = confirmAction()
+    const confirm = await confirmAction("You want to submit")
     if(!confirm) return;
 
-    console.log(formData);
+    // console.log(formData);
     
     
     if (validateStep()) {
@@ -204,20 +204,26 @@ const PlayerSignup = () => {
         });
         
         const result = await response.json();
-        console.log(response.data);
+       
         
         if (result.status === "success") {
           Swal.fire({
             icon: "success",
             title: "Success",
-            text: result.message,
+            text: `${result.message} redirecting...`,
             timer: 2000,
           })
           setTimeout(()=>{              
             navigate('/');
-          }, 1000)
+          }, 2200)
+        }else if(response.status === 402){
+          Swal.fire({
+            icon: "warning",
+            title: "Warning",
+            text: result.message,
+          })
         }
-          // alert('Registration successful! You will be contacted soon.');
+        
           
       } catch (error) {
         console.error('Error:', error);
