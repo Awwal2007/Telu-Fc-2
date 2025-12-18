@@ -1012,9 +1012,9 @@ export default function Admins() {
                           <div className="coach-name-cell">
                             <div className="coach-name">
                               {player.fullname}
-                              {player.passportPhoto && (
+                              {player.photo && (
                                 <img 
-                                  src={player.passportPhoto} 
+                                  src={player.photo} 
                                   alt={player.fullname} 
                                   className="coach-photo-thumb"
                                   onError={(e) => e.target.style.display = 'none'}
@@ -1368,10 +1368,12 @@ export default function Admins() {
                         <label>Gender:</label>
                         <p>{selectedPlayer.gender || 'N/A'}</p>
                       </div>
-                      {/* <div className="info-item">
-                        <label>Marital Status:</label>
-                        <p>{selectedPlayer.maritalStatus || 'N/A'}</p>
-                      </div> */}
+                      {selectedPlayer.photo &&
+                        <div className="info-item">
+                          <label>Profile Picture:</label>
+                          <img width={120} src={selectedPlayer.photo || 'N/A'}/>
+                        </div>
+                      }
                       <div className="info-item">
                         <label>Nationality:</label>
                         <p>{selectedPlayer.nationality || 'N/A'}</p>

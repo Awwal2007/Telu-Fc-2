@@ -1160,7 +1160,6 @@
   .admin-sidebar {
     flex-direction: row;
     overflow-x: auto;
-    position: static;
     width: auto;
     height: auto;
     justify-content: space-between;
