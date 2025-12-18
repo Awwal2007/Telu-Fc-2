@@ -605,19 +605,19 @@ export default function Admins() {
         <h2>Admin</h2>
 
         <div className={showNav ? 'sidebar-buttons' : "d-none sidebar-buttons"}>
-          <button className={`sidebar-btn ${activeTab === 'events' && 'active'}`} onClick={() => setActiveTab('events')}>
+          <button className={`sidebar-btn ${activeTab === 'events' && 'active'}`} onClick={() => {setActiveTab('events'); setShowNav(false)}}>
             Events ({events.length})
           </button>
 
-          <button className={`sidebar-btn ${activeTab === 'facebook' && 'active'}`} onClick={() => setActiveTab('facebook')}>
+          <button className={`sidebar-btn ${activeTab === 'facebook' && 'active'}`} onClick={() => {setActiveTab('facebook'); setShowNav(false)}}>
             Facebook ({facebookPosts.length})
           </button>
 
-          <button className={`sidebar-btn ${activeTab === 'coaches' && 'active'}`} onClick={() => setActiveTab('coaches')}>
+          <button className={`sidebar-btn ${activeTab === 'coaches' && 'active'}`} onClick={() => {setActiveTab('coaches'); setShowNav(false)}}>
             Coaches ({coaches.length})
           </button>
 
-          <button className={`sidebar-btn ${activeTab === 'players' && 'active'}`} onClick={() => setActiveTab('players')}>
+          <button className={`sidebar-btn ${activeTab === 'players' && 'active'}`} onClick={() => {setActiveTab('players'); setShowNav(false)}}>
             Players ({players.length})
           </button>
         </div>
