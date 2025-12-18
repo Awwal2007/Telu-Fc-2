@@ -8,6 +8,8 @@ import useMediaQuery from '../components/MediaQuery';
 
 export default function Admins() {
     const [showNav, setShowNav] = useState(false)
+    const [mediuAdminUser, setMediuAdminUser] = useState(false)
+
     const [events, setEvents] = useState([]);
     const [imagePreviews, setImagePreviews] = useState({});
     const [expandedRows, setExpandedRows] = useState({});
@@ -66,7 +68,8 @@ export default function Admins() {
       fetchNews();
       fetchFacebookLink();
       fetchCoaches();
-      fetchPlayers()
+      fetchPlayers();
+      seperateAdmins();
     }, []);
   
     // Keep local events list synced with news from the hook
@@ -570,8 +573,14 @@ export default function Admins() {
     }
   
     const isMobileForArmBurger = useMediaQuery("(max-width: 900px)")
-  
-  
+    
+
+    const seperateAdmins = ()=>{
+      const user = localStorage.getItem("user")
+      if(user.name === "Ademight"){
+        setMediuAdminUser(true)
+      }
+    }
     // Facebook SDK loader
     useEffect(() => {
       if (!window.FB) {
@@ -900,37 +909,39 @@ export default function Admins() {
                         </td>
                         <td>{formatDate(coach.createdAt)}</td>
                         <td>
-                          <div className="coach-actions">
-                            <button
-                              onClick={() => viewCoachDetails(coach)} 
-                              className="view-btn"
-                            >
-                              View
-                            </button>
-                            {coach.status !== "approved" && (
-                              <button 
-                                // onClick={() => approveCoach(coach._id)} 
-                                onClick={()=> handleApprove(coach._id, coach.status)} 
-                                className="approve-btn"
+                          {!mediuAdminUser &&
+                            <div className="coach-actions">
+                              <button
+                                onClick={() => viewCoachDetails(coach)} 
+                                className="view-btn"
                               >
-                                Approve
+                                View
                               </button>
-                            )}
-                            {coach.status === "approved" && (
+                              {coach.status !== "approved" && (
+                                <button 
+                                  // onClick={() => approveCoach(coach._id)} 
+                                  onClick={()=> handleApprove(coach._id, coach.status)} 
+                                  className="approve-btn"
+                                >
+                                  Approve
+                                </button>
+                              )}
+                              {coach.status === "approved" && (
+                                <button 
+                                  onClick={() => handleApprove(coach._id, coach.status)} 
+                                  className="approve-btn"
+                                >
+                                  Reject
+                                </button>
+                              )}
                               <button 
-                                onClick={() => handleApprove(coach._id, coach.status)} 
-                                className="approve-btn"
+                                onClick={() => deleteCoach(coach._id)} 
+                                className="delete-btn"
                               >
-                                Reject
+                                Delete
                               </button>
-                            )}
-                            <button 
-                              onClick={() => deleteCoach(coach._id)} 
-                              className="delete-btn"
-                            >
-                              Delete
-                            </button>
-                          </div>
+                            </div>
+                          }
                         </td>
                       </tr>
                     ))}
