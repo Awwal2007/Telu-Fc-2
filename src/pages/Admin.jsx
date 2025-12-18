@@ -613,7 +613,7 @@ export default function Admins() {
           </button>
         </div>
         {isMobileForArmBurger &&        
-          <GiHamburgerMenu style={{cursor: "pointer"}} onClick={toggleNavMobile} />
+          <GiHamburgerMenu style={{cursor: "pointer", fontSize: "2rem"}} onClick={toggleNavMobile} />
         }
       </aside>
 
