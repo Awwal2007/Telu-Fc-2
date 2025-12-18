@@ -892,11 +892,21 @@
   height: 100vh;
 }
 
-.admin-sidebar h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 40px;
+.admin-sidebar .home-button{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 450;
 }
+
+.admin-sidebar h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
 
 .sidebar-btn {
   background: transparent;
@@ -1165,6 +1175,14 @@
     height: auto;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .admin-sidebar .home-button{
+    margin-bottom: 0px;
+  }
+
+  .admin-sidebar h2 {
+    margin-bottom: 0px;
   }
 
   .sidebar-buttons{

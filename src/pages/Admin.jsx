@@ -4,6 +4,7 @@ import './css/Admin.css';
 import { useNews } from '../hooks/useNews';
 import Swal from 'sweetalert2';
 import { GiHamburgerMenu } from "react-icons/gi";
+import { IoArrowBack } from "react-icons/io5";
 import useMediaQuery from '../components/MediaQuery';
 
 export default function Admins() {
@@ -603,6 +604,10 @@ export default function Admins() {
   return (
     <div className="admin-layout">
       <aside className="admin-sidebar">
+        <div className="home-button">
+          <IoArrowBack />
+          Go Home
+        </div>
         <h2>Admin</h2>
 
         <div className={showNav ? 'sidebar-buttons' : "d-none sidebar-buttons"}>
