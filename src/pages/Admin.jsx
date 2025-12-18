@@ -909,7 +909,7 @@ export default function Admins() {
                         </td>
                         <td>{formatDate(coach.createdAt)}</td>
                         <td>
-                          {!mediuAdminUser &&
+                          {mediuAdminUser === false  &&
                             <div className="coach-actions">
                               <button
                                 onClick={() => viewCoachDetails(coach)} 
@@ -1246,7 +1246,7 @@ export default function Admins() {
                       </div>
                       <div className="info-item">
                         <label>Expected Salary:</label>
-                        <p>{selectedCoach.expectedSalary ? `$${selectedCoach.expectedSalary}` : 'N/A'}</p>
+                        <p>{selectedCoach.expectedSalary ? `₦ ${selectedCoach.expectedSalary}` : 'N/A'}</p>
                       </div>
                       <div className="info-item">
                         <label>Start Date:</label>
@@ -1311,25 +1311,29 @@ export default function Admins() {
                   </div>
 
                 </div>
+
+                {mediuAdminUser === false &&
+                  <div className="coach-details-actions">
+                    {selectedCoach.status !== "approved" && (
+                      <button onClick={() => handleApprove(selectedCoach._id, selectedCoach.status)} className="approve-btn large">
+                        Approve Coach
+                      </button>
+                    )}
+                    {selectedCoach.status === "approved" && (
+                      <button onClick={() => handleApprove(selectedCoach._id, selectedCoach.status)} className="approve-btn large">
+                        Reject Coach
+                      </button>
+                    )}
+                    <button onClick={() => deleteCoach(selectedCoach._id)} className="delete-btn large">
+                      Delete Application
+                    </button>
+                    <button onClick={closeCoachDetails} className="close-details-btn">
+                      Close
+                    </button>
+                  </div>
+                }
                 
-                <div className="coach-details-actions">
-                  {selectedCoach.status !== "approved" && (
-                    <button onClick={() => handleApprove(selectedCoach._id, selectedCoach.status)} className="approve-btn large">
-                      Approve Coach
-                    </button>
-                  )}
-                  {selectedCoach.status === "approved" && (
-                    <button onClick={() => handleApprove(selectedCoach._id, selectedCoach.status)} className="approve-btn large">
-                      Reject Coach
-                    </button>
-                  )}
-                  <button onClick={() => deleteCoach(selectedCoach._id)} className="delete-btn large">
-                    Delete Application
-                  </button>
-                  <button onClick={closeCoachDetails} className="close-details-btn">
-                    Close
-                  </button>
-                </div>
+                
               </div>
             </div>
           </div>
