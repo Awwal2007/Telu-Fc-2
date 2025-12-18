@@ -8,7 +8,7 @@ const FacebookPosts = () => {
     // fetchFacebookLink
  } = useNews();
 
-const currentPosts = facebookPosts.slice(0,2);
+const currentPosts = facebookPosts.slice(0,3);
 
 //   const [currentPage, setCurrentPage] = useState(1);
 //   const postsPerPage = 3;

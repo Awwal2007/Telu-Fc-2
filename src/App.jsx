@@ -10,7 +10,7 @@ import IwoLand from './pages/IwoLand.jsx';
 import Blogs from './pages/Blogs.jsx';
 import SingleBlog from './components/SingleBlog.jsx';
 import Gallery from './pages/Gallery.jsx';
-import Admin from './pages/Admin.jsx';
+import Admin from './pages/AdminResearved.jsx';
 import { NewsProvider } from './contexts/NewsProvider.jsx';
 import AdminSignup from './pages/AdminSignup.jsx';
 import AdminLogin from './pages/AdminLogin.jsx';
@@ -23,6 +23,7 @@ import ApplicationForm from './pages/ApplicationForm.jsx';
 import PopOver from './components/PopOver.jsx';
 import PlayerSignup from './pages/PlayerSignup.jsx';
 import PlayerLogin from './pages/PlayerLogin.jsx';
+import Admins from './pages/Admin.jsx';
 
 
 const AppContent = () => {
@@ -90,7 +91,7 @@ const AppContent = () => {
             {/* <Route path='/admin-signup' element={<AdminSignup />} /> */}
             
             <Route element={<ProtectedRoutes />}>
-              <Route path='/admin' element={<Admin />} />
+              <Route path='/admin' element={<Admins />} />
             </Route>
             
           </Routes>

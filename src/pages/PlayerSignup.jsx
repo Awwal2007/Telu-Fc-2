@@ -18,6 +18,7 @@ const PlayerSignup = () => {
     email: '',
     emergencyContact: '',
     emergencyPhone: '',
+    photo: null,
     
     // Player Details
     position: [],
@@ -50,6 +51,7 @@ const PlayerSignup = () => {
     consentForData: false
   });
 
+  const [imagePreviews, setImagePreviews] = useState()
   const [errors, setErrors] = useState({});
 
   const baseUrl = import.meta.env.VITE_BASE_URL
@@ -113,6 +115,15 @@ const PlayerSignup = () => {
     }
   };
 
+  const handleImage = (e) => {
+    const { files } = e.target;
+    const file = files[0];
+    if (file) {
+      setFormData((prev) => ({ ...prev, "photo": file }));
+      setImagePreviews(URL.createObjectURL(file));
+    }
+  };
+
   const validateStep = () => {
     const newErrors = {};
     
@@ -128,6 +139,7 @@ const PlayerSignup = () => {
       if (!formData.phone) newErrors.phone = 'Phone number is required';
       if (!formData.emergencyContact) newErrors.emergencyContact = 'Emergency contact is required';
       if (!formData.emergencyPhone) newErrors.emergencyPhone = 'Emergency phone is required';
+      if (!formData.photo) newErrors.photo = 'Profile picture is required';
     }
     
     if (step === 2) {
@@ -189,18 +201,25 @@ const PlayerSignup = () => {
     const confirm = await confirmAction("You want to submit")
     if(!confirm) return;
 
-    // console.log(formData);
+    console.log(formData);
     
     
     if (validateStep()) {
       try {
 
+        const formPayload = new FormData();
+
+         Object.entries(formData).forEach(([key, value]) => {
+          if (Array.isArray(value)) {
+            value.forEach((v) => formPayload.append(key, v));
+          } else if (value !== null && value !== undefined) {
+            formPayload.append(key, value);
+          }
+        });
+
         const response = await fetch(`${baseUrl}/player`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData)
+          body: formPayload
         });
         
         const result = await response.json();
@@ -213,17 +232,62 @@ const PlayerSignup = () => {
             text: `${result.message} redirecting...`,
             timer: 2000,
           })
-          setTimeout(()=>{              
-            navigate('/');
-          }, 2200)
+          setTimeout(()=> navigate('/') , 2200)
+
+          setFormData({
+            // Personal Information
+            fullName: '',
+            dateOfBirth: '',
+            gender: '',
+            nationality: '',
+            state: '',
+            lga: '',
+            address: '',
+            phone: '',
+            email: '',
+            emergencyContact: '',
+            emergencyPhone: '',
+            photo: null,
+            
+            // Player Details
+            position: [],
+            preferredPositions: [],
+            jerseyNumber: '',
+            height: '',
+            weight: '',
+            dominantFoot: '',
+            
+            // Football Background
+            previousClubs: '',
+            yearsOfExperience: '',
+            achievements: '',
+            specialSkills: [],
+            
+            // Medical Information
+            medicalConditions: '',
+            allergies: '',
+            bloodGroup: '',
+            
+            // Parent/Guardian Information (for minors)
+            guardianName: '',
+            guardianPhone: '',
+            guardianEmail: '',
+            guardianRelationship: '',
+            
+            // Agreement
+            agreeToTerms: false,
+            consentForPhotos: false,
+            consentForData: false
+          })
+
+
         }else if(response.status === 402){
           Swal.fire({
             icon: "warning",
             title: "Warning",
             text: result.message,
           })
-        }
-        
+        }        
           
       } catch (error) {
         console.error('Error:', error);
@@ -437,6 +501,24 @@ const PlayerSignup = () => {
                   className={errors.emergencyPhone ? 'error' : ''}
                 />
                 {errors.emergencyPhone && <span className="error-message">{errors.emergencyPhone}</span>}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="profilePhoto">Profile Photo *</label>
+                <input
+                  type="file"
+                  id="photo"
+                  name="photo"
+                  accept='image/*'
+                  onChange={handleImage}
+                  className={errors.photo ? 'error' : ''}
+                />
+                {imagePreviews &&
+                  <div className='profile-photo'>
+                    <img src={imagePreviews} alt="Profile Photo" />                
+                  </div>
+                }
+                {errors.photo && <span className="error-message">{errors.photo}</span>}
               </div>
             </div>
           </div>

@@ -34,21 +34,21 @@ export default function OurCoaches() {
           <img loading='lazy' src={image1} alt="" />
           <div className='player-content'>
             <h2>Tadese Oluwakayode</h2>
-            <b>Coach/Player</b>
+            <b>Assistant Director</b>
           </div>
         </SwiperSlide>
         <SwiperSlide className='slide'>
           <img loading='lazy' src={image3} alt="" /> 
           <div className='player-content'>
             <h2>Asafa Akin</h2>
-            <b>Assistant Coach</b>
+            <b>Director</b>
           </div>         
         </SwiperSlide>
         <SwiperSlide className='slide'>
           <img loading='lazy' src={image4} alt="" />
           <div className='player-content'>
             <h2>Joseph Alani</h2>
-            <b>Head Coach</b>
+            <b>Head Coach (U-13)</b>
           </div>          
         </SwiperSlide>
       </Swiper>

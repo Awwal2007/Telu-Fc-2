@@ -8,8 +8,8 @@ const PopOver = () => {
 
   return (
     show && (
-      <div className="overlay" style={overlay}>
-        <div className="modal" style={modal}>
+      <div className="pop-up-overlay" style={overlay}>
+        <div className="pop-up-modal" style={modal}>
           <button style={button} onClick={() => setShow(false)}><MdCancel /></button>
           <div style={{width: "100%", display: "flex", justifyContent: " center", alignItems: "center"}}>
             <img  src={image} alt="we are hiring" />
