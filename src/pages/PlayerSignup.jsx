@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 const PlayerSignup = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [summary, setSummary] = useState(false)
   const [formData, setFormData] = useState({
     // Personal Information
     fullName: '',
@@ -232,6 +233,8 @@ const PlayerSignup = () => {
             text: `${result.message} redirecting...`,
             timer: 2000,
           })
+
+          setSummary(false)
           setTimeout(()=> navigate('/') , 2200)
 
           setFormData({
@@ -279,6 +282,8 @@ const PlayerSignup = () => {
             consentForPhotos: false,
             consentForData: false
           })
+
+
 
 
         }else if(response.status === 402){
@@ -858,31 +863,90 @@ const PlayerSignup = () => {
                 {errors.consentForData && <span className="error-message">{errors.consentForData}</span>}
               </div>
 
-              <div className="summary-section">
-                <h3>Registration Summary</h3>
-                <div className="summary-grid">
-                  <div className="summary-item">
-                    <span className="summary-label">Name:</span>
-                    <span className="summary-value">{formData.fullName || 'Not provided'}</span>
-                  </div>
-                  <div className="summary-item">
-                    <span className="summary-label">Age:</span>
-                    <span className="summary-value">
-                      {formData.dateOfBirth ? calculateAge(formData.dateOfBirth) + ' years' : 'Not provided'}
-                    </span>
-                  </div>
-                  <div className="summary-item">
-                    <span className="summary-label">Position(s):</span>
-                    <span className="summary-value">
-                      {formData.position.length > 0 ? formData.position.join(', ') : 'Not selected'}
-                    </span>
-                  </div>
-                  <div className="summary-item">
-                    <span className="summary-label">Experience:</span>
-                    <span className="summary-value">{formData.yearsOfExperience || 'Not provided'}</span>
+              {summary &&
+                <div className="summary-overlay">
+                  <div className="summary-section">
+                    <h3>Registration Summary</h3>
+                    <div style={{position: "absolute", right: "150px", top: "40px", cursor: "pointer", fontSize: "2rem",}} onClick={()=> setSummary(false)}>
+                      X
+                    </div>
+                    
+                      <div className="summary-grid">
+                        <div className="summary-item">
+                          <span className="summary-label">Name:</span>
+                          <span className="summary-value">{formData.fullName || 'Not provided'}</span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Age:</span>
+                          <span className="summary-value">
+                            {formData.dateOfBirth ? calculateAge(formData.dateOfBirth) + ' years' : 'Not provided'}
+                          </span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Position(s):</span>
+                          <span className="summary-value">
+                            {formData.position.length > 0 ? formData.position.join(', ') : 'Not selected'}
+                          </span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Experience:</span>
+                          <span className="summary-value">{formData.yearsOfExperience || 'Not provided'}</span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Gender:</span>
+                          <span className="summary-value">{formData.gender || 'Not provided'}</span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Nationality:</span>
+                          <span className="summary-value">{formData.nationality || 'Not provided'}</span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">State:</span>
+                          <span className="summary-value">{formData.state || 'Not provided'}</span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">LGA:</span>
+                          <span className="summary-value">{formData.lga || 'Not provided'}</span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Address:</span>
+                          <span className="summary-value">{formData.address || 'Not provided'}</span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Phone Number:</span>
+                          <span className="summary-value">{formData.phone || 'Not provided'}</span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Email Address:</span>
+                          <span className="summary-value">{formData.email || 'Not provided'}</span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Emergency Contact Name:</span>
+                          <span className="summary-value">{formData.emergencyContact || 'Not provided'}</span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Emergency Contact Phone:</span>
+                          <span className="summary-value">{formData.emergencyContact || 'Not provided'}</span>
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Profile Picture:</span>
+                          {imagePreviews &&
+                            <div className='profile-photo'>
+                              <img width={120} src={imagePreviews} alt="Profile Photo" />                
+                            </div>
+                          }
+                        </div>
+                        <div className="summary-item">
+                          <span className="summary-label">Emergency Contact Phone:</span>
+                          <span className="summary-value">{formData.emergencyContact || 'Not provided'}</span>
+                        </div>
+                      </div>
+                    <button type="submit" className="nav-btn submit-btn">
+                      Submit
+                    </button>
                   </div>
                 </div>
-              </div>
+              }
             </div>
           </div>
         )}
@@ -899,8 +963,8 @@ const PlayerSignup = () => {
               Next Step
             </button>
           ) : (
-            <button type="submit" className="nav-btn submit-btn">
-              Complete Registration
+            <button type="button" onClick={()=> setSummary(true)} className="nav-btn submit-btn">
+              View Summary
             </button>
           )}
         </div>

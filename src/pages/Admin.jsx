@@ -910,7 +910,7 @@ export default function Admins() {
                         </td>
                         <td>{formatDate(coach.createdAt)}</td>
                         <td>
-                          {mediuAdminUser === false  &&
+                          {!mediuAdminUser &&
                             <div className="coach-actions">
                               <button
                                 onClick={() => viewCoachDetails(coach)} 
@@ -1008,7 +1008,7 @@ export default function Admins() {
                   </thead>
                   <tbody>
                     {filteredPlayers.map((player) => (
-                      <tr key={player._id} className={selectedPlayer?._id === player._id ? 'selected-row' : ''}>
+                      <tr style={{cursor: "pointer"}} onClick={()=> viewPlayerDetails(player)} key={player._id} className={selectedPlayer?._id === player._id ? 'selected-row' : ''}>
                         <td>
                           <div className="coach-name-cell">
                             <div className="coach-name">
@@ -1041,37 +1041,39 @@ export default function Admins() {
                         </td>
                         <td>{formatDate(player.createdAt)}</td>
                         <td>
-                          <div className="coach-actions">
-                            <button 
-                              onClick={() => viewPlayerDetails(player)} 
-                              className="view-btn"
-                            >
-                              View
-                            </button>
-                            {player.status !== "approved" && (
+                          {!mediuAdminUser &&
+                            <div className="coach-actions">
                               <button 
-                                // onClick={() => approveCoach(coach._id)} 
-                                onClick={()=> handleApprovePlayer(player._id, player.status)} 
-                                className="approve-btn"
+                                onClick={() => viewPlayerDetails(player)} 
+                                className="view-btn"
                               >
-                                Approve
+                                View
                               </button>
-                            )}
-                            {player.status === "approved" && (
+                              {player.status !== "approved" && (
+                                <button 
+                                  // onClick={() => approveCoach(coach._id)} 
+                                  onClick={()=> handleApprovePlayer(player._id, player.status)} 
+                                  className="approve-btn"
+                                >
+                                  Approve
+                                </button>
+                              )}
+                              {player.status === "approved" && (
+                                <button 
+                                  onClick={() => handleApprovePlayer(player._id, player.status)} 
+                                  className="approve-btn"
+                                >
+                                  Reject
+                                </button>
+                              )}
                               <button 
-                                onClick={() => handleApprovePlayer(player._id, player.status)} 
-                                className="approve-btn"
+                                onClick={() => deletePlayer(player._id)} 
+                                className="delete-btn"
                               >
-                                Reject
+                                Delete
                               </button>
-                            )}
-                            <button 
-                              onClick={() => deletePlayer(player._id)} 
-                              className="delete-btn"
-                            >
-                              Delete
-                            </button>
-                          </div>
+                            </div>
+                          }
                         </td>
                       </tr>
                     ))}
@@ -1299,9 +1301,12 @@ export default function Admins() {
                         </a>
                       )}
                       {selectedCoach.passportPhoto && (
-                        <a href={selectedCoach.passportPhoto} target="_blank" rel="noopener noreferrer" className="file-link">
-                          📷 Passport Photo
-                        </a>
+                        <>
+                          <a href={selectedCoach.passportPhoto} target="_blank" rel="noopener noreferrer" className="file-link">
+                            📷 Passport Photo
+                          </a>
+                          <img width={120} src={selectedCoach.passportPhoto} alt={selectedCoach.name} />
+                        </>
                       )}
                       {Array.isArray(selectedCoach.certificates) && selectedCoach.certificates.map((cert, index) => (
                         <a key={index} href={cert} target="_blank" rel="noopener noreferrer" className="file-link">
@@ -1313,7 +1318,7 @@ export default function Admins() {
 
                 </div>
 
-                {mediuAdminUser === false &&
+                {!mediuAdminUser  &&
                   <div className="coach-details-actions">
                     {selectedCoach.status !== "approved" && (
                       <button onClick={() => handleApprove(selectedCoach._id, selectedCoach.status)} className="approve-btn large">
@@ -1332,8 +1337,7 @@ export default function Admins() {
                       Close
                     </button>
                   </div>
-                }
-                
+                }             
                 
               </div>
             </div>
@@ -1477,25 +1481,26 @@ export default function Admins() {
                   </div> */}
 
                 </div>
-                
-                <div className="coach-details-actions">
-                  {selectedPlayer.status !== "approved" && (
-                    <button onClick={() => handleApprovePlayer(selectedPlayer._id, selectedPlayer.status)} className="approve-btn large">
-                      Approve Player
+                {!mediuAdminUser && 
+                  <div className="coach-details-actions">
+                    {selectedPlayer.status !== "approved" && (
+                      <button onClick={() => handleApprovePlayer(selectedPlayer._id, selectedPlayer.status)} className="approve-btn large">
+                        Approve Player
+                      </button>
+                    )}
+                    {selectedPlayer.status === "approved" && (
+                      <button onClick={() => handleApprovePlayer(selectedPlayer._id, selectedPlayer.status)} className="approve-btn large">
+                        Reject Player
+                      </button>
+                    )}
+                    <button onClick={() => deleteCoach(selectedPlayer._id)} className="delete-btn large">
+                      Delete Application
                     </button>
-                  )}
-                  {selectedPlayer.status === "approved" && (
-                    <button onClick={() => handleApprovePlayer(selectedPlayer._id, selectedPlayer.status)} className="approve-btn large">
-                      Reject Player
+                    <button onClick={closePlayerDetails} className="close-details-btn">
+                      Close
                     </button>
-                  )}
-                  <button onClick={() => deleteCoach(selectedPlayer._id)} className="delete-btn large">
-                    Delete Application
-                  </button>
-                  <button onClick={closePlayerDetails} className="close-details-btn">
-                    Close
-                  </button>
-                </div>
+                  </div>
+                }
               </div>
             </div>
           </div>
