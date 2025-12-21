@@ -46,10 +46,10 @@ export default function OurPlayersMobile() {
             <h2>Raji Sunday(c)</h2>
             <b>Midfield</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>17</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -67,10 +67,10 @@ export default function OurPlayersMobile() {
             <h2>Bello Ahmad</h2>
             <b>Defender</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>20</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -89,10 +89,10 @@ export default function OurPlayersMobile() {
             <h2>Bello Monsuru</h2>
             <b>Defender</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>20</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -131,10 +131,10 @@ export default function OurPlayersMobile() {
             <h2>Olamilekan Muhayad</h2>
             <b>Forward</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>16</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -152,10 +152,10 @@ export default function OurPlayersMobile() {
             <h2>Abideen Akeem</h2>
             <b>Midfield</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>21</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -173,10 +173,10 @@ export default function OurPlayersMobile() {
             <h2>Adelaja Olalekan</h2>
             <b>Midfield</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>15</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -194,10 +194,10 @@ export default function OurPlayersMobile() {
             <h2>Ibraheem Jubril</h2>
             <b>Goal Keeper</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>20</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -215,10 +215,10 @@ export default function OurPlayersMobile() {
             <h2>Dosumu Abdulquadri</h2>
             <b>Forward</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>21</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -236,10 +236,10 @@ export default function OurPlayersMobile() {
             <h2>Adebiyi Buhari</h2>
             <b>Goal Keeper</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>23</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -257,10 +257,10 @@ export default function OurPlayersMobile() {
             <h2>Saminu Awwal</h2>
             <b>Defender</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>17</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -278,10 +278,10 @@ export default function OurPlayersMobile() {
             <h2>Idris Alooma</h2>
             <b>Defender</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>23</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
