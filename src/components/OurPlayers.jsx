@@ -16,7 +16,7 @@ import image12 from "../assets/IMG-20251217-WA0012.jpg"
 
 
 // Import Swiper styles
-import 'swiper/css';our
+import 'swiper/css';
 import 'swiper/css/pagination';
 
 // import required modules
