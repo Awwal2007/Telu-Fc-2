@@ -67,10 +67,10 @@ export default function OurPlayersMobile() {
             <h2>Bello Ahmad</h2>
             <b>Defender</b>
             <div className="player-stats-container">
-              {/* <div className='player-stats'>
+              <div className='player-stats'>
                 <b>20</b>
                 <span>AGE</span>
-              </div> */}
+              </div>
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -89,10 +89,10 @@ export default function OurPlayersMobile() {
             <h2>Bello Monsuru</h2>
             <b>Defender</b>
             <div className="player-stats-container">
-              {/* <div className='player-stats'>
+              <div className='player-stats'>
                 <b>20</b>
                 <span>AGE</span>
-              </div> */}
+              </div>
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>
@@ -110,10 +110,10 @@ export default function OurPlayersMobile() {
             <h2>Ibraheem Abdulkoyum</h2>
             <b>Defender</b>
             <div className="player-stats-container">
-              <div className='player-stats'>
+              {/* <div className='player-stats'>
                 <b>20</b>
                 <span>AGE</span>
-              </div>
+              </div> */}
               <div className='player-stats'>
                 <b>Nigeria</b>
                 <span>NATIONALITY</span>

@@ -18,7 +18,7 @@ import OurPlayersMobile from '../components/OurPlayersMobile';
 
 const Home = () => {
 
-  const isMobile = useMediaQuery('(max-width: 768px)')
+  const isMobile = useMediaQuery('(max-width: 568px)')
   return (
     <>
     {/* <PopUp /> */}
@@ -89,7 +89,7 @@ const Home = () => {
       </div>
       <div style={{background: "white", padding: "1px var(--pad)"}}>
         <h2 className="secondary-carousel-title">Our Players</h2>
-        {isMobile ? <OurPlayersMobile />  :<OurPlayers /> }
+        {isMobile ? <OurPlayersMobile />  : <OurPlayers /> }
       </div>
     </>
     
