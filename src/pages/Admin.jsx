@@ -306,9 +306,11 @@ export default function Admins() {
       setLoadingPlayers(true);
       try {
         // Replace with your actual API endpoint
-        const response = await fetch(`${baseUrl}/player`);
+        const response = await fetch(`${baseUrl}/player-application`);
         const data = await response.json();
         setPlayers(data.data);
+        console.log(data);
+        
         
         setFilteredPlayers(data.data);
       } catch (error) {
@@ -347,7 +349,7 @@ export default function Admins() {
         
   
       try {
-        const response = await fetch(`${baseUrl}/player/change/status/${id}`, {
+        const response = await fetch(`${baseUrl}/player-application/${id}`, {
           method: 'PUT',
           body: JSON.stringify({ status: "approved", message: playerEmailMessage}),
           headers: { 'Content-Type': 'application/json' },
@@ -396,7 +398,7 @@ export default function Admins() {
       }
   
       try {
-        const response = await fetch(`${baseUrl}/player/change/status/${id}`, {
+        const response = await fetch(`${baseUrl}/player-application/${id}`, {
           method: 'PUT',
           body: JSON.stringify({ status: "rejected", message: playerEmailMessage }),
           headers: { 'Content-Type': 'application/json' },
@@ -436,7 +438,7 @@ export default function Admins() {
       if (!confirmed) return;
   
       try {
-        const response = await fetch(`${baseUrl}/player/delete/${id}`, {
+        const response = await fetch(`${baseUrl}/player-application/${id}`, {
           method: 'DELETE',
         });
   
@@ -1017,27 +1019,27 @@ export default function Admins() {
                         <td>
                           <div className="coach-name-cell">
                             <div className="coach-name">
-                              {player.fullname}
-                              {player.photo && (
+                              {player.fullName}
+                              {player.playerPhotoUrl && (
                                 <img 
-                                  src={player.photo} 
-                                  alt={player.fullname} 
+                                  src={player.playerPhotoUrl} 
+                                  alt={player.fullName} 
                                   className="coach-photo-thumb"
                                   onError={(e) => e.target.style.display = 'none'}
                                 />
                               )}
                             </div>
-                            {player.gender && <span className="gender-badge">{player.gender}</span>}
+                            {/* {player.gender && <span className="gender-badge">{player.gender}</span>} */}
                           </div>
                         </td>
                         <td>{player.email}</td>
                         <td>{player.phone}</td>
                         <td>
                           {Array.isArray(player.position) ? player.position.join(', ') : player.position}
-                          {player.otherPosition && <div className="other-info">Other: {player.otherPosition}</div>}
+                          {/* {player.otherPosition && <div className="other-info">Other: {player.otherPosition}</div>} */}
                         </td>
                         <td>
-                          {player.yearsExperience ? `${player.yearsExperience} years` : 'N/A'}
+                          {player.address ? `${player.address} years` : 'N/A'}
                         </td>
                         <td>
                           <span className={`status-badge ${player.status}`}>
@@ -1368,30 +1370,34 @@ export default function Admins() {
                     <div className="info-grid">
                       <div className="info-item">
                         <label>Full Name:</label>
-                        <p>{selectedPlayer.fullname || 'N/A'}</p>
+                        <p>{selectedPlayer.fullName || 'N/A'}</p>
                       </div>
                       <div className="info-item">
                         <label>Date of Birth:</label>
-                        <p>{formatDate(selectedPlayer.dob)}</p>
+                        <p>{formatDate(selectedPlayer.dateOfBirth)}</p>
                       </div>
                       <div className="info-item">
+                        <label>Age:</label>
+                        <p>{selectedPlayer.age}</p>
+                      </div>
+                      {/* <div className="info-item">
                         <label>Gender:</label>
                         <p>{selectedPlayer.gender || 'N/A'}</p>
-                      </div>
+                      </div> */}
                       {selectedPlayer.photo &&
                         <div className="info-item">
                           <label>Profile Picture:</label>
-                          <img width={120} src={selectedPlayer.photo || 'N/A'}/>
+                          <img width={120} src={selectedPlayer.playerPhotoUrl || 'N/A'}/>
                         </div>
                       }
-                      <div className="info-item">
+                      {/* <div className="info-item">
                         <label>Nationality:</label>
                         <p>{selectedPlayer.nationality || 'N/A'}</p>
-                      </div>
-                      <div className="info-item">
+                      </div> */}
+                      {/* <div className="info-item">
                         <label>State/LGA:</label>
                         <p>{selectedPlayer.state ? `${selectedPlayer.state}${selectedPlayer.lga ? ` / ${selectedPlayer.lga}` : ''}` : 'N/A'}</p>
-                      </div>
+                      </div> */}
                       <div className="info-item">
                         <label>Address:</label>
                         <p>{selectedPlayer.address || 'N/A'}</p>
@@ -1400,90 +1406,79 @@ export default function Admins() {
                         <label>Phone:</label>
                         <p>{selectedPlayer.phone || 'N/A'}</p>
                       </div>
-                      {/* <div className="info-item">
+                      <div className="info-item">
                         <label>Email:</label>
                         <p>{selectedPlayer.email || 'N/A'}</p>
-                      </div> */}
-                      {/* <div className="info-item">
+                      </div>
+                      <div className="info-item">
                         <label>Next of Kin:</label>
-                        <p>{selectedPlayer.nextOfKin || 'N/A'}</p>
-                      </div> */}
-                      {/* <div className="info-item">
+                        <p>{selectedPlayer.nextOfKinName || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
                         <label>Next of Kin Phone:</label>
                         <p>{selectedPlayer.nextOfKinPhone || 'N/A'}</p>
-                      </div> */}
+                      </div>
+                      <div className="info-item">
+                        <label>Next of Kin Relationship:</label>
+                        <p>{selectedPlayer.nextOfKinRelationship || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Previous Club</label>
+                        <p>{selectedPlayer.previousClub || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Current Club</label>
+                        <p>{selectedPlayer.currentClub || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Competition Played</label>
+                        {selectedPlayer.competitions.forEach(element => {
+                          <p>{element}</p>
+                        }) || 'N/A'}
+                      </div>
+                      <div className="info-item">
+                        <label>Manager Name</label>
+                        <p>{selectedPlayer.managerName || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Manager Contact</label>
+                        <p>{selectedPlayer.managerContact || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Posititon</label>
+                        <p>{selectedPlayer.position || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Strong Leg</label>
+                        <p>{selectedPlayer.strongestLeg || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Strongest Ability</label>
+                        <p>{selectedPlayer.strongestAbility || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Injury/ Operation</label>
+                        <p>{selectedPlayer.injury || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Health Condition</label>
+                        <p>{selectedPlayer.healthConditions || 'N/A'}</p>
+                      </div>
+                      <div className="info-item">
+                        <label>Ready To Join</label> 
+                        {selectedPlayer &&
+                          <p>{selectedPlayer.readyToJoin === true ? "Yes" : "No"}</p>
+                        }
+                      </div>
+                      <div className="info-item">
+                        <label>Ready For Screening</label>
+                        {selectedPlayer.readyForScreening &&
+                          <p>{selectedPlayer.readyForScreening === true ? "Yes" : "No"}</p>
+                        }
+                      </div>
                     </div>
                   </div>
 
-                  {/* SECTION B: Position */}
-                  {/* <div className="info-section">
-                    <h3>Position & Qualifications</h3>
-                    <div className="info-grid">
-                      <div className="info-item">
-                        <label>Position(s):</label>
-                        <p>
-                          {Array.isArray(selectedCoach.position) 
-                            ? selectedCoach.position.join(', ')
-                            : selectedCoach.position || 'N/A'
-                          }
-                          {selectedCoach.otherPosition && <span> ({selectedCoach.otherPosition})</span>}
-                        </p>
-                      </div>
-                      <div className="info-item">
-                        <label>Highest Education:</label>
-                        <p>
-                          {selectedCoach.highestEducation || 'N/A'}
-                          {selectedCoach.otherEducation && <span> ({selectedCoach.otherEducation})</span>}
-                        </p>
-                      </div>
-                      <div className="info-item">
-                        <label>Certifications:</label>
-                        <p>
-                          {Array.isArray(selectedCoach.certifications) && selectedCoach.certifications.length > 0 
-                            ? selectedCoach.certifications.join(', ')
-                            : 'N/A'
-                          }
-                          {selectedCoach.otherCertification && <span> ({selectedCoach.otherCertification})</span>}
-                        </p>
-                      </div>
-                      <div className="info-item">
-                        <label>Institution Attended:</label>
-                        <p>{selectedCoach.institutionAttended || 'N/A'}</p>
-                      </div>
-                      <div className="info-item">
-                        <label>Year Obtained:</label>
-                        <p>{selectedCoach.yearObtained || 'N/A'}</p>
-                      </div>
-                    </div>
-                  </div> */}
-
-
-                  {/* File Uploads */}
-                  {/* <div className="info-section">
-                    <h3>Uploaded Documents</h3>
-                    <div className="file-links">
-                      {selectedCoach.cv && (
-                        <a href={selectedCoach.cv} target="_blank" rel="noopener noreferrer" className="file-link">
-                          📄 Curriculum Vitae (CV)
-                        </a>
-                      )}
-                      {selectedCoach.applicationLetter && (
-                        <a href={selectedCoach.applicationLetter} target="_blank" rel="noopener noreferrer" className="file-link">
-                          📄 Application Letter
-                        </a>
-                      )}
-                      {selectedCoach.passportPhoto && (
-                        <a href={selectedCoach.passportPhoto} target="_blank" rel="noopener noreferrer" className="file-link">
-                          📷 Passport Photo
-                        </a>
-                      )}
-                      {Array.isArray(selectedCoach.certificates) && selectedCoach.certificates.map((cert, index) => (
-                        <a key={index} href={cert} target="_blank" rel="noopener noreferrer" className="file-link">
-                          📜 Certificate {index + 1}
-                        </a>
-                      ))}
-                    </div>
-                  </div> */}
 
                 </div>
                 {!mediuAdminUser && 

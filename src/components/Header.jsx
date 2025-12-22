@@ -31,7 +31,9 @@ const Header = () => {
                 <Clock/>
             </div>
             <div style={{background: ` url(${backgroundImage})`, objectFit: "unset", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPositionY: "" }} className='kingdom-name' >
-                <img src={logo} alt="logo" />
+                <Link to="/">
+                    <img src={logo} alt="logo" />
+                </Link>
                 <div className="player-signup">
                     <p>Are You A Player</p>
                     {/* <Link to='/player-signup'>Join Us</Link> */}
