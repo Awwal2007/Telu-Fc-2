@@ -34,7 +34,8 @@ const Header = () => {
                 <img src={logo} alt="logo" />
                 <div className="player-signup">
                     <p>Are You A Player</p>
-                    <Link to='/player-signup'>Join Us</Link>
+                    {/* <Link to='/player-signup'>Join Us</Link> */}
+                    <a target='_blank' href='https://player.telufootballclub.com/'>Join Us</a>
                 </div>
             </div>
             <div className='nav-bar'>
