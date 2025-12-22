@@ -48,7 +48,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
           <img loading='lazy' src={image4} alt="" />
           <div className='player-content'>
             <h2>Joseph Alani</h2>
-            <b>Head Coach</b>
+            <b>Head Coach (U-13)</b>
           </div>          
         </SwiperSlide>
       </Swiper>
