@@ -88,6 +88,7 @@ const AppContent = () => {
             <Route path='/application-form' element={<ApplicationForm />} />
             <Route path='/player-signup' element={<PlayerSignup />} />
             <Route path='/player-login' element={<PlayerLogin />} />
+            {/* <Route path='/player-application' element={<PlayerApplication />} /> */}
             {/* <Route path='/admin-signup' element={<AdminSignup />} /> */}
             
             <Route element={<ProtectedRoutes />}>

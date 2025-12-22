@@ -14,8 +14,11 @@ const PopOver = () => {
           <div style={{width: "100%", display: "flex", justifyContent: " center", alignItems: "center"}}>
             <img  src={image} alt="we are hiring" />
           </div>
-          <h2>We Are Hiring A Coach</h2>
-          <Link target="blank" to="/application-form" style={{background: "#004924", border: "none", padding: "6px 10px", color: "white", borderRadius: "10px"}}>Apply Now</Link>
+          <h2>Apply to join TELU FC</h2>
+          <div style={{display: "flex", justifyContent: "center", gap: "40px",alignItems: "center"}}>
+            <Link target="blank" to="/application-form" style={{background: "#F58220", border: "none", padding: "6px 10px", color: "white", borderRadius: "10px"}}>As a Coach</Link>
+            <a href="https://player.telufootballclub.com/" target="blank" style={{background: "#004924", border: "none", padding: "6px 10px", color: "white", borderRadius: "10px"}}>As a Player</a>
+          </div>
         </div>
       </div>
     )
@@ -27,7 +30,7 @@ const overlay = {
 };
 
 const modal = {
-  
+  fontFamily: "Poppins",
 };
 
 const button = {
