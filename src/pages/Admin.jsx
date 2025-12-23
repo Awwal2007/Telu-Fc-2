@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import {Link} from "react-router-dom"
 import './css/Admin.css';
 import { useNews } from '../hooks/useNews';
 import Swal from 'sweetalert2';
@@ -606,10 +607,10 @@ export default function Admins() {
   return (
     <div className="admin-layout">
       <aside className="admin-sidebar">
-        <div className="home-button">
+        <Link to="/" className="home-button">
           <IoArrowBack />
           Go Home
-        </div>
+        </Link>
         <h2>Admin</h2>
 
         <div className={showNav ? 'sidebar-buttons' : "d-none sidebar-buttons"}>
