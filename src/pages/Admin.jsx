@@ -1385,11 +1385,11 @@ export default function Admins() {
                         <label>Gender:</label>
                         <p>{selectedPlayer.gender || 'N/A'}</p>
                       </div> */}
-                      {selectedPlayer.photo &&
-                        <div className="info-item">
+                      {selectedPlayer.playerPhotoUrl &&
+                        <a href={selectedPlayer.playerPhotoUrl} target='blank' className="info-item">
                           <label>Profile Picture:</label>
-                          <img width={120} src={selectedPlayer.playerPhotoUrl || 'N/A'}/>
-                        </div>
+                          <img width={150} src={selectedPlayer.playerPhotoUrl || 'N/A'} alt={selectedPlayer.fullName}/>
+                        </a>
                       }
                       {/* <div className="info-item">
                         <label>Nationality:</label>
@@ -1506,6 +1506,7 @@ export default function Admins() {
             </div>
           </div>
         )}
+
 
         {showEmailMessage && (
         <div
