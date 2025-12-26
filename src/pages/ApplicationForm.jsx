@@ -665,13 +665,13 @@ const ApplicationForm = () => {
                         
                         <div className="file-upload-group">
                             <label>Curriculum Vitae (CV):</label>
-                            <input type="file" accept=".pdf,.doc,.docx,.jpg,.png,.jpeg,.webf" onChange={handleCvUpload}  />
+                            <input type="file"  onChange={handleCvUpload}  />
                             {cvFile && <span className="file-name">{cvFile.name}</span>}
                         </div>
                         
                         <div className="file-upload-group">
                             <label>Application Letter:</label>
-                            <input type="file" accept=".pdf,.doc,.docx" onChange={handleApplicationLetterUpload}  />
+                            <input type="file"  onChange={handleApplicationLetterUpload}  />
                             {applicationLetterFile && <span className="file-name">{applicationLetterFile.name}</span>}
                         </div>
                         
@@ -699,7 +699,7 @@ const ApplicationForm = () => {
                                         <label>Certificate {num}:</label>
                                         <input 
                                             type="file" 
-                                            accept=".pdf,.doc,.docx,.jpg,.png,.jpeg,.webf" 
+                                            // accept=".pdf,.doc,.docx,.jpg,.png,.jpeg,.webf" 
                                             onChange={(e) => handleCertificateUpload(e, index)} 
                                         />
                                         {certificateFiles[index] && (
