@@ -699,7 +699,7 @@ const ApplicationForm = () => {
                                         <label>Certificate {num}:</label>
                                         <input 
                                             type="file" 
-                                            // accept=".pdf,.doc,.docx,.jpg,.png,.jpeg,.webf" 
+                                            // accept=".pdf,.doc,.docx,.jpg,.png,.jpeg,.webp" 
                                             onChange={(e) => handleCertificateUpload(e, index)} 
                                         />
                                         {certificateFiles[index] && (
