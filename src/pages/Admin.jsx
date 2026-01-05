@@ -89,10 +89,13 @@ export default function Admins() {
           filtered = coaches.filter(coach => coach.status === "pending");
         }else if(coachFilter === 'rejected'){
           filtered = coaches.filter(coach => coach.status === "rejected");
+        }else if(coachFilter === 'all'){
+          filtered = coaches.filter(coach => coach.status !== "rejected");
         }
         setFilteredCoaches(filtered);
       }
     }, [coaches, coachFilter]);
+
   
     useEffect(() => {
       if (players.length > 0) {
@@ -148,10 +151,12 @@ export default function Admins() {
       setShowEmailMessage(true)
       setCoachToApprove(id)  
   
-      if(status !== "approved"){
-        setCoachToApproveStatus("approved")
-      }  else{
-        setCoachToApproveStatus("rejected")
+      if(status === "approve"){
+        setCoachToApproveStatus("approve")
+      }  else if(status === "reject"){
+        setCoachToApproveStatus("reject")
+      }else{
+        setCoachToApproveStatus("pending")
       }
     }
   
@@ -325,10 +330,12 @@ export default function Admins() {
       setShowEmailPlayerMessage(true)
       setPlayerToApprove(id) 
   
-      if(status !== "approved"){
-        setPlayerToApproveStatus("approved")
-      }  else{
-        setPlayerToApproveStatus("rejected")
+      if(status === "approve"){
+        setPlayerToApproveStatus("approve")
+      }  else if(status === "reject"){
+        setPlayerToApproveStatus("reject")
+      }else{
+        setPlayerToApproveStatus("pending")
       }
     }
   
@@ -623,7 +630,7 @@ export default function Admins() {
           </button>
 
           <button className={`sidebar-btn ${activeTab === 'coaches' && 'active'}`} onClick={() => {setActiveTab('coaches'); setShowNav(false)}}>
-            Coaches ({coaches.length})
+            Coaches ({coaches.filter(f => f.status !== "rejected").length})
           </button>
 
           <button className={`sidebar-btn ${activeTab === 'players' && 'active'}`} onClick={() => {setActiveTab('players'); setShowNav(false)}}>
@@ -842,7 +849,7 @@ export default function Admins() {
                 className={`filter-btn ${coachFilter === 'all' ? 'active' : ''}`}
                 onClick={() => setCoachFilter('all')}
               >
-                All Coaches ({coaches.length})
+                All Coaches ({coaches.filter(f => f.status !== "rejected").length})
               </button>
               <button 
                 className={`filter-btn ${coachFilter === 'approved' ? 'active' : ''}`}
@@ -929,7 +936,7 @@ export default function Admins() {
                               {coach.status !== "approved" && (
                                 <button 
                                   // onClick={() => approveCoach(coach._id)} 
-                                  onClick={()=> handleApprove(coach._id, coach.status)} 
+                                  onClick={()=> handleApprove(coach._id, "approve")} 
                                   className="approve-btn"
                                 >
                                   Approve
@@ -937,7 +944,7 @@ export default function Admins() {
                               )}
                               {coach.status !== "rejected" && (
                                 <button 
-                                  onClick={() => handleApprove(coach._id, coach.status)} 
+                                  onClick={() => handleApprove(coach._id, "reject")} 
                                   className="view-btn"
                                 >
                                   Reject
@@ -1060,7 +1067,7 @@ export default function Admins() {
                               {player.status !== "approved" && (
                                 <button 
                                   // onClick={() => approveCoach(coach._id)} 
-                                  onClick={()=> handleApprovePlayer(player._id, player.status)} 
+                                  onClick={()=> handleApprovePlayer(player._id, "approve")} 
                                   className="approve-btn"
                                 >
                                   Approve
@@ -1068,7 +1075,7 @@ export default function Admins() {
                               )}
                               {player.status === "approved" && (
                                 <button 
-                                  onClick={() => handleApprovePlayer(player._id, player.status)} 
+                                  onClick={() => handleApprovePlayer(player._id, "reject")} 
                                   className="approve-btn"
                                 >
                                   Reject
@@ -1329,12 +1336,12 @@ export default function Admins() {
                 {!mediuAdminUser  &&
                   <div className="coach-details-actions">
                     {selectedCoach.status !== "approved" && (
-                      <button onClick={() => handleApprove(selectedCoach._id, selectedCoach.status)} className="approve-btn large">
+                      <button onClick={() => handleApprove(selectedCoach._id, "approve")} className="approve-btn large">
                         Approve Coach
                       </button>
                     )}
                     {selectedCoach.status !== "rejected" && (
-                      <button onClick={() => handleApprove(selectedCoach._id, selectedCoach.status)} className="view-btn large">
+                      <button onClick={() => handleApprove(selectedCoach._id, "reject")} className="view-btn large">
                         Reject Coach
                       </button>
                     )}
@@ -1533,17 +1540,18 @@ export default function Admins() {
             </div>
 
             <div className="button-container">
-              {coachToApproveStatus === "approved" && 
-                <button onClick={() => approveCoach(coachToApprove)}>
+              {coachToApproveStatus === "approve" && 
+                <button onClick={() => {approveCoach(coachToApprove)}}>
                   Approve
                 </button>
               }
 
-              {coachToApproveStatus === "rejected" && 
-                <button style={{background: "#ef4444"}} onClick={() => rejectCoach(coachToApprove)}>
+              {coachToApproveStatus === "reject" && 
+                <button style={{background: "#ef4444"}} onClick={() => {rejectCoach(coachToApprove)}}>
                   Reject
                 </button>
               }
+              {/* {console.log(coachToApproveStatus)} */}
               
             </div>
           </div>
@@ -1575,12 +1583,12 @@ export default function Admins() {
             </div>
 
             <div className="button-container">
-              {playerToApproveStatus === "approved" && 
+              {playerToApproveStatus === "approve" && 
                 <button onClick={() => approvePlayer(playerToApprove)}>
                   Approve
                 </button>
               }
-              {playerToApproveStatus !== "approved" && 
+              {playerToApproveStatus === "reject" && 
                 <button onClick={() => rejectPlayer(playerToApprove)}>
                   Reject
                 </button>
