@@ -935,10 +935,10 @@ export default function Admins() {
                                   Approve
                                 </button>
                               )}
-                              {coach.status === "approved" && (
+                              {coach.status !== "rejected" && (
                                 <button 
                                   onClick={() => handleApprove(coach._id, coach.status)} 
-                                  className="approve-btn"
+                                  className="view-btn"
                                 >
                                   Reject
                                 </button>
@@ -1333,8 +1333,8 @@ export default function Admins() {
                         Approve Coach
                       </button>
                     )}
-                    {selectedCoach.status === "approved" && (
-                      <button onClick={() => handleApprove(selectedCoach._id, selectedCoach.status)} className="approve-btn large">
+                    {selectedCoach.status !== "rejected" && (
+                      <button onClick={() => handleApprove(selectedCoach._id, selectedCoach.status)} className="view-btn large">
                         Reject Coach
                       </button>
                     )}
@@ -1538,8 +1538,9 @@ export default function Admins() {
                   Approve
                 </button>
               }
-              {coachToApproveStatus !== "approved" && 
-                <button onClick={() => rejectCoach(coachToApprove)}>
+
+              {coachToApproveStatus === "rejected" && 
+                <button style={{background: "#ef4444"}} onClick={() => rejectCoach(coachToApprove)}>
                   Reject
                 </button>
               }

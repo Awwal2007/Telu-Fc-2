@@ -493,7 +493,7 @@
 /* Coach action buttons */
 .coach-actions {
   display: flex;
-  gap: 8px;
+  gap: 2px;
   flex-wrap: wrap;
 }
 

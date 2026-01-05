@@ -698,7 +698,7 @@ const ApplicationForm = () => {
                                     <div key={index} className="certificate-upload">
                                         <label>Certificate {num}:</label>
                                         <input 
-                                            type="file" 
+                                            type="file"     
                                             // accept=".pdf,.doc,.docx,.jpg,.png,.jpeg,.webp" 
                                             onChange={(e) => handleCertificateUpload(e, index)} 
                                         />
