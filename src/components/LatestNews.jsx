@@ -17,7 +17,7 @@ const LatestNews = () => {
     <div className="latest-news-container">
       <h2 className="latest-news-title">Updates</h2>
 
-      <Link
+      {/* <Link
         target="blank"
         to={`/application-form`}
         className={`news-card ${isMobile ? "mobile" : "desktop"}`}
@@ -36,7 +36,7 @@ const LatestNews = () => {
             Apply Now
           </div>
         </div>
-      </Link>
+      </Link> */}
       
 
       {/* Loading Skeleton */}
@@ -59,7 +59,7 @@ const LatestNews = () => {
 
       {/* News Items */}
       <div className="latest-news-box-container">
-        {!loading && news.slice(0, 2).map((item) => {
+        {!loading && news.slice(0, 3).map((item) => {
           const truncatedHead = truncateText(item.title, 50);
           const truncatedSubHead = truncateText(item.description, 85);
 
