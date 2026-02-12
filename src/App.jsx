@@ -73,7 +73,7 @@ const AppContent = () => {
           <img src="" alt="" />
         </div> */}
         {!shouldHideHeader && <Header />}
-        {!shouldHidePopUp  && <PopOver />}
+        {/* {!shouldHidePopUp  && <PopOver />} */}
       <AuthProvider>
         <NewsProvider>
          {/* <Header /> */}
