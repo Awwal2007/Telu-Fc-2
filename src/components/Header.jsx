@@ -35,9 +35,8 @@ const Header = () => {
                     <img src={logo} alt="logo" />
                 </Link>
                 <div className="player-signup">
-                    <p>Are You A Player</p>
-                    {/* <Link to='/player-signup'>Join Us</Link> */}
-                    <a target='_blank' href='https://player.telufootballclub.com/'>Join Us</a>
+                    <p>Magistrate Khadijat Oloyade U-17 Cup</p>
+                    <a target='_blank' href='https://u-17.telufootballclub.com/'>Learn More</a>
                 </div>
             </div>
             <div className='nav-bar'>
