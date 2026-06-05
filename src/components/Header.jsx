@@ -45,8 +45,8 @@ const Header = () => {
                     <div><Button component={Link} to='/' className='button active'><TiHome size={23} /></Button></div>
                     <div><Button component={Link} to='/' className={isActive('/')}>Home</Button></div>
                     <div><Button component={Link} to='/blogs' className={isActive('/blogs')}>News</Button></div>
-                    {/* <div><Button component={Link} to='/players' className={isActive('/players')}>Players</Button></div> */}
                     <div><Button component={Link} to='/gallery' className={isActive('/gallery')}>Gallery</Button></div>
+                    <div><Button target='_blank' href='https://u-17.telufootballclub.com' className={isActive('/u-17')}>Under-17 Football Competition</Button></div>
                 </div>
 
                 <div className='mobile-nav'>
@@ -59,6 +59,7 @@ const Header = () => {
                         <Button component={Link} to='/blogs' className={isActive('/blogs')} onClick={handleLinkClick}>News</Button>
                         {/* <Button component={Link} to='/players' className={isActive('/players')} onClick={handleLinkClick}>Players</Button> */}
                         <Button component={Link} to='/gallery' className={isActive('/gallery')} onClick={handleLinkClick}>Gallery</Button>
+                        <Button target='_blank' href='https://u-17.telufootballclub.com' onClick={handleLinkClick} className={isActive('/u-17')}>U-17 Football Competition</Button>
                         {/* <Button component={Link} to='/resources' className={isActive('/resources')}>RESOURCES AND HELP</Button> */}
                     </div>
                     </details>
