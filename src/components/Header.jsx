@@ -36,7 +36,7 @@ const Header = () => {
                 </Link>
                 <div className="player-signup">
                     <p style={{fontSize: "18px"}}>Register for Magistrate Ọlọyade U17 tournament</p>
-                    <a target='_blank' href='https://u-17.telufootballclub.com/'>Learn More</a>
+                    <a style={{cursor: "pointer"}} target='_blank' href='https://u-17.telufootballclub.com'>Register Now</a>
                 </div>
             </div>
             <div className='nav-bar'>
