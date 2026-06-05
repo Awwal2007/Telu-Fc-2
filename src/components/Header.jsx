@@ -35,7 +35,7 @@ const Header = () => {
                     <img src={logo} alt="logo" />
                 </Link>
                 <div className="player-signup">
-                    <p>Magistrate Khadijat Oloyade U-17 Cup</p>
+                    <p>Register for Magistrate Ọlọyade U17 tournament</p>
                     <a target='_blank' href='https://u-17.telufootballclub.com/'>Learn More</a>
                 </div>
             </div>
